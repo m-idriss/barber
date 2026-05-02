@@ -388,6 +388,225 @@ img {
   padding: 0;
 }
 
+.ba-el-hero {
+  min-height: calc(100vh - 72px);
+  align-items: end;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: 88px 16px 96px;
+}
+
+.ba-el-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(90deg, rgba(14, 15, 15, 0.95), rgba(14, 15, 15, 0.64) 48%, rgba(14, 15, 15, 0.22));
+  pointer-events: none;
+}
+
+.ba-el-hero::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  z-index: 0;
+  height: 28%;
+  background: linear-gradient(180deg, transparent, var(--ba-bg));
+  pointer-events: none;
+}
+
+.ba-el-hero > .elementor-container {
+  position: relative;
+  z-index: 1;
+  align-items: end;
+}
+
+.ba-el-logo img {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.ba-el-eyebrow .elementor-heading-title {
+  color: var(--ba-gold);
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.ba-el-hero-title .elementor-heading-title {
+  max-width: 780px;
+  color: var(--ba-white);
+  font-size: clamp(44px, 7vw, 92px);
+  line-height: 0.96;
+}
+
+.ba-el-hero-text {
+  max-width: 610px;
+  color: #d5cab8;
+  font-size: 18px;
+  line-height: 1.62;
+}
+
+.ba-el-hero-attendants {
+  max-width: 610px;
+  margin-top: 22px;
+}
+
+.ba-el-hero-attendant-card > .elementor-element-populated,
+.ba-el-service-card > .elementor-element-populated,
+.ba-el-team-card > .elementor-element-populated {
+  min-height: 100%;
+  border: 1px solid var(--ba-line);
+  border-radius: 6px;
+  background: rgba(255, 250, 241, 0.08);
+}
+
+.ba-el-hero-attendant-card > .elementor-element-populated {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+  min-height: 76px;
+  padding: 8px 10px;
+  backdrop-filter: blur(12px);
+}
+
+.ba-el-person-image img {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #25231f;
+}
+
+.ba-el-hero-attendant-card .ba-el-card-title .elementor-heading-title {
+  overflow: hidden;
+  color: var(--ba-text);
+  font-size: 15px;
+  font-weight: 800;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ba-el-small-button .elementor-button {
+  min-height: 28px;
+  padding: 6px 10px;
+  border-radius: 4px;
+  background: var(--ba-gold);
+  color: #15120b;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.ba-el-button-row .elementor-widget-wrap {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-top: 28px;
+}
+
+.ba-el-button-row .elementor-widget {
+  width: auto;
+}
+
+.ba-el-primary-button .elementor-button,
+.ba-el-secondary-button .elementor-button {
+  min-height: 44px;
+  border-radius: 4px;
+  font-weight: 800;
+}
+
+.ba-el-primary-button .elementor-button {
+  background: var(--ba-gold);
+  color: #15120b;
+}
+
+.ba-el-secondary-button .elementor-button {
+  border: 1px solid var(--ba-line);
+  background: transparent;
+  color: var(--ba-text);
+}
+
+.ba-el-booking-widget {
+  max-height: min(680px, calc(100vh - 132px));
+  overflow: auto;
+  padding: 18px;
+  border: 1px solid rgba(255, 250, 241, 0.22);
+  border-radius: 6px;
+  background: rgba(14, 15, 15, 0.72);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.34);
+  backdrop-filter: blur(18px);
+  color: #1d1d1b;
+}
+
+.ba-el-section {
+  padding: 82px 16px;
+  background: var(--ba-bg);
+}
+
+.ba-el-team {
+  background: var(--ba-panel);
+}
+
+.ba-el-section-head {
+  margin-bottom: 32px;
+}
+
+.ba-el-section-title .elementor-heading-title {
+  max-width: 620px;
+  color: var(--ba-white);
+  font-size: clamp(30px, 4vw, 54px);
+  line-height: 1.02;
+}
+
+.ba-el-section-text {
+  max-width: 430px;
+  color: var(--ba-muted);
+}
+
+.ba-el-service-card > .elementor-element-populated {
+  min-height: 150px;
+  padding: 22px;
+  background: var(--ba-panel-soft);
+}
+
+.ba-el-card-title .elementor-heading-title {
+  color: var(--ba-white);
+  font-size: 20px;
+}
+
+.ba-el-card-meta {
+  color: var(--ba-gold);
+  font-weight: 800;
+}
+
+.ba-el-team-card > .elementor-element-populated {
+  overflow: hidden;
+  background: var(--ba-panel-soft);
+}
+
+.ba-el-team-card .ba-el-person-image img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  border-radius: 0;
+}
+
+.ba-el-team-card .ba-el-card-title,
+.ba-el-team-card .ba-el-card-text,
+.ba-el-team-card .ba-el-small-button {
+  padding-right: 18px;
+  padding-left: 18px;
+}
+
+.ba-el-team-card .ba-el-card-text {
+  color: var(--ba-muted);
+}
+
 .site-footer {
   padding: 32px 0;
   border-top: 1px solid var(--ba-line);
@@ -426,6 +645,28 @@ img {
   .hero-booking {
     max-height: none;
     margin-top: 32px;
+  }
+
+  .ba-el-hero {
+    min-height: auto;
+    padding: 72px 16px;
+  }
+
+  .ba-el-hero > .elementor-container {
+    display: block;
+  }
+
+  .ba-el-booking-widget {
+    max-height: none;
+    margin-top: 32px;
+  }
+
+  .ba-el-button-row .elementor-widget-wrap {
+    align-items: stretch;
+  }
+
+  .ba-el-button-row .elementor-widget {
+    width: 100%;
   }
 
   .section-head {
