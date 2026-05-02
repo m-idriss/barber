@@ -397,15 +397,6 @@ img {
   padding: 88px 16px 96px;
 }
 
-.ba-el-hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background: linear-gradient(90deg, rgba(14, 15, 15, 0.95), rgba(14, 15, 15, 0.64) 48%, rgba(14, 15, 15, 0.22));
-  pointer-events: none;
-}
-
 .ba-el-hero::after {
   content: "";
   position: absolute;
@@ -457,7 +448,8 @@ img {
 
 .ba-el-hero-attendant-card > .elementor-element-populated,
 .ba-el-service-card > .elementor-element-populated,
-.ba-el-team-card > .elementor-element-populated {
+.ba-el-team-card > .elementor-element-populated,
+.ba-el-signature-card > .elementor-element-populated {
   min-height: 100%;
   border: 1px solid var(--ba-line);
   border-radius: 6px;
@@ -546,6 +538,15 @@ img {
 .ba-el-section {
   padding: 82px 16px;
   background: var(--ba-bg);
+}
+
+.ba-el-signature {
+  border-top: 1px solid var(--ba-line);
+  border-bottom: 1px solid var(--ba-line);
+}
+
+.ba-el-signature-card > .elementor-element-populated {
+  background: rgba(255, 250, 241, 0.06);
 }
 
 .ba-el-team {
