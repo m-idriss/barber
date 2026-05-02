@@ -32,7 +32,6 @@ if (!defined('ABSPATH')) {
                 'depth' => 1,
             ]);
             ?>
-            <a href="#services"><?php esc_html_e('Services', 'barber-architecte-v201'); ?></a>
             <a class="btn" href="#reservation"><?php esc_html_e('Reserver', 'barber-architecte-v201'); ?></a>
         </nav>
     </div>
