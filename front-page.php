@@ -22,6 +22,15 @@ $attendants = ba_v201_salon_posts('sln_attendant');
             <span class="eyebrow"><?php esc_html_e("Bienvenue chez Barbershop L'Architecte", 'barber-architecte-v201'); ?></span>
             <h1><?php bloginfo('name'); ?></h1>
             <p><?php esc_html_e("Votre lieu dédié à l’homme de tout âge. Nos coiffeurs/barbiers sont à votre disposition pour répondre à vos besoins, prodiguer les meilleurs conseils et vous procurer des soins adaptés afin de sublimer votre apparence et faciliter votre coiffage au quotidien.", 'barber-architecte-v201'); ?></p>
+            <div class="hero-team" aria-label="<?php esc_attr_e('Choisir un barber', 'barber-architecte-v201'); ?>">
+                <?php foreach (array_slice($attendants, 0, 4) as $attendant) : ?>
+                    <a class="hero-barber" href="#reservation">
+                        <?php echo get_the_post_thumbnail($attendant, 'thumbnail'); ?>
+                        <span><?php echo esc_html(get_the_title($attendant)); ?></span>
+                        <strong><?php esc_html_e('Choisir', 'barber-architecte-v201'); ?></strong>
+                    </a>
+                <?php endforeach; ?>
+            </div>
             <div class="hero__actions">
                 <a class="btn" href="#reservation"><?php esc_html_e('Reserver maintenant', 'barber-architecte-v201'); ?></a>
                 <a class="btn btn--ghost" href="#services"><?php esc_html_e('Voir les services', 'barber-architecte-v201'); ?></a>

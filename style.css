@@ -186,6 +186,55 @@ img {
   font-size: 18px;
 }
 
+.hero-team {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  max-width: 580px;
+  margin-top: 26px;
+}
+
+.hero-barber {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  min-height: 58px;
+  padding: 7px 10px;
+  border: 1px solid var(--ba-line);
+  border-radius: 6px;
+  background: rgba(255, 250, 241, 0.08);
+  color: var(--ba-text);
+  text-decoration: none;
+  backdrop-filter: blur(12px);
+}
+
+.hero-barber:hover {
+  border-color: rgba(200, 164, 93, 0.65);
+  background: rgba(200, 164, 93, 0.14);
+}
+
+.hero-barber img {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #25231f;
+}
+
+.hero-barber span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 800;
+}
+
+.hero-barber strong {
+  color: var(--ba-gold);
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
 .hero__actions {
   display: flex;
   flex-wrap: wrap;
@@ -347,6 +396,10 @@ img {
   .hero__content {
     padding: 72px 0;
     display: block;
+  }
+
+  .hero-team {
+    grid-template-columns: 1fr;
   }
 
   .hero-booking {
