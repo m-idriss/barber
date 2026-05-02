@@ -14,7 +14,7 @@ if (!defined('ABSPATH')) {
                     <p class="footer-cta-label"><?php esc_html_e('Expérience exceptionnelle', 'barber-architecte-v201'); ?></p>
                     <h2 class="footer-cta-title"><?php esc_html_e('Prêt à transformer votre look ?', 'barber-architecte-v201'); ?></h2>
                 </div>
-                <a href="#reservation" class="footer-cta-btn">
+                <a href="/booking" class="footer-cta-btn">
                     <span><?php esc_html_e('Réserver une consultation', 'barber-architecte-v201'); ?></span>
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M5 12h14M12 5l7 7-7 7"/>
