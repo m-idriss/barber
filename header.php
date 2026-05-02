@@ -17,7 +17,7 @@ if (!defined('ABSPATH')) {
             <?php
             $logo_id = get_theme_mod('custom_logo') ?: ba_v201_attachment_by_file('2026/05/LOGO-DEFINITIF.jpg');
             if ($logo_id) {
-                echo wp_get_attachment_image($logo_id, 'thumbnail', false, ['alt' => get_bloginfo('name')]);
+                echo wp_get_attachment_image($logo_id, 'full', false, ['alt' => get_bloginfo('name')]);
             }
             ?>
             <span><?php bloginfo('name'); ?></span>
