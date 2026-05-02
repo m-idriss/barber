@@ -1,0 +1,369 @@
+/*
+Theme Name: Barber Architecte V201
+Theme URI: https://barberlarchitecte.com/
+Author: Idriss
+Description: Theme sur mesure pour un salon de coiffure/barber avec accueil, services, equipe et reservation.
+Version: 1.0.0
+Requires at least: 6.0
+Tested up to: 6.8
+Requires PHP: 8.1
+Text Domain: barber-architecte-v201
+*/
+
+:root {
+  --ba-bg: #0e0f0f;
+  --ba-panel: #171918;
+  --ba-panel-soft: #20231f;
+  --ba-text: #f4f0e8;
+  --ba-muted: #beb6a8;
+  --ba-line: rgba(244, 240, 232, 0.16);
+  --ba-gold: #c8a45d;
+  --ba-rust: #8d3f30;
+  --ba-green: #2f5e4e;
+  --ba-white: #fffaf1;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--ba-bg);
+  color: var(--ba-text);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  line-height: 1.55;
+}
+
+a {
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  border-bottom: 1px solid var(--ba-line);
+  background: rgba(14, 15, 15, 0.9);
+  backdrop-filter: blur(18px);
+}
+
+.site-header__inner,
+.section-inner,
+.site-footer__inner {
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto;
+}
+
+.site-header__inner {
+  min-height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+.brand img {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  color: var(--ba-muted);
+  font-size: 14px;
+}
+
+.site-nav a {
+  text-decoration: none;
+}
+
+.site-nav a:hover {
+  color: var(--ba-white);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 18px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: var(--ba-gold);
+  color: #15120b;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--ba-text);
+  border-color: var(--ba-line);
+}
+
+.hero {
+  min-height: calc(100vh - 72px);
+  display: grid;
+  align-items: end;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(14, 15, 15, 0.94) 0%, rgba(14, 15, 15, 0.62) 48%, rgba(14, 15, 15, 0.22) 100%),
+    var(--ba-hero-image) center/cover no-repeat;
+  z-index: -2;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 28%;
+  background: linear-gradient(180deg, transparent, var(--ba-bg));
+  z-index: -1;
+}
+
+.hero__content {
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 88px 0 96px;
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(360px, 0.72fr);
+  gap: 36px;
+  align-items: end;
+}
+
+.hero__copy {
+  min-width: 0;
+}
+
+.eyebrow {
+  display: inline-flex;
+  margin: 0 0 18px;
+  color: var(--ba-gold);
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.hero h1,
+.page-title {
+  max-width: 780px;
+  margin: 0;
+  font-size: clamp(44px, 7vw, 92px);
+  line-height: 0.96;
+}
+
+.hero p {
+  max-width: 580px;
+  margin: 24px 0 0;
+  color: var(--ba-muted);
+  font-size: 18px;
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+.hero-booking {
+  max-height: min(680px, calc(100vh - 132px));
+  overflow: auto;
+  padding: 18px;
+  border: 1px solid rgba(255, 250, 241, 0.22);
+  border-radius: 6px;
+  background: rgba(14, 15, 15, 0.72);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.34);
+  backdrop-filter: blur(18px);
+}
+
+.hero-booking,
+.hero-booking #sln-salon,
+.hero-booking .sln-bootstrap {
+  color: #1d1d1b;
+}
+
+.hero-booking .btn {
+  width: 100%;
+}
+
+.section {
+  padding: 82px 0;
+}
+
+.section--soft {
+  background: var(--ba-panel);
+}
+
+.section-head {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.section-head h2 {
+  max-width: 620px;
+  margin: 0;
+  font-size: clamp(30px, 4vw, 54px);
+  line-height: 1.02;
+}
+
+.section-head p {
+  max-width: 430px;
+  margin: 0;
+  color: var(--ba-muted);
+}
+
+.service-grid,
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.service-card,
+.team-card {
+  min-height: 188px;
+  padding: 22px;
+  border: 1px solid var(--ba-line);
+  border-radius: 6px;
+  background: var(--ba-panel-soft);
+}
+
+.service-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.service-card h3,
+.team-card h3 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.service-card p,
+.team-card p,
+.content-area {
+  color: var(--ba-muted);
+}
+
+.service-card__meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  color: var(--ba-gold);
+  font-weight: 800;
+}
+
+.team-card {
+  overflow: hidden;
+  padding: 0;
+}
+
+.team-card img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+  background: #25231f;
+}
+
+.team-card__body {
+  padding: 18px;
+}
+
+.content-page {
+  padding: 72px 0;
+}
+
+.content-area {
+  max-width: 820px;
+  font-size: 17px;
+}
+
+.content-area h1,
+.content-area h2,
+.content-area h3 {
+  color: var(--ba-text);
+}
+
+.site-footer {
+  padding: 32px 0;
+  border-top: 1px solid var(--ba-line);
+  color: var(--ba-muted);
+}
+
+.site-footer__inner {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 820px) {
+  .site-header__inner {
+    min-height: 64px;
+  }
+
+  .site-nav {
+    display: none;
+  }
+
+  .hero {
+    min-height: auto;
+  }
+
+  .hero__content {
+    padding: 72px 0;
+    display: block;
+  }
+
+  .hero-booking {
+    max-height: none;
+    margin-top: 32px;
+  }
+
+  .section-head {
+    display: block;
+  }
+
+  .section-head p {
+    margin-top: 20px;
+  }
+
+  .service-grid,
+  .team-grid {
+    grid-template-columns: 1fr;
+  }
+}
