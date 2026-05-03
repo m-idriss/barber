@@ -1917,3 +1917,32 @@ img {
     }
   }
 }
+
+/* Force les avatars coiffeurs (SLN datalist) à être des cercles parfaits */
+/* Override le max-width: 25% du plugin Salon Booking */
+.sln-datalist .sln-datalist__item__image,
+.sln-datalist.sln-datalist--styled .sln-datalist__item__image {
+  width: 70px !important;
+  height: 70px !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+  border-radius: 50% !important;
+  overflow: hidden !important;
+  aspect-ratio: 1 / 1 !important;
+  max-width: 100% !important;
+}
+
+.sln-datalist .sln-datalist__item__image img,
+.sln-datalist.sln-datalist--styled .sln-datalist__item__image img,
+.sln-datalist.sln-datalist--2cols.sln-datalist--styled .sln-datalist__item__image img,
+.sln-datalist.sln-datalist--3cols.sln-datalist--styled .sln-datalist__item__image img,
+.sln-datalist.sln-datalist--4cols.sln-datalist--styled .sln-datalist__item__image img {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  aspect-ratio: 1 / 1 !important;
+  object-fit: cover !important;
+  border-radius: 50% !important;
+  display: block !important;
+}
