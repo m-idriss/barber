@@ -722,15 +722,10 @@ img {
 }
 
 .hero-booking {
-  max-height: min(680px, calc(100vh - 132px));
-  overflow: auto;
-  padding: 18px;
-  border: 1px solid rgba(255, 250, 241, 0.22);
-  border-radius: 6px;
-  background: rgba(14, 15, 15, 0.72);
-  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.34);
-  -webkit-backdrop-filter: blur(18px);
-  backdrop-filter: blur(18px);
+  padding: 0;
+  border: none;
+  background: transparent;
+  box-shadow: none;
 }
 
 .hero-booking,
@@ -1091,16 +1086,20 @@ img {
 }
 
 .ba-el-booking-widget {
-  max-height: min(680px, calc(100vh - 132px));
-  overflow: auto;
-  padding: 18px;
-  border: 1px solid rgba(255, 250, 241, 0.22);
-  border-radius: 6px;
-  background: rgba(14, 15, 15, 0.72);
-  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.34);
-  -webkit-backdrop-filter: blur(18px);
-  backdrop-filter: blur(18px);
+  padding: 0;
+  border: none;
+  background: transparent;
+  box-shadow: none;
   color: #1d1d1b;
+}
+
+/* Supprime le container Elementor autour du widget de réservation */
+.elementor .elementor-element.elementor-element-ca331d7 {
+  background-color: transparent !important;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
 }
 
 .ba-el-section {
@@ -1938,24 +1937,36 @@ img {
   display: block !important;
 }
 
+/* Wrapper pour effet de fade en bas (indique le scroll) */
+.sln-service-list-wrapper,
+.sln-service-list,
+.sln-service-list.sln-list {
+  position: relative;
+}
+
 /* Limite la liste des services à 2 visibles avec scroll vertical élégant */
 .sln-service-list,
 .sln-service-list.sln-list {
-  max-height: 420px;
+  max-height: 300px;
   overflow-y: auto;
-  padding-right: 6px;
+  overflow-x: hidden;
+  padding-right: 8px;
   scrollbar-width: thin;
-  scrollbar-color: var(--ba-gold) rgba(0, 0, 0, 0.1);
+  scrollbar-color: var(--ba-gold) transparent;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  mask-image: linear-gradient(to bottom, black 0%, black 92%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 92%, transparent 100%);
 }
 
 .sln-service-list::-webkit-scrollbar,
 .sln-service-list.sln-list::-webkit-scrollbar {
-  width: 6px;
+  width: 5px;
 }
 
 .sln-service-list::-webkit-scrollbar-track,
 .sln-service-list.sln-list::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.08);
+  background: transparent;
   border-radius: 3px;
 }
 
@@ -1963,4 +1974,22 @@ img {
 .sln-service-list.sln-list::-webkit-scrollbar-thumb {
   background: var(--ba-gold);
   border-radius: 3px;
+  opacity: 0.6;
+}
+
+.sln-service-list::-webkit-scrollbar-thumb:hover,
+.sln-service-list.sln-list::-webkit-scrollbar-thumb:hover {
+  background: var(--ba-gold);
+  opacity: 1;
+}
+
+/* Style hover sur les items de service */
+.sln-service-list .sln-list__item,
+.sln-service-list.sln-list .sln-list__item {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.sln-service-list .sln-list__item:hover,
+.sln-service-list.sln-list .sln-list__item:hover {
+  transform: translateY(-2px);
 }
