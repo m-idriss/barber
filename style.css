@@ -1102,6 +1102,420 @@ img {
   box-shadow: none !important;
 }
 
+/* ========== WIDGET BOOKING - THEME SOMBRE ========== */
+/* Fond sombre du widget */
+#sln-salon #sln-salon__content,
+.sln-bootstrap #sln-salon__content {
+  background-color: var(--ba-panel) !important;
+  border: 1px solid var(--ba-line) !important;
+  border-radius: 10px !important;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4) !important;
+  color: var(--ba-text) !important;
+}
+
+/* Textes du widget en clair */
+#sln-salon h1,
+#sln-salon h2,
+#sln-salon h3,
+#sln-salon h4,
+#sln-salon .sln-salon-title,
+#sln-salon .salon-step-title,
+#sln-salon .sln-stepper .step .step-label,
+.sln-bootstrap .sln-salon-title,
+.sln-bootstrap .salon-step-title {
+  color: var(--ba-white) !important;
+}
+
+#sln-salon p,
+#sln-salon label,
+#sln-salon span,
+#sln-salon .sln-step-name,
+#sln-salon .sln-list__item__name,
+#sln-salon .sln-list__item__description {
+  color: var(--ba-text) !important;
+}
+
+/* Cards de service avec fond légèrement différent */
+#sln-salon .sln-list__item,
+.sln-bootstrap .sln-list__item {
+  background-color: var(--ba-panel-soft) !important;
+  border: 1px solid var(--ba-line) !important;
+  border-radius: 8px !important;
+  color: var(--ba-text) !important;
+}
+
+#sln-salon .sln-list__item:hover,
+.sln-bootstrap .sln-list__item:hover {
+  background-color: rgba(200, 164, 93, 0.08) !important;
+  border-color: var(--ba-gold) !important;
+}
+
+/* Service sélectionné */
+#sln-salon .sln-list__item input:checked + label,
+#sln-salon .sln-service input:checked ~ * {
+  color: var(--ba-gold) !important;
+}
+
+/* Prix en or */
+#sln-salon .sln-list__item__price,
+#sln-salon .sln-service__price {
+  color: var(--ba-gold) !important;
+  font-weight: 700;
+}
+
+/* Stepper / progress bar */
+#sln-salon .sln-stepper,
+.sln-bootstrap .sln-stepper {
+  background: transparent !important;
+}
+
+/* Champs de formulaire */
+#sln-salon input[type="text"],
+#sln-salon input[type="email"],
+#sln-salon input[type="tel"],
+#sln-salon textarea,
+#sln-salon select,
+.sln-bootstrap input[type="text"],
+.sln-bootstrap input[type="email"],
+.sln-bootstrap input[type="tel"] {
+  background-color: var(--ba-bg) !important;
+  border: 1px solid var(--ba-line) !important;
+  color: var(--ba-text) !important;
+}
+
+#sln-salon input:focus,
+.sln-bootstrap input:focus {
+  border-color: var(--ba-gold) !important;
+  outline: none !important;
+}
+
+/* Hi user en haut à droite */
+#sln-salon .sln-user-info,
+#sln-salon .sln-account-link {
+  color: var(--ba-gold) !important;
+}
+
+/* Wrapper principal du widget */
+#sln-salon,
+.sln-bootstrap,
+#sln-salon .sln-bootstrap,
+.sln-salon-page,
+#sln-salon .sln-list .sln-panel .sln-panel-heading {
+  background-color: var(--ba-panel) !important;
+  background: var(--ba-panel) !important;
+  color: var(--ba-text) !important;
+}
+
+/* Tous les wrappers/sections internes */
+#sln-salon .sln-form-wrapper,
+#sln-salon .sln-content,
+#sln-salon .sln-step,
+#sln-salon .sln-step-content,
+#sln-salon .sln-cart,
+#sln-salon .sln-summary,
+#sln-salon .sln-list,
+#sln-salon .sln-panel,
+.sln-bootstrap .sln-form-wrapper,
+.sln-bootstrap .sln-step-content {
+  background-color: transparent !important;
+  background: transparent !important;
+  color: var(--ba-text) !important;
+}
+
+/* Toute zone qui pourrait rester blanche en bas */
+#sln-salon .sln-list .sln-panel,
+#sln-salon .sln-list .sln-panel .sln-list__item,
+#sln-salon footer,
+#sln-salon .sln-footer {
+  background-color: transparent !important;
+  color: var(--ba-text) !important;
+}
+
+/* Force le fond sombre sur tout enfant direct de sln-salon */
+#sln-salon > div,
+#sln-salon > section,
+#sln-salon > form {
+  background-color: transparent !important;
+}
+
+/* ===== Footer / barre d'actions du widget (Subtotal + Next step) ===== */
+#sln-salon .sln-cart-footer,
+#sln-salon .sln-cart__footer,
+#sln-salon .sln-form-actions,
+#sln-salon .sln-form-actions-wrapper,
+#sln-salon .sln-step-actions,
+#sln-salon .sln-step__actions,
+#sln-salon .sln-actions,
+#sln-salon .sln-bookform__footer,
+#sln-salon .sln-step__footer,
+#sln-salon .sln-summary-bar,
+#sln-salon .sln-cart-bar,
+#sln-salon footer,
+#sln-salon .sln-footer,
+.sln-bootstrap .sln-form-actions,
+.sln-bootstrap .sln-step-actions {
+  background-color: var(--ba-panel) !important;
+  background: var(--ba-panel) !important;
+  color: var(--ba-text) !important;
+  border-top: 1px solid var(--ba-line) !important;
+}
+
+/* Subtotal text */
+#sln-salon .sln-subtotal,
+#sln-salon .sln-cart__total,
+#sln-salon .sln-summary-bar__label {
+  color: var(--ba-text) !important;
+}
+
+#sln-salon .sln-subtotal__value,
+#sln-salon .sln-cart__total__value {
+  color: var(--ba-gold) !important;
+  font-weight: 700;
+}
+
+/* ===== CALENDRIER (datetimepicker) ===== */
+#sln-salon .sln-datetimepicker,
+#sln-salon .datetimepicker.sln-datetimepicker,
+#sln-salon .datetimepicker.sln-datetimepicker table,
+#sln-salon .datetimepicker.sln-datetimepicker table tr,
+#sln-salon .datetimepicker.sln-datetimepicker table thead,
+#sln-salon .datetimepicker.sln-datetimepicker table tbody {
+  background-color: transparent !important;
+  background: transparent !important;
+  color: var(--ba-text) !important;
+}
+
+/* Cellules du calendrier */
+#sln-salon .datetimepicker.sln-datetimepicker table tr td,
+#sln-salon .datetimepicker.sln-datetimepicker table tr th {
+  background-color: transparent !important;
+  color: var(--ba-text) !important;
+}
+
+/* Jours sélectionnables (pastilles) */
+#sln-salon .datetimepicker.sln-datetimepicker table tr td.day:not(.disabled):not(.active),
+#sln-salon .datetimepicker.sln-datetimepicker table tr td.day:not(.old):not(.new):not(.disabled):not(.active) {
+  background-color: var(--ba-panel-soft) !important;
+  color: var(--ba-gold) !important;
+  border: 1px solid var(--ba-line) !important;
+}
+
+#sln-salon .datetimepicker.sln-datetimepicker table tr td.day:hover {
+  background-color: rgba(200, 164, 93, 0.2) !important;
+  border-color: var(--ba-gold) !important;
+}
+
+/* Jour actif */
+#sln-salon .datetimepicker.sln-datetimepicker table tr td.day.active,
+#sln-salon .datetimepicker.sln-datetimepicker table tr td.day.active:not(.disabled) {
+  background-color: var(--ba-gold) !important;
+  color: var(--ba-bg) !important;
+  border-color: var(--ba-gold) !important;
+}
+
+/* Jours désactivés/anciens */
+#sln-salon .datetimepicker.sln-datetimepicker table tr td.day.disabled,
+#sln-salon .datetimepicker.sln-datetimepicker table tr td.day.old,
+#sln-salon .datetimepicker.sln-datetimepicker table tr td.day.new {
+  background-color: transparent !important;
+  color: rgba(190, 182, 168, 0.3) !important;
+  opacity: 0.4;
+}
+
+/* En-tête jours de semaine (Su, Mo, Tu...) */
+#sln-salon .datetimepicker.sln-datetimepicker table tr th.dow {
+  color: var(--ba-muted) !important;
+  background: transparent !important;
+}
+
+/* ===== TIME SLOTS (16:00, 16:15...) ===== */
+#sln-salon .sln_timepicker,
+#sln-salon .sln-timepicker,
+#sln-salon .sln-time,
+#sln-salon .sln-timeslot,
+#sln-salon .sln-timeslots__item,
+#sln-salon .sln-time-item {
+  background-color: var(--ba-panel-soft) !important;
+  color: var(--ba-gold) !important;
+  border: 1px solid var(--ba-line) !important;
+}
+
+#sln-salon .sln_timepicker:hover,
+#sln-salon .sln-time:hover,
+#sln-salon .sln-timeslot:hover {
+  background-color: rgba(200, 164, 93, 0.2) !important;
+  border-color: var(--ba-gold) !important;
+}
+
+#sln-salon .sln_timepicker.active,
+#sln-salon .sln-time.active,
+#sln-salon .sln-timeslot.active,
+#sln-salon .sln_timepicker.selected,
+#sln-salon .sln-time.selected {
+  background-color: var(--ba-gold) !important;
+  color: var(--ba-bg) !important;
+  border-color: var(--ba-gold) !important;
+}
+
+#sln-salon .sln_timepicker.disabled,
+#sln-salon .sln-time.disabled {
+  opacity: 0.3 !important;
+  cursor: not-allowed;
+}
+
+/* ===== INPUTS - Fix autofill blanc Chrome/Safari ===== */
+#sln-salon input:-webkit-autofill,
+#sln-salon input:-webkit-autofill:hover,
+#sln-salon input:-webkit-autofill:focus,
+#sln-salon input:-webkit-autofill:active,
+.sln-bootstrap input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px var(--ba-bg) inset !important;
+  -webkit-text-fill-color: var(--ba-text) !important;
+  caret-color: var(--ba-text) !important;
+  border: 1px solid var(--ba-line) !important;
+}
+
+#sln-salon input[type="password"],
+.sln-bootstrap input[type="password"] {
+  background-color: var(--ba-bg) !important;
+  border: 1px solid var(--ba-line) !important;
+  color: var(--ba-text) !important;
+}
+
+/* ===== BOTTOM BAR du widget (Back / Next step) ===== */
+#sln-salon .sln-box__bottombar,
+#sln-salon .sln-box__bottombar--s,
+#sln-salon .sln-box__bottombar--l,
+.sln-bootstrap .sln-box__bottombar {
+  background-color: var(--ba-panel) !important;
+  background: var(--ba-panel) !important;
+  color: var(--ba-text) !important;
+  border-top: 1px solid var(--ba-line) !important;
+}
+
+/* Le faux background derrière la bottombar (responsable du blanc) */
+#sln-salon .sln-box__bottombar .sln-box__bottombar__fkbg,
+#sln-salon .sln-box__bottombar .sln-box__bottombar__fkbg--customcolors,
+.sln-bootstrap .sln-box__bottombar .sln-box__bottombar__fkbg,
+.sln-bootstrap .sln-box__bottombar .sln-box__bottombar__fkbg--customcolors {
+  background-color: var(--ba-panel) !important;
+  background: var(--ba-panel) !important;
+}
+
+#sln-salon .sln-box__bottombar .sln-box__bottombar__fkbg::before,
+.sln-bootstrap .sln-box__bottombar .sln-box__bottombar__fkbg::before {
+  background-color: var(--ba-panel) !important;
+  background: var(--ba-panel) !important;
+}
+
+/* Texte Subtotal */
+#sln-salon .sln-total,
+#sln-salon .sln-total-label,
+#sln-salon .sln-total-price {
+  color: var(--ba-text) !important;
+}
+
+#sln-salon .sln-total-price,
+#sln-salon #services-total {
+  color: var(--ba-gold) !important;
+}
+
+/* ===== BOUTONS TIME SLOTS (16:15, 16:30, etc.) ===== */
+/* Tous les boutons "borderonly" / "nobkg" qui sont des time slots */
+#sln-salon .sln-btn--borderonly,
+#sln-salon .sln-btn--nobkg,
+.sln-bootstrap .sln-btn--borderonly,
+.sln-bootstrap .sln-btn--nobkg {
+  background-color: var(--ba-panel-soft) !important;
+  background: var(--ba-panel-soft) !important;
+  color: var(--ba-gold) !important;
+  border: 1px solid var(--ba-line) !important;
+}
+
+#sln-salon .sln-btn--borderonly:hover,
+#sln-salon .sln-btn--nobkg:hover,
+.sln-bootstrap .sln-btn--borderonly:hover {
+  background-color: rgba(200, 164, 93, 0.18) !important;
+  border-color: var(--ba-gold) !important;
+  color: var(--ba-gold) !important;
+}
+
+/* Time slot actif/sélectionné */
+#sln-salon .sln-btn--borderonly.sln-btn--active,
+#sln-salon .sln-btn--borderonly.active,
+#sln-salon .sln-btn--borderonly.selected,
+#sln-salon .sln-btn--nobkg.active,
+.sln-bootstrap .sln-btn--borderonly.active {
+  background-color: var(--ba-gold) !important;
+  background: var(--ba-gold) !important;
+  color: var(--ba-bg) !important;
+  border-color: var(--ba-gold) !important;
+}
+
+/* Bouton "Back" en outline */
+#sln-salon .sln-btn--back,
+#sln-salon .sln-btn--cancel,
+.sln-bootstrap .sln-btn--back {
+  background-color: transparent !important;
+  background: transparent !important;
+  color: var(--ba-text) !important;
+  border: 1px solid var(--ba-line) !important;
+}
+
+#sln-salon .sln-btn--back:hover,
+.sln-bootstrap .sln-btn--back:hover {
+  background-color: rgba(200, 164, 93, 0.1) !important;
+  border-color: var(--ba-gold) !important;
+  color: var(--ba-gold) !important;
+}
+
+/* ===== TIME SLOTS - Vraies classes (.minute .hour_am .hour_pm) ===== */
+#sln-salon .minute,
+#sln-salon span.minute,
+#sln-salon .hour_am,
+#sln-salon .hour_pm,
+#sln-salon span.hour_am,
+#sln-salon span.hour_pm,
+.sln-bootstrap .minute,
+.sln-bootstrap .hour_am,
+.sln-bootstrap .hour_pm {
+  background-color: var(--ba-panel-soft) !important;
+  background: var(--ba-panel-soft) !important;
+  color: var(--ba-gold) !important;
+  border: 1px solid var(--ba-line) !important;
+  border-radius: 8px !important;
+}
+
+#sln-salon .minute:hover,
+#sln-salon .hour_am:hover,
+#sln-salon .hour_pm:hover,
+.sln-bootstrap .minute:hover {
+  background-color: rgba(200, 164, 93, 0.18) !important;
+  border-color: var(--ba-gold) !important;
+  color: var(--ba-gold) !important;
+}
+
+/* Time slot actif/sélectionné (.minute.active ou avec [data-selected]) */
+#sln-salon .minute.active,
+#sln-salon .minute.selected,
+#sln-salon .hour_am.active,
+#sln-salon .hour_pm.active,
+#sln-salon .minute[data-selected="true"],
+.sln-bootstrap .minute.active {
+  background-color: var(--ba-gold) !important;
+  background: var(--ba-gold) !important;
+  color: var(--ba-bg) !important;
+  border-color: var(--ba-gold) !important;
+}
+
+/* Time slot disabled */
+#sln-salon .minute.disabled,
+#sln-salon .hour_am.disabled,
+#sln-salon .hour_pm.disabled {
+  opacity: 0.3 !important;
+  cursor: not-allowed;
+}
+
 .ba-el-section {
   padding: 82px 16px;
   background: var(--ba-bg);
