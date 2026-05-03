@@ -11,7 +11,37 @@ if (!defined('ABSPATH')) {
 </head>
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
-<header class="site-header">
+
+<!-- Top Bar Premium -->
+<?php $ba_status = ba_v201_current_status(); ?>
+<div class="topbar">
+    <div class="topbar__inner">
+        <div class="topbar__left">
+            <span class="topbar__status <?php echo $ba_status['is_open'] ? 'is-open' : 'is-closed'; ?>">
+                <span class="topbar__dot"></span>
+                <?php echo esc_html($ba_status['label']); ?>
+            </span>
+        </div>
+        <div class="topbar__right">
+            <a href="tel:+33123456789" class="topbar__link">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                </svg>
+                +33 1 23 45 67 89
+            </a>
+            <span class="topbar__separator">·</span>
+            <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" class="topbar__link">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                    <circle cx="12" cy="10" r="3"/>
+                </svg>
+                <?php esc_html_e('Paris', 'barber-architecte-v201'); ?>
+            </a>
+        </div>
+    </div>
+</div>
+
+<header class="site-header" id="siteHeader">
     <div class="site-header__inner">
         <a class="brand" href="<?php echo esc_url(home_url('/')); ?>">
             <?php
@@ -20,8 +50,12 @@ if (!defined('ABSPATH')) {
                 echo wp_get_attachment_image($logo_id, 'full', false, ['alt' => get_bloginfo('name')]);
             }
             ?>
-            <span><?php bloginfo('name'); ?></span>
+            <div class="brand__text">
+                <span class="brand__name"><?php bloginfo('name'); ?></span>
+                <span class="brand__tagline"><?php esc_html_e('Barbering Excellence', 'barber-architecte-v201'); ?></span>
+            </div>
         </a>
+
         <nav class="site-nav" aria-label="<?php esc_attr_e('Navigation principale', 'barber-architecte-v201'); ?>">
             <?php
             wp_nav_menu([
@@ -32,14 +66,22 @@ if (!defined('ABSPATH')) {
                 'depth' => 1,
             ]);
             ?>
-            <a class="btn" href="#reservation"><?php esc_html_e('Reserver', 'barber-architecte-v201'); ?></a>
         </nav>
 
-        <button class="nav-burger" id="navBurger" aria-label="<?php esc_attr_e('Ouvrir le menu', 'barber-architecte-v201'); ?>" aria-expanded="false" aria-controls="mobileNav">
-            <span class="nav-burger__line"></span>
-            <span class="nav-burger__line"></span>
-            <span class="nav-burger__line"></span>
-        </button>
+        <div class="site-header__actions">
+            <a class="btn-header" href="#reservation">
+                <span><?php esc_html_e('Réserver', 'barber-architecte-v201'); ?></span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </a>
+
+            <button class="nav-burger" id="navBurger" aria-label="<?php esc_attr_e('Ouvrir le menu', 'barber-architecte-v201'); ?>" aria-expanded="false" aria-controls="mobileNav">
+                <span class="nav-burger__line"></span>
+                <span class="nav-burger__line"></span>
+                <span class="nav-burger__line"></span>
+            </button>
+        </div>
     </div>
 </header>
 
@@ -121,6 +163,35 @@ if (!defined('ABSPATH')) {
             closeNav();
         }
     });
+})();
+
+// Header scroll effect
+(function() {
+    const header = document.getElementById('siteHeader');
+    if (!header) return;
+
+    let lastScroll = 0;
+    let ticking = false;
+
+    function updateHeader() {
+        const scrollY = window.scrollY;
+
+        if (scrollY > 30) {
+            header.classList.add('is-scrolled');
+        } else {
+            header.classList.remove('is-scrolled');
+        }
+
+        lastScroll = scrollY;
+        ticking = false;
+    }
+
+    window.addEventListener('scroll', function() {
+        if (!ticking) {
+            window.requestAnimationFrame(updateHeader);
+            ticking = true;
+        }
+    }, { passive: true });
 })();
 </script>
 

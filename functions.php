@@ -62,3 +62,53 @@ function ba_v201_salon_posts(string $post_type): array
         'order' => 'ASC',
     ]);
 }
+
+/**
+ * Horaires d'ouverture du salon
+ * Format: jour de la semaine (0=Dimanche, 1=Lundi, ..., 6=Samedi) => ['09:00', '19:00'] ou null si fermé
+ */
+function ba_v201_business_hours(): array
+{
+    return [
+        0 => null, // Dimanche - fermé
+        1 => ['09:00', '19:00'], // Lundi
+        2 => ['09:00', '19:00'], // Mardi
+        3 => ['09:00', '19:00'], // Mercredi
+        4 => ['09:00', '20:00'], // Jeudi
+        5 => ['09:00', '20:00'], // Vendredi
+        6 => ['10:00', '18:00'], // Samedi
+    ];
+}
+
+/**
+ * Récupère le statut actuel du salon (ouvert/fermé) et les horaires du jour
+ */
+function ba_v201_current_status(): array
+{
+    $timezone = new DateTimeZone(wp_timezone_string() ?: 'Europe/Paris');
+    $now = new DateTime('now', $timezone);
+    $day = (int) $now->format('w');
+    $current_time = $now->format('H:i');
+
+    $hours = ba_v201_business_hours();
+    $today = $hours[$day] ?? null;
+
+    if (!$today) {
+        return [
+            'is_open' => false,
+            'label' => __('Fermé aujourd\'hui', 'barber-architecte-v201'),
+            'hours' => null,
+        ];
+    }
+
+    [$open, $close] = $today;
+    $is_open = $current_time >= $open && $current_time < $close;
+
+    return [
+        'is_open' => $is_open,
+        'label' => $is_open
+            ? sprintf(__('Ouvert aujourd\'hui • %s - %s', 'barber-architecte-v201'), $open, $close)
+            : sprintf(__('Fermé • Aujourd\'hui %s - %s', 'barber-architecte-v201'), $open, $close),
+        'hours' => $today,
+    ];
+}
