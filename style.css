@@ -1937,3 +1937,30 @@ img {
   border-radius: 50% !important;
   display: block !important;
 }
+
+/* Limite la liste des services à 2 visibles avec scroll vertical élégant */
+.sln-service-list,
+.sln-service-list.sln-list {
+  max-height: 420px;
+  overflow-y: auto;
+  padding-right: 6px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--ba-gold) rgba(0, 0, 0, 0.1);
+}
+
+.sln-service-list::-webkit-scrollbar,
+.sln-service-list.sln-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sln-service-list::-webkit-scrollbar-track,
+.sln-service-list.sln-list::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.08);
+  border-radius: 3px;
+}
+
+.sln-service-list::-webkit-scrollbar-thumb,
+.sln-service-list.sln-list::-webkit-scrollbar-thumb {
+  background: var(--ba-gold);
+  border-radius: 3px;
+}
