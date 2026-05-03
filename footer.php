@@ -35,7 +35,24 @@ if (!defined('ABSPATH')) {
                 <div class="footer-col footer-col--brand">
                     <div class="footer-brand-box">
                         <a class="footer-brand premium" href="<?php echo esc_url(home_url('/')); ?>">
-                            <span class="footer-brand-mark">⊙</span>
+                            <?php
+                            $footer_logo_id = get_theme_mod('custom_logo');
+                            if ($footer_logo_id) {
+                                echo wp_get_attachment_image(
+                                    $footer_logo_id,
+                                    'full',
+                                    false,
+                                    array(
+                                        'class' => 'footer-brand-logo',
+                                        'alt'   => get_bloginfo('name'),
+                                    )
+                                );
+                            } else {
+                                ?>
+                                <span class="footer-brand-mark" aria-hidden="true">⊙</span>
+                                <?php
+                            }
+                            ?>
                             <div>
                                 <div class="footer-brand-name"><?php bloginfo('name'); ?></div>
                                 <div class="footer-brand-tagline"><?php esc_html_e('Barbering Excellence', 'barber-architecte-v201'); ?></div>
