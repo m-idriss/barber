@@ -638,6 +638,21 @@ img {
 
 .hero__copy {
   min-width: 0;
+  align-self: start;
+}
+
+/* Aligne la colonne gauche du hero Elementor en haut */
+body .elementor-223 .elementor-element.elementor-element-a5c19d3,
+body .elementor .elementor-element.elementor-element-a5c19d3 {
+  align-self: flex-start !important;
+}
+
+body .elementor-223 .elementor-element.elementor-element-a5c19d3 > .elementor-widget-wrap,
+body .elementor-223 .elementor-element.elementor-element-a5c19d3 > .elementor-element-populated,
+body .elementor-223 .elementor-element.elementor-element-a5c19d3 > .elementor-element-populated > .elementor-widget-wrap {
+  align-content: flex-start !important;
+  align-items: flex-start !important;
+  justify-content: flex-start !important;
 }
 
 .eyebrow {
