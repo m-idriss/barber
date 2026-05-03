@@ -717,24 +717,23 @@ img {
 
 .ba-el-assistants-compact .sln-datashortcode--assistants .sln-datalist {
   display: grid !important;
-  grid-template-columns: repeat(4, minmax(132px, 1fr));
-  gap: 10px;
+  grid-template-columns: repeat(4, minmax(112px, 1fr));
+  gap: 12px;
   max-width: 610px;
   margin: 0;
 }
 
 .ba-el-assistants-compact .sln-datashortcode--assistants .sln-datalist__item {
   position: relative;
-  display: grid !important;
-  grid-template-columns: 46px minmax(0, 1fr);
-  grid-template-rows: auto auto;
+  display: flex !important;
+  flex-direction: column;
   align-items: center;
-  column-gap: 10px;
-  min-height: 68px;
+  justify-content: space-between;
+  min-height: 146px;
   width: auto !important;
   max-width: none !important;
   margin: 0 !important;
-  padding: 10px !important;
+  padding: 14px 10px 12px !important;
   border: 1px solid var(--ba-line);
   border-radius: 6px;
   background: linear-gradient(135deg, rgba(255, 250, 241, 0.13), rgba(255, 250, 241, 0.06));
@@ -744,59 +743,53 @@ img {
 }
 
 .ba-el-assistants-compact .sln-datashortcode--assistants .sln-datalist__item__image {
-  grid-column: 1;
-  grid-row: 1 / span 2;
-  width: 46px;
-  height: 46px;
-  margin: 0 !important;
+  width: 58px;
+  height: 58px;
+  margin: 0 0 10px !important;
   padding: 0 !important;
 }
 
 .ba-el-assistants-compact .sln-datashortcode--assistants .sln-datalist__item__image img {
   display: block;
-  width: 46px !important;
-  height: 46px !important;
+  width: 58px !important;
+  height: 58px !important;
   border-radius: 50%;
   object-fit: cover;
   box-shadow: 0 0 0 2px rgba(255, 250, 241, 0.28);
 }
 
 .ba-el-assistants-compact .sln-datashortcode--assistants .sln-datalist__item__name {
-  grid-column: 2;
-  grid-row: 1;
-  align-self: end;
-  margin: 0 !important;
+  width: 100%;
+  margin: 0 0 10px !important;
   overflow: hidden;
   color: var(--ba-white);
   font-size: 14px !important;
   font-weight: 800;
-  line-height: 1.1;
+  line-height: 1.16;
+  text-align: center;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .ba-el-assistants-compact .sln-datashortcode--assistants .sln-datalist__item__actions {
   position: static !important;
-  grid-column: 2;
-  grid-row: 2;
-  align-self: start;
   width: auto !important;
-  margin: 5px 0 0 !important;
+  margin: auto 0 0 !important;
   padding: 0 !important;
-  text-align: left;
+  text-align: center;
 }
 
 .ba-el-assistants-compact .sln-datashortcode--assistants .sln-datalist__item__cta {
   display: inline-flex !important;
   align-items: center;
   justify-content: center;
-  min-height: 22px;
-  padding: 0 8px !important;
+  min-height: 28px;
+  padding: 0 10px !important;
   border: 1px solid rgba(200, 164, 93, 0.62);
   border-radius: 3px;
   background: rgba(200, 164, 93, 0.12) !important;
   color: var(--ba-gold) !important;
-  font-size: 10px !important;
+  font-size: 11px !important;
   font-weight: 800;
   line-height: 1 !important;
   text-decoration: none !important;
