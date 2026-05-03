@@ -1093,23 +1093,41 @@ img {
   color: #1d1d1b;
 }
 
-/* Supprime le container Elementor autour du widget de réservation */
-.elementor .elementor-element.elementor-element-ca331d7 {
+/* Supprime tous les containers Elementor autour du widget de réservation */
+body .elementor .elementor-element.elementor-element-ca331d7,
+body .elementor-223 .elementor-element.elementor-element-ca331d7 {
+  background-color: transparent !important;
+  background: transparent !important;
+  background-image: none !important;
+  border: none !important;
+  border-style: none !important;
+  border-width: 0 !important;
+  border-color: transparent !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+/* Section parente du widget booking */
+body .elementor-223 .elementor-element.elementor-element-cd7f074,
+body .elementor-223 .elementor-element.elementor-element-cd7f074:not(.elementor-motion-effects-element-type-background) {
+  background-color: transparent !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+/* ========== WIDGET BOOKING - THEME SOMBRE ========== */
+/* Widget transparent pour s'intégrer au fond du site */
+#sln-salon #sln-salon__content,
+.sln-bootstrap #sln-salon__content {
   background-color: transparent !important;
   background: transparent !important;
   border: none !important;
   border-radius: 0 !important;
   box-shadow: none !important;
-}
-
-/* ========== WIDGET BOOKING - THEME SOMBRE ========== */
-/* Fond sombre du widget */
-#sln-salon #sln-salon__content,
-.sln-bootstrap #sln-salon__content {
-  background-color: var(--ba-panel) !important;
-  border: 1px solid var(--ba-line) !important;
-  border-radius: 10px !important;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4) !important;
+  padding-top: 0 !important;
   color: var(--ba-text) !important;
 }
 
