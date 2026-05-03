@@ -846,6 +846,50 @@ img {
   background: var(--ba-panel-soft);
 }
 
+#services .sln-datashortcode--services {
+  width: 100%;
+  overflow: hidden;
+}
+
+#services .sln-datashortcode--services .sln-datalist {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 14px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 2px 0 18px;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+}
+
+#services .sln-datashortcode--services .sln-datalist__item {
+  flex: 0 0 260px;
+  float: none;
+  width: 260px;
+  max-width: 260px;
+  min-height: 100%;
+  margin: 0;
+  scroll-snap-align: start;
+}
+
+#services .sln-datashortcode--services .sln-datalist_clearfix {
+  display: none;
+}
+
+#services .sln-datashortcode--services .sln-datalist::-webkit-scrollbar {
+  height: 8px;
+}
+
+#services .sln-datashortcode--services .sln-datalist::-webkit-scrollbar-track {
+  background: rgba(244, 240, 232, 0.08);
+  border-radius: 99px;
+}
+
+#services .sln-datashortcode--services .sln-datalist::-webkit-scrollbar-thumb {
+  background: rgba(200, 164, 93, 0.72);
+  border-radius: 99px;
+}
+
 .ba-el-card-title .elementor-heading-title {
   color: var(--ba-white);
   font-size: 20px;
