@@ -710,6 +710,73 @@ img {
   line-height: 1.62;
 }
 
+.ba-el-hero-subtitle-inline {
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+
+.ba-el-assistants-compact .sln-datashortcode--assistants .sln-datalist {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.ba-el-assistants-compact .sln-datashortcode--assistants .sln-datalist__item {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr);
+  align-items: center;
+  min-height: 58px;
+  margin: 0;
+  padding: 8px;
+  border: 1px solid var(--ba-line);
+  border-radius: 6px;
+  background: rgba(255, 250, 241, 0.08);
+}
+
+.ba-el-assistants-compact .sln-datashortcode--assistants .sln-datalist__item__image {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  margin: 0;
+}
+
+.ba-el-assistants-compact .sln-datashortcode--assistants .sln-datalist__item__image img {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.ba-el-assistants-compact .sln-datashortcode--assistants .sln-datalist__item__name {
+  grid-column: 2;
+  margin: 0;
+  overflow: hidden;
+  color: var(--ba-white);
+  font-size: 14px;
+  line-height: 1.1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ba-el-assistants-compact .sln-datashortcode--assistants .sln-datalist__item__actions {
+  grid-column: 2;
+  margin: 4px 0 0;
+}
+
+.ba-el-assistants-compact .sln-datashortcode--assistants .sln-datalist__item__cta {
+  min-height: 0;
+  padding: 0;
+  background: transparent;
+  color: var(--ba-gold);
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.ba-el-assistants-compact .sln-datashortcode--assistants .sln-datalist_clearfix {
+  display: none;
+}
+
 .ba-el-hero-attendants {
   max-width: 610px;
   margin-top: 22px;
