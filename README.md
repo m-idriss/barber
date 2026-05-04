@@ -10,7 +10,7 @@ A custom WordPress theme built for **Barbershop L'Architecte** — a premium bar
 
 - **Hero section** — Full-screen banner with background image, welcome copy, team member cards, and call-to-action buttons linking to the booking widget
 - **Live open/closed status** — Top bar displays real-time open or closed status based on configurable business hours (timezone-aware)
-- **Online booking** — Embeds the `[salon]` Salon Booking shortcut directly in the hero; degrades gracefully when the plugin is not active
+- **Online booking** — Embeds the `[salon]` Salon Booking shortcode directly in the hero; degrades gracefully when the plugin is not active
 - **Services grid** — Automatically pulls services (`sln_service` post type) from Salon Booking, displaying title, excerpt, duration, and price
 - **Team grid** — Automatically pulls attendants (`sln_attendant` post type) from Salon Booking with their photos
 - **Sticky header** — Transparent header that gains a solid background on scroll; includes logo, primary navigation, and a "Book" CTA button
