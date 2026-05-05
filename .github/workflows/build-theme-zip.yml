@@ -1,0 +1,47 @@
+name: Build Theme Zip
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build installable WordPress theme zip
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build theme archive
+        run: |
+          set -euo pipefail
+
+          THEME_SLUG="barber-architecte-v201"
+          BUILD_DIR="build"
+          THEME_DIR="${BUILD_DIR}/${THEME_SLUG}"
+          ZIP_FILE="${THEME_SLUG}.zip"
+
+          rm -rf "${BUILD_DIR}" "${ZIP_FILE}"
+          mkdir -p "${THEME_DIR}"
+
+          rsync -a \
+            --exclude=".git" \
+            --exclude=".github" \
+            --exclude="build" \
+            --exclude="*.zip" \
+            ./ "${THEME_DIR}/"
+
+          cd "${BUILD_DIR}"
+          zip -r "../${ZIP_FILE}" "${THEME_SLUG}"
+
+      - name: Verify archive
+        run: unzip -t barber-architecte-v201.zip
+
+      - name: Upload theme zip artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: barber-architecte-v201
+          path: barber-architecte-v201.zip
