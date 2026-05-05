@@ -75,9 +75,10 @@ jobs:
           set -euo pipefail
 
           THEME_SLUG="barber-architecte-v201"
+          VERSION="${{ inputs.version }}"
           BUILD_DIR="build"
           THEME_DIR="${BUILD_DIR}/${THEME_SLUG}"
-          ZIP_FILE="${THEME_SLUG}.zip"
+          ZIP_FILE="${THEME_SLUG}-${VERSION}.zip"
 
           rm -rf "${BUILD_DIR}" "${ZIP_FILE}"
           mkdir -p "${THEME_DIR}"
@@ -93,12 +94,12 @@ jobs:
           zip -r "../${ZIP_FILE}" "${THEME_SLUG}"
 
       - name: Verify archive
-        run: unzip -t barber-architecte-v201.zip
+        run: unzip -t barber-architecte-v201-${{ inputs.version }}.zip
 
       - name: Create GitHub release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v${{ inputs.version }}
           name: Barber Architecte v${{ inputs.version }}
-          files: barber-architecte-v201.zip
+          files: barber-architecte-v201-${{ inputs.version }}.zip
           generate_release_notes: true
