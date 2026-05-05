@@ -2614,9 +2614,11 @@ body .elementor-223 .elementor-element.elementor-element-cd7f074:not(.elementor-
   }
 
   .ba-el-hero-title .elementor-heading-title {
-    max-width: 340px;
-    font-size: clamp(38px, 12.8vw, 52px);
-    line-height: 0.95;
+    width: min(100%, calc(100vw - 28px));
+    max-width: 360px;
+    overflow-wrap: normal;
+    font-size: clamp(34px, 10.6vw, 44px);
+    line-height: 0.98;
     letter-spacing: 0;
   }
 
@@ -2916,8 +2918,9 @@ body .elementor-223 .elementor-element.elementor-element-cd7f074:not(.elementor-
 
 @media (max-width: 420px) {
   .ba-el-hero-title .elementor-heading-title {
-    max-width: 310px;
-    font-size: clamp(36px, 13.2vw, 48px);
+    width: min(100%, calc(100vw - 28px));
+    max-width: 330px;
+    font-size: clamp(31px, 10.2vw, 40px);
   }
 
   .ba-el-hero-text,
