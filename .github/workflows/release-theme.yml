@@ -1,0 +1,104 @@
+name: Release Theme
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Theme version, for example 1.0.1"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Version, tag, zip and release theme
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Validate version
+        run: |
+          set -euo pipefail
+
+          VERSION="${{ inputs.version }}"
+          git fetch origin main --tags
+
+          if [ "$(git rev-parse HEAD)" != "$(git rev-parse origin/main)" ]; then
+            echo "This workflow must be run from the latest main commit."
+            exit 1
+          fi
+
+          if ! echo "${VERSION}" | grep -Eq '^[0-9]+(\.[0-9]+){1,2}(-[A-Za-z0-9.-]+)?$'; then
+            echo "Invalid version: ${VERSION}"
+            echo "Use a version like 1.0.1 or 1.0.1-beta.1"
+            exit 1
+          fi
+
+          if git rev-parse "v${VERSION}" >/dev/null 2>&1; then
+            echo "Tag v${VERSION} already exists"
+            exit 1
+          fi
+
+      - name: Update theme version
+        run: |
+          set -euo pipefail
+
+          VERSION="${{ inputs.version }}"
+          sed -i -E "s/^Version: .*/Version: ${VERSION}/" style.css
+
+          grep -q "^Version: ${VERSION}$" style.css
+
+      - name: Commit and tag version
+        run: |
+          set -euo pipefail
+
+          VERSION="${{ inputs.version }}"
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add style.css
+          git commit -m "Release v${VERSION}"
+          git tag "v${VERSION}"
+          git push origin HEAD:main
+          git push origin "v${VERSION}"
+
+      - name: Build theme archive
+        run: |
+          set -euo pipefail
+
+          THEME_SLUG="barber-architecte-v201"
+          BUILD_DIR="build"
+          THEME_DIR="${BUILD_DIR}/${THEME_SLUG}"
+          ZIP_FILE="${THEME_SLUG}.zip"
+
+          rm -rf "${BUILD_DIR}" "${ZIP_FILE}"
+          mkdir -p "${THEME_DIR}"
+
+          rsync -a \
+            --exclude=".git" \
+            --exclude=".github" \
+            --exclude="build" \
+            --exclude="*.zip" \
+            ./ "${THEME_DIR}/"
+
+          cd "${BUILD_DIR}"
+          zip -r "../${ZIP_FILE}" "${THEME_SLUG}"
+
+      - name: Verify archive
+        run: unzip -t barber-architecte-v201.zip
+
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ inputs.version }}
+          name: Barber Architecte v${{ inputs.version }}
+          files: barber-architecte-v201.zip
+          generate_release_notes: true
