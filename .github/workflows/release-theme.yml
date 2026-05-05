@@ -3,9 +3,19 @@ name: Release Theme
 on:
   workflow_dispatch:
     inputs:
-      version:
-        description: "Theme version, for example 1.0.1"
+      bump:
+        description: "Version increment"
         required: true
+        type: choice
+        default: patch
+        options:
+          - patch
+          - minor
+          - major
+          - custom
+      custom_version:
+        description: "Only used when bump is custom, for example 1.2.3"
+        required: false
         type: string
 
 permissions:
@@ -23,16 +33,64 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
 
-      - name: Validate version
+      - name: Resolve release version
+        id: version
         run: |
           set -euo pipefail
 
-          VERSION="${{ inputs.version }}"
+          BUMP="${{ inputs.bump }}"
+          CUSTOM_VERSION="${{ inputs.custom_version }}"
+
           git fetch origin main --tags
 
           if [ "$(git rev-parse HEAD)" != "$(git rev-parse origin/main)" ]; then
             echo "This workflow must be run from the latest main commit."
             exit 1
+          fi
+
+          CURRENT_VERSION="$(sed -n -E 's/^Version:[[:space:]]*([0-9]+(\.[0-9]+){1,2}(-[A-Za-z0-9.-]+)?).*/\1/p' style.css | head -1)"
+
+          if [ -z "${CURRENT_VERSION}" ]; then
+            echo "Could not read current theme version from style.css"
+            exit 1
+          fi
+
+          if ! echo "${CURRENT_VERSION}" | grep -Eq '^[0-9]+(\.[0-9]+){1,2}(-[A-Za-z0-9.-]+)?$'; then
+            echo "Invalid current theme version in style.css: ${CURRENT_VERSION}"
+            exit 1
+          fi
+
+          if [ "${BUMP}" = "custom" ]; then
+            if [ -z "${CUSTOM_VERSION}" ]; then
+              echo "custom_version is required when bump is custom"
+              exit 1
+            fi
+            VERSION="${CUSTOM_VERSION}"
+          else
+            BASE_VERSION="${CURRENT_VERSION%%-*}"
+            IFS='.' read -r MAJOR MINOR PATCH <<< "${BASE_VERSION}"
+            PATCH="${PATCH:-0}"
+
+            case "${BUMP}" in
+              patch)
+                PATCH=$((PATCH + 1))
+                ;;
+              minor)
+                MINOR=$((MINOR + 1))
+                PATCH=0
+                ;;
+              major)
+                MAJOR=$((MAJOR + 1))
+                MINOR=0
+                PATCH=0
+                ;;
+              *)
+                echo "Invalid bump type: ${BUMP}"
+                exit 1
+                ;;
+            esac
+
+            VERSION="${MAJOR}.${MINOR}.${PATCH}"
           fi
 
           if ! echo "${VERSION}" | grep -Eq '^[0-9]+(\.[0-9]+){1,2}(-[A-Za-z0-9.-]+)?$'; then
@@ -46,11 +104,15 @@ jobs:
             exit 1
           fi
 
+          echo "current_version=${CURRENT_VERSION}" >> "${GITHUB_OUTPUT}"
+          echo "version=${VERSION}" >> "${GITHUB_OUTPUT}"
+          echo "Resolved release version: ${CURRENT_VERSION} -> ${VERSION}"
+
       - name: Update theme version
         run: |
           set -euo pipefail
 
-          VERSION="${{ inputs.version }}"
+          VERSION="${{ steps.version.outputs.version }}"
           sed -i -E "s/^Version: .*/Version: ${VERSION}/" style.css
 
           grep -q "^Version: ${VERSION}$" style.css
@@ -59,7 +121,7 @@ jobs:
         run: |
           set -euo pipefail
 
-          VERSION="${{ inputs.version }}"
+          VERSION="${{ steps.version.outputs.version }}"
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -75,7 +137,7 @@ jobs:
           set -euo pipefail
 
           THEME_SLUG="barber-architecte-v201"
-          VERSION="${{ inputs.version }}"
+          VERSION="${{ steps.version.outputs.version }}"
           BUILD_DIR="build"
           THEME_DIR="${BUILD_DIR}/${THEME_SLUG}"
           ZIP_FILE="${THEME_SLUG}-${VERSION}.zip"
@@ -94,12 +156,12 @@ jobs:
           zip -r "../${ZIP_FILE}" "${THEME_SLUG}"
 
       - name: Verify archive
-        run: unzip -t barber-architecte-v201-${{ inputs.version }}.zip
+        run: unzip -t barber-architecte-v201-${{ steps.version.outputs.version }}.zip
 
       - name: Create GitHub release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v${{ inputs.version }}
-          name: Barber Architecte v${{ inputs.version }}
-          files: barber-architecte-v201-${{ inputs.version }}.zip
+          tag_name: v${{ steps.version.outputs.version }}
+          name: Barber Architecte v${{ steps.version.outputs.version }}
+          files: barber-architecte-v201-${{ steps.version.outputs.version }}.zip
           generate_release_notes: true
