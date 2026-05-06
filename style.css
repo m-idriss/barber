@@ -4151,18 +4151,29 @@ body .elementor-223 .elementor-element.elementor-element-ca331d7 .sln-bootstrap 
 
 /* Force real visible side gutters on the mobile booking card. */
 @media (max-width: 767px) {
+  body .elementor-223 .elementor-element.elementor-element-8ab9075,
+  body .elementor-223 .elementor-element.elementor-element-8ab9075.elementor-section {
+    box-sizing: border-box !important;
+    padding-right: 20px !important;
+    padding-left: 20px !important;
+    overflow-x: hidden !important;
+  }
+
   body .elementor-223 .elementor-element.elementor-element-8ab9075 > .elementor-container {
     width: 100% !important;
     max-width: none !important;
+    justify-items: center !important;
   }
 
   body .elementor-223 .elementor-element.elementor-element-ca331d7,
   body .elementor-223 .elementor-element.elementor-element-ca331d7.elementor-widget,
   body .elementor-223 .elementor-element.elementor-element-ca331d7 > .elementor-widget-container,
-  body .elementor-223 .elementor-element.elementor-element-ca331d7 #sln-salon {
+  body .elementor-223 .elementor-element.elementor-element-ca331d7 #sln-salon,
+  body .elementor-223 .elementor-element.elementor-element-ca331d7 #sln-salon #sln-salon__content,
+  body .elementor-223 .elementor-element.elementor-element-ca331d7 .sln-salon--m__content {
     box-sizing: border-box !important;
-    width: min(calc(100vw - 44px), 408px) !important;
-    max-width: min(calc(100vw - 44px), 408px) !important;
+    width: 100% !important;
+    max-width: 408px !important;
     margin-right: auto !important;
     margin-left: auto !important;
   }
@@ -4191,9 +4202,11 @@ body .elementor-223 .elementor-element.elementor-element-ca331d7 .sln-bootstrap 
   body .elementor-223 .elementor-element.elementor-element-ca331d7,
   body .elementor-223 .elementor-element.elementor-element-ca331d7.elementor-widget,
   body .elementor-223 .elementor-element.elementor-element-ca331d7 > .elementor-widget-container,
-  body .elementor-223 .elementor-element.elementor-element-ca331d7 #sln-salon {
-    width: calc(100vw - 34px) !important;
-    max-width: calc(100vw - 34px) !important;
+  body .elementor-223 .elementor-element.elementor-element-ca331d7 #sln-salon,
+  body .elementor-223 .elementor-element.elementor-element-ca331d7 #sln-salon #sln-salon__content,
+  body .elementor-223 .elementor-element.elementor-element-ca331d7 .sln-salon--m__content {
+    width: 100% !important;
+    max-width: 100% !important;
   }
 }
 
