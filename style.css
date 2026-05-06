@@ -3210,10 +3210,84 @@ body .elementor-223 .elementor-element.elementor-element-ae4e3f9 p {
   }
 }
 
-/* ========== HERO RESPONSIVE FLOW : titre, réservation, contenu ========== */
+/* ========== HERO ACTION-FIRST LAYOUT ========== */
+@media (min-width: 1025px) {
+  body .elementor-223 .elementor-element.elementor-element-8ab9075 {
+    padding: 56px 24px 54px !important;
+  }
+
+  body .elementor-223 .elementor-element.elementor-element-8ab9075 > .elementor-container {
+    display: grid !important;
+    grid-template-columns: minmax(390px, 0.9fr) minmax(0, 1.08fr) !important;
+    align-items: center !important;
+    width: min(100%, 1180px) !important;
+    min-height: calc(100vh - 170px) !important;
+    margin-right: auto !important;
+    margin-left: auto !important;
+    gap: clamp(34px, 5vw, 72px) !important;
+  }
+
+  body .elementor-223 .elementor-element.elementor-element-0198c24 {
+    order: 1 !important;
+    width: 100% !important;
+    max-width: 520px !important;
+    justify-self: start !important;
+  }
+
+  body .elementor-223 .elementor-element.elementor-element-a5c19d3 {
+    order: 2 !important;
+    width: 100% !important;
+    max-width: 620px !important;
+    justify-self: end !important;
+  }
+
+  body .elementor-223 .elementor-element.elementor-element-a5c19d3 > .elementor-widget-wrap {
+    align-content: center !important;
+    align-items: flex-start !important;
+    justify-content: center !important;
+  }
+
+  body .elementor-223 .elementor-element.elementor-element-ca331d7 {
+    width: 100% !important;
+    max-width: 520px !important;
+    margin: 0 !important;
+  }
+
+  body .elementor-223 .elementor-element.elementor-element-ca331d7 > .elementor-widget-container {
+    overflow: hidden;
+    border: 1px solid var(--ba-white-13);
+    border-radius: var(--ba-radius-md);
+    background: var(--ba-bg-85);
+    box-shadow: var(--ba-shadow-lg);
+  }
+
+  body .elementor-223 .elementor-element.elementor-element-ca331d7 #sln-salon #sln-salon__content {
+    padding: 24px 22px 20px !important;
+  }
+
+  body .elementor-223 .elementor-element.elementor-element-7470725 {
+    margin-bottom: 18px !important;
+  }
+
+  body .elementor-223 .elementor-element.elementor-element-7470725 .elementor-heading-title {
+    max-width: 620px !important;
+    font-size: clamp(54px, 6vw, 84px) !important;
+    line-height: 0.96 !important;
+  }
+
+  body .elementor-223 .elementor-element.elementor-element-bbcef59 {
+    max-width: 570px !important;
+    margin-bottom: 24px !important;
+  }
+
+  body .elementor-223 .elementor-element.elementor-element-0816325 .sln-datalist {
+    max-width: 570px !important;
+  }
+}
+
 @media (max-width: 1024px) {
   body .elementor-223 .elementor-element.elementor-element-8ab9075 {
-    padding: 42px 18px 34px !important;
+    padding: 36px 18px 34px !important;
   }
 
   body .elementor-223 .elementor-element.elementor-element-8ab9075 > .elementor-container {
@@ -3221,11 +3295,11 @@ body .elementor-223 .elementor-element.elementor-element-ae4e3f9 p {
     grid-template-columns: minmax(0, 1fr) !important;
     align-items: start !important;
     justify-items: center !important;
-    width: min(100%, 820px) !important;
+    width: min(100%, 720px) !important;
     min-height: auto !important;
     margin-right: auto !important;
     margin-left: auto !important;
-    gap: 18px !important;
+    gap: 16px !important;
   }
 
   body .elementor-223 .elementor-element.elementor-element-a5c19d3,
@@ -3239,7 +3313,7 @@ body .elementor-223 .elementor-element.elementor-element-ae4e3f9 p {
 
   body .elementor-223 .elementor-element.elementor-element-7470725 {
     order: 1 !important;
-    width: min(100%, 760px) !important;
+    width: min(100%, 680px) !important;
     margin: 0 auto !important;
     text-align: center !important;
   }
@@ -3249,13 +3323,13 @@ body .elementor-223 .elementor-element.elementor-element-ae4e3f9 p {
     max-width: none !important;
     margin: 0 auto !important;
     text-align: center !important;
-    font-size: clamp(46px, 8vw, 72px) !important;
+    font-size: clamp(42px, 7.2vw, 62px) !important;
     line-height: 0.98 !important;
   }
 
   body .elementor-223 .elementor-element.elementor-element-ca331d7 {
     order: 2 !important;
-    width: min(100%, 760px) !important;
+    width: min(100%, 640px) !important;
     margin: 2px auto 4px !important;
   }
 
@@ -3269,7 +3343,7 @@ body .elementor-223 .elementor-element.elementor-element-ae4e3f9 p {
 
   body .elementor-223 .elementor-element.elementor-element-bbcef59 {
     order: 3 !important;
-    width: min(100%, 720px) !important;
+    width: min(100%, 620px) !important;
     margin: 0 auto !important;
     text-align: center !important;
   }
@@ -3284,7 +3358,7 @@ body .elementor-223 .elementor-element.elementor-element-ae4e3f9 p {
 
   body .elementor-223 .elementor-element.elementor-element-4146d90 {
     order: 4 !important;
-    width: min(100%, 720px) !important;
+    width: min(100%, 620px) !important;
     margin: 0 auto !important;
   }
 
