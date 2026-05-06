@@ -193,6 +193,207 @@ if (!defined('ABSPATH')) {
         }
     }, { passive: true });
 })();
+
+// Sur mobile, déplace le widget de réservation juste après le titre du hero
+(function() {
+    const MOBILE_BREAKPOINT = 820;
+    const DEBUG = true;
+
+    function log(...args) {
+        if (DEBUG) console.log('[HeroReorder]', ...args);
+    }
+
+    function repositionBookingWidget() {
+        log('Running repositionBookingWidget, width:', window.innerWidth);
+
+        // Cherche le widget Elementor qui contient le booking
+        const salonInner = document.querySelector('#sln-salon, .sln-bootstrap');
+        log('salonInner found:', !!salonInner, salonInner);
+        if (!salonInner) {
+            log('No #sln-salon found, retrying in 1s...');
+            return false;
+        }
+
+        // Le widget Elementor parent contient tout le shortcode
+        const widgetWrapper = salonInner.closest('.elementor-widget') || salonInner.closest('.hero-booking') || salonInner.parentElement;
+        log('widgetWrapper:', widgetWrapper);
+        if (!widgetWrapper) return false;
+
+        // Trouve le titre principal du hero
+        const heroTitle = document.querySelector(
+            '.ba-el-hero h1, .ba-el-hero .elementor-heading-title, .hero h1, .elementor-section h1, h1.elementor-heading-title'
+        );
+        log('heroTitle:', heroTitle);
+        if (!heroTitle) return false;
+
+        // Trouve le widget Elementor du titre
+        const titleWrapper = heroTitle.closest('.elementor-widget') || heroTitle.closest('.elementor-element') || heroTitle;
+        log('titleWrapper:', titleWrapper);
+
+        // Mémoriser le parent original du widget
+        if (!widgetWrapper.dataset.originalSaved) {
+            widgetWrapper.dataset.originalSaved = 'true';
+            widgetWrapper._originalParent = widgetWrapper.parentNode;
+            widgetWrapper._originalNextSibling = widgetWrapper.nextSibling;
+            log('Original position saved');
+        }
+
+        const isMobile = window.innerWidth < MOBILE_BREAKPOINT;
+        const isMovedToHeader = widgetWrapper.dataset.movedToHeader === 'true';
+        log('isMobile:', isMobile, 'isMoved:', isMovedToHeader);
+
+        if (isMobile && !isMovedToHeader) {
+            log('-> Moving widget after title');
+            titleWrapper.parentNode.insertBefore(widgetWrapper, titleWrapper.nextSibling);
+            widgetWrapper.dataset.movedToHeader = 'true';
+        } else if (!isMobile && isMovedToHeader) {
+            log('-> Restoring widget to original position');
+            if (widgetWrapper._originalNextSibling && widgetWrapper._originalNextSibling.parentNode === widgetWrapper._originalParent) {
+                widgetWrapper._originalParent.insertBefore(widgetWrapper, widgetWrapper._originalNextSibling);
+            } else {
+                widgetWrapper._originalParent.appendChild(widgetWrapper);
+            }
+            widgetWrapper.dataset.movedToHeader = 'false';
+        }
+
+        return true;
+    }
+
+    // Init avec retry si le widget n'est pas encore prêt
+    function init() {
+        let attempts = 0;
+        function tryReposition() {
+            attempts++;
+            if (!repositionBookingWidget() && attempts < 10) {
+                setTimeout(tryReposition, 500);
+            }
+        }
+        tryReposition();
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+    window.addEventListener('load', repositionBookingWidget);
+
+    // Réagir au resize avec debounce
+    let resizeTimer;
+    window.addEventListener('resize', function() {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(repositionBookingWidget, 150);
+    });
+})();
+
+// Déplace le bloc Conseil/Précision/Style dans le hero juste après les barbers
+(function() {
+    const DEBUG = true;
+    function log(...args) { if (DEBUG) console.log('[MoveSignature]', ...args); }
+
+    function moveSignatureSection() {
+        log('=== Trying to move signature section ===');
+
+        // 1. Trouver les titres Conseil/Précision/Style par leur texte
+        const targetTexts = ['conseil', 'précision', 'precision', 'style'];
+        const allHeadings = document.querySelectorAll('h1, h2, h3, h4, h5, h6, .elementor-heading-title');
+        log('Total headings found:', allHeadings.length);
+
+        let foundHeadings = [];
+        for (const h of allHeadings) {
+            const text = (h.textContent || '').trim().toLowerCase();
+            if (targetTexts.includes(text)) {
+                foundHeadings.push({ text, element: h });
+                log('Found target heading:', text, h);
+            }
+        }
+
+        if (foundHeadings.length === 0) {
+            log('No Conseil/Précision/Style headings found');
+            return false;
+        }
+
+        // 2. Remonter jusqu'à la section Elementor commune
+        const firstHeading = foundHeadings[0].element;
+        const signatureSection = firstHeading.closest('.elementor-top-section, .elementor-section, section.elementor-element[data-element_type="section"]');
+        log('signatureSection:', signatureSection);
+
+        if (!signatureSection) {
+            log('No parent section found');
+            return false;
+        }
+
+        // 3. Trouver le conteneur des barbers (multiples sélecteurs)
+        let barbersContainer =
+            document.querySelector('.ba-el-hero-attendants') ||
+            document.querySelector('.hero-team') ||
+            document.querySelector('[class*="hero-attendant"]') ||
+            document.querySelector('.sln-datashortcode--assistants') ||
+            document.querySelector('.sln-datalist');
+
+        // Fallback : chercher un widget Elementor qui contient des cartes barbers
+        if (!barbersContainer) {
+            const sample = document.querySelector('.sln-datalist__item, .sln-datalist__item__image');
+            if (sample) {
+                barbersContainer = sample.closest('.sln-datalist, .sln-datashortcode--assistants') || sample.parentElement;
+            }
+        }
+
+        log('barbersContainer:', barbersContainer);
+
+        if (!barbersContainer) {
+            log('No barbers container found');
+            return false;
+        }
+
+        // 4. Trouver le widget parent des barbers OU sa colonne
+        // On veut le widget Elementor qui contient le shortcode des barbers
+        const barbersAnchor =
+            barbersContainer.closest('.elementor-widget') ||
+            barbersContainer.closest('.elementor-element') ||
+            barbersContainer;
+        log('barbersAnchor:', barbersAnchor);
+
+        // 5. Si déjà déplacé, ne rien faire
+        if (signatureSection.dataset.movedToHero === 'true') {
+            log('Already moved, skipping');
+            return true;
+        }
+
+        // 6. Vérifier que la section ET les barbers ont des parents dans le DOM
+        if (!barbersAnchor.parentNode || !signatureSection.parentNode) {
+            log('Missing parent node');
+            return false;
+        }
+
+        // 7. Déplacer la section juste après le bloc des barbers
+        log('-> Moving signature section after barbers');
+        barbersAnchor.parentNode.insertBefore(signatureSection, barbersAnchor.nextSibling);
+        signatureSection.dataset.movedToHero = 'true';
+        log('✓ Done');
+        return true;
+    }
+
+    function init() {
+        let attempts = 0;
+        function tryMove() {
+            attempts++;
+            log('Attempt', attempts);
+            const success = moveSignatureSection();
+            if (!success && attempts < 15) {
+                setTimeout(tryMove, 500);
+            }
+        }
+        tryMove();
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+    window.addEventListener('load', () => setTimeout(moveSignatureSection, 200));
+})();
 </script>
 
 <main>

@@ -1024,7 +1024,11 @@ body .elementor-223 .elementor-element.elementor-element-a5c19d3 > .elementor-el
   grid-template-columns: repeat(4, minmax(112px, 1fr));
   gap: 12px;
   max-width: 610px;
-  margin: 0;
+  margin: 0 auto;
+}
+
+.ba-el-assistants-compact .sln-datashortcode--assistants {
+  text-align: center;
 }
 
 .ba-el-assistants-compact .sln-datashortcode--assistants .sln-datalist__item {
@@ -2320,15 +2324,135 @@ body .elementor-223 .elementor-element.elementor-element-cd7f074:not(.elementor-
     padding: 72px 0;
     display: block;
     grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .hero__copy {
+    text-align: center;
+  }
+
+  .hero p,
+  .hero .eyebrow {
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .hero-team {
     grid-template-columns: 1fr;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero__actions {
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .hero-booking {
     max-height: none;
     margin-top: 32px;
+  }
+
+  /* Version Elementor : centrer description, barbers, boutons */
+  body .elementor-223 .elementor-element.elementor-element-a5c19d3,
+  body .elementor-223 .elementor-element.elementor-element-a5c19d3 > .elementor-widget-wrap,
+  body .elementor-223 .elementor-element.elementor-element-a5c19d3 > .elementor-element-populated,
+  body .elementor-223 .elementor-element.elementor-element-a5c19d3 > .elementor-element-populated > .elementor-widget-wrap {
+    text-align: center !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  body .elementor-223 .elementor-element.elementor-element-a5c19d3 .elementor-widget {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Description (text editor) : justify + espacement réduit */
+  body .elementor-223 .elementor-element.elementor-element-bbcef59,
+  body .elementor-223 .elementor-element.elementor-element-bbcef59 .elementor-widget-container {
+    margin-top: 8px !important;
+    margin-bottom: 8px !important;
+    text-align: justify !important;
+    text-align-last: center;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+  }
+
+  body .elementor-223 .elementor-element.elementor-element-bbcef59 p,
+  body .elementor-223 .elementor-element.elementor-element-bbcef59 .elementor-widget-container > * {
+    text-align: justify !important;
+    text-align-last: center;
+    margin: 0 !important;
+    line-height: 1.55 !important;
+  }
+
+  /* Titre "Formules claires, résultat net." (section services) */
+  body .elementor-223 .elementor-element.elementor-element-ca84b18 .elementor-heading-title {
+    font-size: 28px !important;
+    line-height: 1.15 !important;
+    letter-spacing: -0.5px !important;
+  }
+
+  /* Titre footer "Prêt à transformer votre look ?" - réduit pour mobile */
+  .footer-cta-title {
+    font-size: 22px !important;
+    line-height: 1.2 !important;
+    letter-spacing: -0.3px !important;
+  }
+
+  /* Boutons d'action : centrés */
+  body .elementor-223 .ba-el-button-row .elementor-widget-wrap {
+    justify-content: center !important;
+    align-items: center !important;
+  }
+
+  /* Cartes barbers (mini) : centrer la grille */
+  body .elementor-223 .ba-el-hero-attendants,
+  body .elementor-223 .ba-el-hero-attendants > .elementor-widget-wrap,
+  body .elementor-223 .ba-el-hero-attendants .elementor-section,
+  body .elementor-223 .ba-el-hero-attendants > .elementor-element-populated {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+
+  /* Cartes barbers : centrer chaque carte dans son conteneur */
+  body .elementor-223 .ba-el-hero-attendant-card {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  body .elementor-223 .ba-el-hero-attendant-card > .elementor-element-populated,
+  body .elementor-223 .ba-el-hero-attendant-card .elementor-widget {
+    justify-content: center !important;
+    align-items: center !important;
+    text-align: center !important;
+  }
+
+  /* Cartes skills/services (Conseil, Précision, Style) : centrer le contenu */
+  body .elementor-223 .ba-el-signature-card,
+  body .elementor-223 .ba-el-service-card {
+    text-align: center !important;
+  }
+
+  body .elementor-223 .ba-el-signature-card > .elementor-element-populated,
+  body .elementor-223 .ba-el-service-card > .elementor-element-populated {
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+  }
+
+  body .elementor-223 .ba-el-signature-card .elementor-heading-title,
+  body .elementor-223 .ba-el-service-card .elementor-heading-title,
+  body .elementor-223 .ba-el-signature-card .elementor-widget-text-editor,
+  body .elementor-223 .ba-el-service-card .elementor-widget-text-editor,
+  body .elementor-223 .ba-el-signature-card p,
+  body .elementor-223 .ba-el-service-card p {
+    text-align: center !important;
   }
 
   .ba-el-hero,
@@ -2361,6 +2485,16 @@ body .elementor-223 .elementor-element.elementor-element-cd7f074:not(.elementor-
 
   .ba-el-assistants-compact .sln-datashortcode--assistants .sln-datalist {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: 360px;
+    margin: 0 auto !important;
+  }
+
+  .ba-el-assistants-compact,
+  .ba-el-assistants-compact .elementor-widget-container,
+  .ba-el-assistants-compact .sln-datashortcode--assistants {
+    text-align: center !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
   }
 
   .section-head {
@@ -2950,5 +3084,128 @@ body .elementor-223 .elementor-element.elementor-element-cd7f074:not(.elementor-
     flex-basis: 198px;
     width: 198px;
     max-width: 198px;
+  }
+}
+
+/* ========== CARDS CONSEIL / PRÉCISION / STYLE - Style harmonisé avec barbers ========== */
+/* Section parente : padding équilibré */
+body .elementor-223 .elementor-element.elementor-element-cd7f074 {
+  padding: 32px 12px !important;
+}
+
+/* Container interne : gap entre cartes */
+body .elementor-223 .elementor-element.elementor-element-cd7f074 > .elementor-container {
+  gap: 14px !important;
+}
+
+/* Cartes individuelles : style aligné avec les cartes barbers */
+body .elementor-223 .elementor-element.elementor-element-3cd73d6 > .elementor-element-populated,
+body .elementor-223 .elementor-element.elementor-element-0992b75 > .elementor-element-populated,
+body .elementor-223 .elementor-element.elementor-element-ae4e3f9 > .elementor-element-populated {
+  padding: 18px 16px !important;
+  border-radius: 10px !important;
+  border: 1px solid rgba(244, 240, 232, 0.16) !important;
+  background-color: rgba(14, 15, 15, 0.45) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18) !important;
+  transition: transform 0.3s ease, background-color 0.3s ease, border-color 0.3s ease !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-start !important;
+  align-items: center !important;
+  min-height: auto !important;
+}
+
+/* Hover des cartes : effet premium */
+body .elementor-223 .elementor-element.elementor-element-3cd73d6 > .elementor-element-populated:hover,
+body .elementor-223 .elementor-element.elementor-element-0992b75 > .elementor-element-populated:hover,
+body .elementor-223 .elementor-element.elementor-element-ae4e3f9 > .elementor-element-populated:hover {
+  transform: translateY(-3px);
+  background-color: rgba(200, 164, 93, 0.08) !important;
+  border-color: rgba(200, 164, 93, 0.4) !important;
+}
+
+/* Titres : compacts et marqués */
+body .elementor-223 .elementor-element.elementor-element-3cd73d6 .elementor-heading-title,
+body .elementor-223 .elementor-element.elementor-element-0992b75 .elementor-heading-title,
+body .elementor-223 .elementor-element.elementor-element-ae4e3f9 .elementor-heading-title {
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  line-height: 1.25 !important;
+  margin-bottom: 8px !important;
+  letter-spacing: -0.2px;
+  color: var(--ba-white) !important;
+}
+
+/* Espacement intérieur des widgets internes des cartes */
+body .elementor-223 .elementor-element.elementor-element-3cd73d6 .elementor-widget,
+body .elementor-223 .elementor-element.elementor-element-0992b75 .elementor-widget,
+body .elementor-223 .elementor-element.elementor-element-ae4e3f9 .elementor-widget {
+  margin-bottom: 0 !important;
+  width: 100%;
+}
+
+/* Textes : line-height équilibré, taille raisonnable */
+body .elementor-223 .elementor-element.elementor-element-3cd73d6 .elementor-widget-text-editor,
+body .elementor-223 .elementor-element.elementor-element-0992b75 .elementor-widget-text-editor,
+body .elementor-223 .elementor-element.elementor-element-ae4e3f9 .elementor-widget-text-editor,
+body .elementor-223 .elementor-element.elementor-element-3cd73d6 p,
+body .elementor-223 .elementor-element.elementor-element-0992b75 p,
+body .elementor-223 .elementor-element.elementor-element-ae4e3f9 p {
+  font-size: 13px !important;
+  line-height: 1.55 !important;
+  color: rgba(244, 240, 232, 0.72) !important;
+  margin: 0 !important;
+}
+
+/* Mobile : cartes empilées verticalement, plus compactes */
+@media (max-width: 820px) {
+  body .elementor-223 .elementor-element.elementor-element-cd7f074 {
+    padding: 16px 12px !important;
+  }
+
+  body .elementor-223 .elementor-element.elementor-element-cd7f074 > .elementor-container {
+    gap: 10px !important;
+    flex-direction: column !important;
+  }
+
+  body .elementor-223 .elementor-element.elementor-element-3cd73d6,
+  body .elementor-223 .elementor-element.elementor-element-0992b75,
+  body .elementor-223 .elementor-element.elementor-element-ae4e3f9 {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  body .elementor-223 .elementor-element.elementor-element-3cd73d6 > .elementor-element-populated,
+  body .elementor-223 .elementor-element.elementor-element-0992b75 > .elementor-element-populated,
+  body .elementor-223 .elementor-element.elementor-element-ae4e3f9 > .elementor-element-populated {
+    padding: 14px 16px !important;
+    min-height: auto !important;
+  }
+
+  body .elementor-223 .elementor-element.elementor-element-3cd73d6 .elementor-heading-title,
+  body .elementor-223 .elementor-element.elementor-element-0992b75 .elementor-heading-title,
+  body .elementor-223 .elementor-element.elementor-element-ae4e3f9 .elementor-heading-title {
+    font-size: 15px !important;
+    margin-bottom: 6px !important;
+  }
+
+  body .elementor-223 .elementor-element.elementor-element-3cd73d6 p,
+  body .elementor-223 .elementor-element.elementor-element-0992b75 p,
+  body .elementor-223 .elementor-element.elementor-element-ae4e3f9 p {
+    font-size: 13px !important;
+    line-height: 1.5 !important;
+  }
+}
+
+/* Très petit mobile : titres encore plus compacts */
+@media (max-width: 480px) {
+  body .elementor-223 .elementor-element.elementor-element-ca84b18 .elementor-heading-title {
+    font-size: 24px !important;
+    line-height: 1.15 !important;
+  }
+
+  .footer-cta-title {
+    font-size: 19px !important;
+    line-height: 1.2 !important;
   }
 }
