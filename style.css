@@ -3591,3 +3591,35 @@ body .elementor-223 .elementor-element.elementor-element-ae4e3f9 p {
     height: 44px;
   }
 }
+
+/* ========== MOBILE HERO WITHOUT DUPLICATE TITLE ========== */
+@media (max-width: 767px) {
+  body .elementor-223 .elementor-element.elementor-element-8ab9075 {
+    padding-top: 18px !important;
+  }
+
+  body .elementor-223 .elementor-element.elementor-element-7470725 {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    margin: -1px !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    clip: rect(0 0 0 0) !important;
+    clip-path: inset(50%) !important;
+    border: 0 !important;
+    white-space: nowrap !important;
+  }
+
+  body .elementor-223 .elementor-element.elementor-element-ca331d7 {
+    order: 1 !important;
+  }
+
+  body .elementor-223 .elementor-element.elementor-element-bbcef59 {
+    order: 2 !important;
+  }
+
+  body .elementor-223 .elementor-element.elementor-element-4146d90 {
+    order: 3 !important;
+  }
+}
