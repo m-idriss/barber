@@ -4166,11 +4166,7 @@ body .elementor-223 .elementor-element.elementor-element-ca331d7 .sln-bootstrap 
   }
 
   body .elementor-223 .elementor-element.elementor-element-ca331d7,
-  body .elementor-223 .elementor-element.elementor-element-ca331d7.elementor-widget,
-  body .elementor-223 .elementor-element.elementor-element-ca331d7 > .elementor-widget-container,
-  body .elementor-223 .elementor-element.elementor-element-ca331d7 #sln-salon,
-  body .elementor-223 .elementor-element.elementor-element-ca331d7 #sln-salon #sln-salon__content,
-  body .elementor-223 .elementor-element.elementor-element-ca331d7 .sln-salon--m__content {
+  body .elementor-223 .elementor-element.elementor-element-ca331d7.elementor-widget {
     box-sizing: border-box !important;
     width: 100% !important;
     max-width: 408px !important;
@@ -4182,14 +4178,23 @@ body .elementor-223 .elementor-element.elementor-element-ca331d7 .sln-bootstrap 
   body .elementor-223 .elementor-element.elementor-element-ca331d7.elementor-widget {
     justify-self: center !important;
     place-self: start center !important;
-    left: auto !important;
+    position: relative !important;
+    left: 50% !important;
     right: auto !important;
-    transform: none !important;
+    transform: translateX(-50%) !important;
   }
 
   body .elementor-223 .elementor-element.elementor-element-ca331d7 > .elementor-widget-container,
-  body .elementor-223 .elementor-element.elementor-element-ca331d7 #sln-salon {
+  body .elementor-223 .elementor-element.elementor-element-ca331d7 #sln-salon,
+  body .elementor-223 .elementor-element.elementor-element-ca331d7 #sln-salon #sln-salon__content,
+  body .elementor-223 .elementor-element.elementor-element-ca331d7 .sln-salon--m__content {
+    box-sizing: border-box !important;
     display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+    transform: none !important;
   }
 
   body .elementor-223 .elementor-element.elementor-element-ca331d7 #sln-salon,
