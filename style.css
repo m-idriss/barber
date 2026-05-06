@@ -2403,6 +2403,64 @@ body .elementor-223 .elementor-element.elementor-element-cd7f074:not(.elementor-
     letter-spacing: -0.3px !important;
   }
 
+  /* ========== HOMOGÉNÉISATION DES MARGES MOBILES (approche globale) ========== */
+  /* Variable de padding cohérent pour tous les blocs Elementor sur mobile */
+  body.elementor-page .elementor-section.elementor-section-boxed > .elementor-container,
+  body.elementor-page .elementor-top-section > .elementor-container,
+  body.elementor-page .elementor-section > .elementor-container {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+    box-sizing: border-box !important;
+    max-width: 100% !important;
+  }
+
+  /* Toutes les colonnes Elementor de la home : pas de padding/margin ajoutés */
+  body.elementor-page .elementor-column > .elementor-element-populated {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  /* Tous les widgets Elementor doivent prendre la pleine largeur de leur colonne */
+  body.elementor-page .elementor-widget {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Force le widget container à ne pas ajouter de padding latéral en mobile */
+  body.elementor-page .elementor-widget > .elementor-widget-container {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  /* Cards Conseil/Précision/Style : padding interne uniforme (déjà géré plus haut) */
+  body .elementor-223 .elementor-element.elementor-element-cd7f074 > .elementor-container {
+    gap: 12px !important;
+  }
+
+  /* Widget de réservation : centrer et annuler les margins négatifs inline du plugin SLN */
+  #sln-salon,
+  #sln-salon.sln-bootstrap,
+  body #sln-salon[style] {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Conteneur Elementor du widget réservation : largeur 100% sans débordement */
+  body .elementor-223 .elementor-element.elementor-element-ca331d7,
+  body .elementor-223 .elementor-element.elementor-element-ca331d7 .elementor-widget-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    box-sizing: border-box !important;
+    overflow: hidden;
+  }
+
   /* Boutons d'action : centrés */
   body .elementor-223 .ba-el-button-row .elementor-widget-wrap {
     justify-content: center !important;

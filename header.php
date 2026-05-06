@@ -394,6 +394,77 @@ if (!defined('ABSPATH')) {
     }
     window.addEventListener('load', () => setTimeout(moveSignatureSection, 200));
 })();
+
+// Annule les styles inline du plugin SLN qui décale le widget de réservation (margins négatifs)
+(function() {
+    function fixSalonInlineStyles() {
+        const salon = document.getElementById('sln-salon');
+        if (!salon) return false;
+
+        // Retire les styles inline width, margin-left, margin-right qui sont en !important
+        salon.style.removeProperty('width');
+        salon.style.removeProperty('margin-left');
+        salon.style.removeProperty('margin-right');
+        // Si style attribute est vide après cleanup, le supprime complètement
+        if (!salon.getAttribute('style') || salon.getAttribute('style').trim() === '') {
+            salon.removeAttribute('style');
+        }
+        return true;
+    }
+
+    // Init avec retry
+    function init() {
+        let attempts = 0;
+        function tryFix() {
+            attempts++;
+            const ok = fixSalonInlineStyles();
+            if (!ok && attempts < 20) {
+                setTimeout(tryFix, 250);
+            }
+        }
+        tryFix();
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+    window.addEventListener('load', fixSalonInlineStyles);
+
+    // Réagir au resize (le plugin SLN peut recalculer)
+    let resizeTimer;
+    window.addEventListener('resize', function() {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(fixSalonInlineStyles, 100);
+    });
+
+    // Observer pour détecter si le plugin SLN remet ses styles
+    if (window.MutationObserver) {
+        const observer = new MutationObserver(function(mutations) {
+            for (const m of mutations) {
+                if (m.type === 'attributes' && m.attributeName === 'style' && m.target.id === 'sln-salon') {
+                    fixSalonInlineStyles();
+                }
+            }
+        });
+
+        // Observer dès qu'on a #sln-salon
+        function startObserving() {
+            const salon = document.getElementById('sln-salon');
+            if (salon) {
+                observer.observe(salon, { attributes: true, attributeFilter: ['style'] });
+            } else {
+                setTimeout(startObserving, 250);
+            }
+        }
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', startObserving);
+        } else {
+            startObserving();
+        }
+    }
+})();
 </script>
 
 <main>
