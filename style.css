@@ -4224,3 +4224,67 @@ body .elementor-223 .elementor-element.elementor-element-ca331d7 .sln-bootstrap 
     height: 46px !important;
   }
 }
+
+/* Final responsive booking alignment: tablet roomy, mobile true gutters. */
+@media (min-width: 768px) and (max-width: 1024px) {
+  body .elementor-223 .elementor-element.elementor-element-8ab9075 > .elementor-container {
+    width: min(100%, 820px) !important;
+    max-width: 820px !important;
+  }
+
+  body .elementor-223 .elementor-element.elementor-element-ca331d7 {
+    width: min(100%, 760px) !important;
+    max-width: 760px !important;
+    margin-right: auto !important;
+    margin-left: auto !important;
+  }
+}
+
+@media (max-width: 767px) {
+  body .elementor-223 .elementor-element.elementor-element-8ab9075,
+  body .elementor-223 .elementor-element.elementor-element-8ab9075.elementor-section {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+  }
+
+  body .elementor-223 .elementor-element.elementor-element-8ab9075 > .elementor-container,
+  body .elementor-223 .elementor-element.elementor-element-ca331d7,
+  body .elementor-223 .elementor-element.elementor-element-ca331d7.elementor-widget,
+  body .elementor-223 .elementor-element.elementor-element-ca331d7 > .elementor-widget-container,
+  body .elementor-223 .elementor-element.elementor-element-ca331d7 #sln-salon {
+    width: 100% !important;
+    max-width: none !important;
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+  }
+
+  body .elementor-223 .elementor-element.elementor-element-ca331d7 > .elementor-widget-container,
+  body .elementor-223 .elementor-element.elementor-element-ca331d7 #sln-salon {
+    overflow: visible !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+  }
+
+  body .elementor-223 .elementor-element.elementor-element-ca331d7 #sln-salon #sln-salon__content,
+  body .elementor-223 .elementor-element.elementor-element-ca331d7 .sln-salon--m__content {
+    position: relative !important;
+    left: 18px !important;
+    box-sizing: border-box !important;
+    width: calc(100% - 36px) !important;
+    max-width: none !important;
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+    background: var(--ba-panel) !important;
+    background-color: var(--ba-panel) !important;
+    border-radius: var(--ba-radius-md) !important;
+  }
+}
+
+@media (max-width: 380px) {
+  body .elementor-223 .elementor-element.elementor-element-ca331d7 #sln-salon #sln-salon__content,
+  body .elementor-223 .elementor-element.elementor-element-ca331d7 .sln-salon--m__content {
+    left: 14px !important;
+    width: calc(100% - 28px) !important;
+  }
+}
