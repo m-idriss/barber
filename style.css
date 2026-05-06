@@ -4149,6 +4149,40 @@ body .elementor-223 .elementor-element.elementor-element-ca331d7 .sln-bootstrap 
   }
 }
 
+/* Force real visible side gutters on the mobile booking card. */
+@media (max-width: 767px) {
+  body .elementor-223 .elementor-element.elementor-element-8ab9075 > .elementor-container {
+    width: 100% !important;
+    max-width: none !important;
+  }
+
+  body .elementor-223 .elementor-element.elementor-element-ca331d7,
+  body .elementor-223 .elementor-element.elementor-element-ca331d7.elementor-widget,
+  body .elementor-223 .elementor-element.elementor-element-ca331d7 > .elementor-widget-container,
+  body .elementor-223 .elementor-element.elementor-element-ca331d7 #sln-salon {
+    box-sizing: border-box !important;
+    width: min(calc(100vw - 44px), 408px) !important;
+    max-width: min(calc(100vw - 44px), 408px) !important;
+    margin-right: auto !important;
+    margin-left: auto !important;
+  }
+
+  body .elementor-223 .elementor-element.elementor-element-ca331d7 #sln-salon,
+  body .elementor-223 .elementor-element.elementor-element-ca331d7 #sln-salon #sln-salon__content {
+    border-radius: var(--ba-radius-md) !important;
+  }
+}
+
+@media (max-width: 380px) {
+  body .elementor-223 .elementor-element.elementor-element-ca331d7,
+  body .elementor-223 .elementor-element.elementor-element-ca331d7.elementor-widget,
+  body .elementor-223 .elementor-element.elementor-element-ca331d7 > .elementor-widget-container,
+  body .elementor-223 .elementor-element.elementor-element-ca331d7 #sln-salon {
+    width: calc(100vw - 34px) !important;
+    max-width: calc(100vw - 34px) !important;
+  }
+}
+
 @media (max-width: 380px) {
   body .elementor-223 .elementor-element.elementor-element-ca331d7 {
     width: calc(100% - 30px) !important;
