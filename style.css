@@ -4167,6 +4167,20 @@ body .elementor-223 .elementor-element.elementor-element-ca331d7 .sln-bootstrap 
     margin-left: auto !important;
   }
 
+  body .elementor-223 .elementor-element.elementor-element-ca331d7,
+  body .elementor-223 .elementor-element.elementor-element-ca331d7.elementor-widget {
+    justify-self: center !important;
+    place-self: start center !important;
+    left: auto !important;
+    right: auto !important;
+    transform: none !important;
+  }
+
+  body .elementor-223 .elementor-element.elementor-element-ca331d7 > .elementor-widget-container,
+  body .elementor-223 .elementor-element.elementor-element-ca331d7 #sln-salon {
+    display: block !important;
+  }
+
   body .elementor-223 .elementor-element.elementor-element-ca331d7 #sln-salon,
   body .elementor-223 .elementor-element.elementor-element-ca331d7 #sln-salon #sln-salon__content {
     border-radius: var(--ba-radius-md) !important;
