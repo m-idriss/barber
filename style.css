@@ -3218,7 +3218,7 @@ body .elementor-223 .elementor-element.elementor-element-ae4e3f9 p {
 
   body .elementor-223 .elementor-element.elementor-element-8ab9075 > .elementor-container {
     display: grid !important;
-    grid-template-columns: minmax(390px, 0.9fr) minmax(0, 1.08fr) !important;
+    grid-template-columns: minmax(0, 1.08fr) minmax(390px, 0.9fr) !important;
     align-items: center !important;
     width: min(100%, 1180px) !important;
     min-height: calc(100vh - 170px) !important;
@@ -3228,17 +3228,17 @@ body .elementor-223 .elementor-element.elementor-element-ae4e3f9 p {
   }
 
   body .elementor-223 .elementor-element.elementor-element-0198c24 {
-    order: 1 !important;
+    order: 2 !important;
     width: 100% !important;
     max-width: 520px !important;
-    justify-self: start !important;
+    justify-self: end !important;
   }
 
   body .elementor-223 .elementor-element.elementor-element-a5c19d3 {
-    order: 2 !important;
+    order: 1 !important;
     width: 100% !important;
     max-width: 620px !important;
-    justify-self: end !important;
+    justify-self: start !important;
   }
 
   body .elementor-223 .elementor-element.elementor-element-a5c19d3 > .elementor-widget-wrap {
