@@ -3623,3 +3623,230 @@ body .elementor-223 .elementor-element.elementor-element-ae4e3f9 p {
     order: 3 !important;
   }
 }
+
+/* ========== MOBILE BOOKING WIDGET COMPACT ========== */
+@media (max-width: 767px) {
+  body .elementor-223 .elementor-element.elementor-element-ca331d7 {
+    width: calc(100% - 24px) !important;
+    max-width: 420px !important;
+    margin-right: auto !important;
+    margin-left: auto !important;
+  }
+
+  body .elementor-223 .elementor-element.elementor-element-ca331d7 > .elementor-widget-container {
+    border-radius: var(--ba-radius-md);
+  }
+
+  body .elementor-223 .elementor-element.elementor-element-ca331d7 #sln-salon #sln-salon__content,
+  body .elementor-223 .elementor-element.elementor-element-ca331d7 .sln-bootstrap #sln-salon__content {
+    padding: 12px 10px 10px !important;
+  }
+
+  #sln-salon .sln-topbar {
+    display: none !important;
+  }
+
+  #sln-salon .sln-salon-title,
+  #sln-salon .salon-step-title {
+    margin: 0 !important;
+    text-align: left !important;
+  }
+
+  #sln-salon .sln-salon-title {
+    font-size: 20px !important;
+    line-height: 1.1 !important;
+  }
+
+  #sln-salon .salon-step-title {
+    margin-top: 3px !important;
+    color: var(--ba-muted) !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    line-height: 1.15 !important;
+  }
+
+  #sln-salon .sln-progbar__wrapper {
+    display: grid !important;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    gap: 10px;
+    margin: 10px 0 8px !important;
+  }
+
+  #sln-salon .sln-progbar__text {
+    font-size: 11px !important;
+    line-height: 1 !important;
+    white-space: nowrap;
+  }
+
+  #sln-salon .sln-progbar {
+    height: 7px !important;
+    margin: 0 !important;
+    border-radius: var(--ba-radius-pill) !important;
+  }
+
+  #sln-salon .sln-box--main,
+  #sln-salon .sln-box--fixed_height,
+  #sln-salon .sln-form-wrapper,
+  #sln-salon .sln-step-content {
+    min-height: 0 !important;
+    height: auto !important;
+  }
+
+  #sln-salon .sln-service-list,
+  #sln-salon .sln-service-list.sln-list {
+    max-height: min(46vh, 430px) !important;
+    padding: 0 3px 4px !important;
+    mask-image: linear-gradient(to bottom, black 0%, black 96%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 0%, black 96%, transparent 100%);
+  }
+
+  #sln-salon .sln-list__item.sln-service {
+    display: grid !important;
+    grid-template-columns: 54px minmax(0, 1fr) 30px;
+    align-items: center;
+    gap: 10px;
+    min-height: 78px !important;
+    margin: 0 0 7px !important;
+    padding: 8px 9px !important;
+    border-radius: var(--ba-radius-sm) !important;
+  }
+
+  #sln-salon .sln-list__item__thumb {
+    width: 54px !important;
+    height: 54px !important;
+    margin: 0 !important;
+  }
+
+  #sln-salon .sln-list__item__thumb img {
+    width: 54px !important;
+    height: 54px !important;
+    border-radius: var(--ba-radius-xs) !important;
+    object-fit: cover !important;
+  }
+
+  #sln-salon .sln-list__item__content {
+    min-width: 0;
+  }
+
+  #sln-salon .sln-list__item__name {
+    display: -webkit-box;
+    margin: 0 0 3px !important;
+    overflow: hidden;
+    color: var(--ba-white) !important;
+    font-size: 13px !important;
+    font-weight: 800 !important;
+    line-height: 1.12 !important;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  #sln-salon .sln-list__item__description {
+    display: -webkit-box;
+    margin: 0 0 4px !important;
+    overflow: hidden;
+    color: var(--ba-muted) !important;
+    font-size: 11px !important;
+    line-height: 1.2 !important;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+  }
+
+  #sln-salon .sln-list__item__info {
+    display: flex !important;
+    align-items: center;
+    gap: 12px;
+    margin: 0 !important;
+  }
+
+  #sln-salon .sln-list__item__price,
+  #sln-salon .sln-list__item__duration,
+  #sln-salon .sln-list__item__info h3 {
+    margin: 0 !important;
+    font-size: 12px !important;
+    line-height: 1 !important;
+  }
+
+  #sln-salon .sln-list__item__action {
+    justify-self: center;
+    margin: 0 !important;
+  }
+
+  #sln-salon .sln-checkbox,
+  #sln-salon .sln-checkbox label,
+  #sln-salon .sln-checkbox input + label {
+    width: 24px !important;
+    height: 24px !important;
+    min-width: 24px !important;
+    min-height: 24px !important;
+  }
+
+  #sln-salon .sln-box__bottombar,
+  #sln-salon .sln-box__bottombar--services,
+  #sln-salon .sln-cart-footer,
+  #sln-salon .sln-form-actions,
+  #sln-salon .sln-step-actions,
+  #sln-salon .sln-summary-bar {
+    margin: 8px -10px -10px !important;
+    padding: 10px 12px 12px !important;
+    border-radius: 0 0 var(--ba-radius-md) var(--ba-radius-md);
+  }
+
+  #sln-salon .sln-box__bottombar > .col-xs-12 {
+    display: grid !important;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr);
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 0 !important;
+  }
+
+  #sln-salon .sln-total {
+    display: flex !important;
+    align-items: baseline;
+    gap: 6px;
+    margin: 0 !important;
+  }
+
+  #sln-salon .sln-total-label,
+  #sln-salon .sln-total-price,
+  #sln-salon #services-total {
+    margin: 0 !important;
+    font-size: 15px !important;
+    line-height: 1 !important;
+  }
+
+  #sln-salon .sln-box--formactions,
+  #sln-salon .form-actions {
+    margin: 0 !important;
+  }
+
+  #sln-salon .sln-btn,
+  #sln-salon .sln-btn button,
+  #sln-salon button#sln-step-submit {
+    min-height: 38px !important;
+    height: 38px !important;
+    padding: 0 12px !important;
+    font-size: 12px !important;
+    line-height: 38px !important;
+  }
+}
+
+@media (max-width: 380px) {
+  body .elementor-223 .elementor-element.elementor-element-ca331d7 {
+    width: calc(100% - 18px) !important;
+  }
+
+  #sln-salon .sln-list__item.sln-service {
+    grid-template-columns: 48px minmax(0, 1fr) 28px;
+    gap: 8px;
+    min-height: 72px !important;
+    padding: 7px 8px !important;
+  }
+
+  #sln-salon .sln-list__item__thumb,
+  #sln-salon .sln-list__item__thumb img {
+    width: 48px !important;
+    height: 48px !important;
+  }
+}
