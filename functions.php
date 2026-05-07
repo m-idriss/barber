@@ -272,9 +272,9 @@ function ba_v201_github_release_changelog_html(array $release): string
     $paragraph = [];
     $list_items = [];
     $normalize_text = static function (string $text): string {
-        $text = preg_replace('/\[(.+?)\]\((https?:\/\/[^\s)]+)\)/', '$1: $2', $text);
-        $text = preg_replace('/(\*\*|__)(.+?)\1/', '$2', $text);
-        $text = preg_replace('/(`|~~|\*|_)(.+?)\1/', '$2', $text);
+        $text = preg_replace('/\[([^\r\n]+?)\]\((https?:\/\/[^\s)]+)\)/', '$1: $2', $text);
+        $text = preg_replace('/(\*\*|__)([^\r\n]+?)\1/', '$2', $text);
+        $text = preg_replace('/(`|~~|\*|_)([^\r\n]+?)\1/', '$2', $text);
         return is_string($text) ? $text : '';
     };
 
@@ -315,7 +315,7 @@ function ba_v201_github_release_changelog_html(array $release): string
             $flush_list();
 
             // Promote Markdown headings to h3-h6 so release notes fit inside admin cards without duplicate page-level headings.
-            $level = min(6, 2 + strlen($matches[1]));
+            $level = max(3, min(6, 2 + strlen($matches[1])));
             $text = $normalize_text($matches[2]);
             $html .= sprintf(
                 '<h%d>%s</h%d>',
@@ -355,7 +355,7 @@ function ba_v201_theme_update_check_url(): string
     );
 }
 
-function ba_v201_theme_update_notices_key(): string
+function ba_v201_theme_update_notice_key(): string
 {
     return 'ba_v201_theme_update_admin_notice_' . get_current_user_id();
 }
@@ -368,7 +368,7 @@ function ba_v201_theme_updates_screen_ids(): array
 function ba_v201_set_theme_update_notice(string $type, string $message): void
 {
     set_transient(
-        ba_v201_theme_update_notices_key(),
+        ba_v201_theme_update_notice_key(),
         [
             'type' => $type,
             'message' => $message,
@@ -466,9 +466,9 @@ function ba_v201_render_theme_update_admin_notice(): void
         return;
     }
 
-    $notice = get_transient(ba_v201_theme_update_notices_key());
+    $notice = get_transient(ba_v201_theme_update_notice_key());
     if (is_array($notice) && !empty($notice['message'])) {
-        delete_transient(ba_v201_theme_update_notices_key());
+        delete_transient(ba_v201_theme_update_notice_key());
         printf(
             '<div class="notice notice-%1$s is-dismissible"><p>%2$s</p></div>',
             esc_attr((string) ($notice['type'] ?? 'info')),
@@ -531,7 +531,7 @@ function ba_v201_render_theme_update_admin_notice(): void
         </div>
         <p><?php echo esc_html__('A new GitHub release is ready for your WordPress theme. Review the highlights below or install it now.', 'barber-architecte-v201'); ?></p>
         <details open>
-            <summary><?php echo esc_html__('What’s new in this release', 'barber-architecte-v201'); ?></summary>
+            <summary><?php echo esc_html__('What’s new in this release.', 'barber-architecte-v201'); ?></summary>
             <div>
                 <?php
                 echo wp_kses_post(
@@ -556,8 +556,8 @@ add_action('admin_notices', 'ba_v201_render_theme_update_admin_notice');
 function ba_v201_register_theme_updates_page(): void
 {
     add_theme_page(
-        __('Theme updates', 'barber-architecte-v201'),
-        __('Theme updates', 'barber-architecte-v201'),
+        __('Barber Theme updates', 'barber-architecte-v201'),
+        __('Barber Theme updates', 'barber-architecte-v201'),
         'update_themes',
         'ba-v201-theme-updates',
         'ba_v201_render_theme_updates_page'
