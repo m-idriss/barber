@@ -208,14 +208,10 @@ function ba_v201_release_version_from_tag(string $tag): string
         return $matches[1];
     }
 
-    if (preg_match('/(\d+(?:\.\d+)*)/', $tag, $matches)) {
-        return $matches[1];
-    }
-
-    return ltrim($tag, 'vV');
+    return '';
 }
 
-function ba_v201_check_for_github_theme_update($transient)
+function ba_v201_check_for_github_theme_update(mixed $transient): mixed
 {
     if (!is_object($transient) || empty($transient->checked) || !is_array($transient->checked)) {
         return $transient;
@@ -256,7 +252,7 @@ function ba_v201_check_for_github_theme_update($transient)
 }
 add_filter('pre_set_site_transient_update_themes', 'ba_v201_check_for_github_theme_update');
 
-function ba_v201_clear_github_release_cache($_upgrader_instance, array $options): void
+function ba_v201_clear_github_release_cache($upgrader, array $options): void
 {
     if (($options['action'] ?? '') !== 'update' || ($options['type'] ?? '') !== 'theme') {
         return;
