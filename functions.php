@@ -141,7 +141,7 @@ function ba_v201_github_latest_release(): ?array
         return null;
     }
 
-    set_site_transient($cache_key, $release, HOUR_IN_SECONDS);
+    set_site_transient($cache_key, $release, 12 * HOUR_IN_SECONDS);
     return $release;
 }
 
@@ -187,7 +187,7 @@ function ba_v201_check_for_github_theme_update($transient)
     $transient->response[$stylesheet] = [
         'theme' => $stylesheet,
         'new_version' => $latest_version,
-        'url' => !empty($release['html_url']) ? $release['html_url'] : $theme->get('ThemeURI'),
+        'url' => !empty($release['html_url']) ? $release['html_url'] : 'https://github.com/m-idriss/barber',
         'package' => $package_url,
         'requires' => $theme->get('RequiresWP'),
         'requires_php' => $theme->get('RequiresPHP'),
