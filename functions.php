@@ -272,7 +272,10 @@ function ba_v201_github_release_changelog_html(array $release): string
     $paragraph = [];
     $list_items = [];
     $normalize_text = static function (string $text): string {
-        return str_replace('**', '', $text);
+        $text = preg_replace('/\[(.+?)\]\((https?:\/\/[^\s)]+)\)/', '$1: $2', $text);
+        $text = preg_replace('/(\*\*|__)(.+?)\1/', '$2', $text);
+        $text = preg_replace('/(`|~~|\*|_)(.+?)\1/', '$2', $text);
+        return is_string($text) ? $text : '';
     };
 
     $flush_paragraph = static function () use (&$html, &$paragraph, $normalize_text): void {
@@ -311,6 +314,7 @@ function ba_v201_github_release_changelog_html(array $release): string
             $flush_paragraph();
             $flush_list();
 
+            // Promote Markdown headings to h3-h6 so release notes fit inside admin cards without duplicate page-level headings.
             $level = min(6, 2 + strlen($matches[1]));
             $text = $normalize_text($matches[2]);
             $html .= sprintf(
@@ -511,10 +515,15 @@ function ba_v201_render_theme_update_admin_notice(): void
             <?php if (!empty($release['published_at'])) : ?>
                 <span>
                     <?php
+                    $published_at = strtotime((string) $release['published_at']);
                     printf(
                         /* translators: %s: release publication date. */
                         esc_html__('Published %s', 'barber-architecte-v201'),
-                        esc_html(wp_date(get_option('date_format'), strtotime((string) $release['published_at'])))
+                        esc_html(
+                            false !== $published_at
+                                ? wp_date(get_option('date_format'), $published_at)
+                                : (string) $release['published_at']
+                        )
                     );
                     ?>
                 </span>
@@ -523,7 +532,15 @@ function ba_v201_render_theme_update_admin_notice(): void
         <p><?php echo esc_html__('A new GitHub release is ready for your WordPress theme. Review the highlights below or install it now.', 'barber-architecte-v201'); ?></p>
         <details open>
             <summary><?php echo esc_html__('What’s new in this release', 'barber-architecte-v201'); ?></summary>
-            <div><?php echo wp_kses_post(ba_v201_github_release_changelog_html($release)); ?></div>
+            <div>
+                <?php
+                echo wp_kses_post(
+                    is_array($release)
+                        ? ba_v201_github_release_changelog_html($release)
+                        : '<p>' . esc_html__('Release notes are not available for this version yet.', 'barber-architecte-v201') . '</p>'
+                );
+                ?>
+            </div>
         </details>
         <div class="ba-v201-update-actions">
             <a class="button button-primary" href="<?php echo esc_url(ba_v201_theme_update_url($update['stylesheet'])); ?>"><?php echo esc_html__('Update now', 'barber-architecte-v201'); ?></a>
@@ -596,7 +613,15 @@ function ba_v201_render_theme_updates_page(): void
                 </div>
                 <details open>
                     <summary><?php echo esc_html__('Release notes', 'barber-architecte-v201'); ?></summary>
-                    <div><?php echo wp_kses_post(ba_v201_github_release_changelog_html($release)); ?></div>
+                    <div>
+                        <?php
+                        echo wp_kses_post(
+                            is_array($release)
+                                ? ba_v201_github_release_changelog_html($release)
+                                : '<p>' . esc_html__('Release notes are not available for this version yet.', 'barber-architecte-v201') . '</p>'
+                        );
+                        ?>
+                    </div>
                 </details>
             <?php else : ?>
                 <p><?php echo esc_html__('No newer GitHub release is available right now, but you can still run a fresh check at any time.', 'barber-architecte-v201'); ?></p>
