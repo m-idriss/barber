@@ -541,7 +541,7 @@ function ba_v201_render_theme_updates_page(): void
 
     $theme = wp_get_theme(get_stylesheet());
     $update = ba_v201_github_theme_update();
-    $release = $update['release'] ?? null;
+    $release = $update ? ($update['release'] ?? null) : null;
     ?>
     <div class="wrap ba-v201-update-layout">
         <h1><?php echo esc_html__('Barber Theme updates', 'barber-architecte-v201'); ?></h1>
