@@ -75,12 +75,16 @@ Update the phone number, email address, and postal address directly in `header.p
 ### Hero image
 The hero background image is loaded via `ba_v201_upload_url()` in `front-page.php`. Upload the image through the WordPress Media Library and update the path passed to the function if needed.
 
+### Theme updates
+Administrators can review GitHub-powered theme releases from **Appearance → Theme updates**. The page includes the latest release notes, a manual **Check for updates** action, and direct links to install or inspect the current GitHub release.
+
 ---
 
 ## Theme Structure
 
 ```
 barber-architecte-v201/
+├── admin-theme-updates.css # Admin-only theme update UI styles
 ├── footer.php          # Site footer (CTA, columns, legal links)
 ├── front-page.php      # Home page template (hero, services, team)
 ├── functions.php       # Theme setup, asset enqueue, helper functions
