@@ -271,26 +271,28 @@ function ba_v201_github_release_changelog_html(array $release): string
     $html = '';
     $paragraph = [];
     $list_items = [];
+    $normalize_text = static function (string $text): string {
+        return str_replace('**', '', $text);
+    };
 
-    $flush_paragraph = static function () use (&$html, &$paragraph): void {
+    $flush_paragraph = static function () use (&$html, &$paragraph, $normalize_text): void {
         if ([] === $paragraph) {
             return;
         }
 
-        $text = implode(' ', array_map('trim', $paragraph));
-        $text = str_replace('**', '', $text);
+        $text = $normalize_text(implode(' ', array_map('trim', $paragraph)));
         $html .= '<p>' . wp_kses_post(make_clickable(esc_html($text))) . '</p>';
         $paragraph = [];
     };
 
-    $flush_list = static function () use (&$html, &$list_items): void {
+    $flush_list = static function () use (&$html, &$list_items, $normalize_text): void {
         if ([] === $list_items) {
             return;
         }
 
         $html .= '<ul>';
         foreach ($list_items as $item) {
-            $item = str_replace('**', '', $item);
+            $item = $normalize_text($item);
             $html .= '<li>' . wp_kses_post(make_clickable(esc_html($item))) . '</li>';
         }
         $html .= '</ul>';
@@ -337,6 +339,11 @@ function ba_v201_theme_update_check_url(): string
 function ba_v201_theme_update_notices_key(): string
 {
     return 'ba_v201_theme_update_admin_notice_' . get_current_user_id();
+}
+
+function ba_v201_theme_updates_screen_ids(): array
+{
+    return ['dashboard', 'themes', 'update-core', 'appearance_page_ba-v201-theme-updates'];
 }
 
 function ba_v201_set_theme_update_notice(string $type, string $message): void
@@ -421,7 +428,7 @@ function ba_v201_admin_theme_updates_styles(): void
 
     $screen = function_exists('get_current_screen') ? get_current_screen() : null;
     $screen_id = $screen ? $screen->id : '';
-    if (!in_array($screen_id, ['dashboard', 'themes', 'update-core', 'appearance_page_ba-v201-theme-updates'], true)) {
+    if (!in_array($screen_id, ba_v201_theme_updates_screen_ids(), true)) {
         return;
     }
 
@@ -459,7 +466,7 @@ function ba_v201_render_theme_update_admin_notice(): void
 
     $screen = function_exists('get_current_screen') ? get_current_screen() : null;
     $screen_id = $screen ? $screen->id : '';
-    if (!in_array($screen_id, ['dashboard', 'themes', 'update-core'], true)) {
+    if (!in_array($screen_id, array_diff(ba_v201_theme_updates_screen_ids(), ['appearance_page_ba-v201-theme-updates']), true)) {
         return;
     }
 
@@ -506,7 +513,7 @@ function ba_v201_render_theme_update_admin_notice(): void
             <?php endif; ?>
         </div>
         <p><?php echo esc_html__('A new GitHub release is ready for your WordPress theme. Review the highlights below or install it now.', 'barber-architecte-v201'); ?></p>
-        <details open>
+        <details open aria-expanded="true">
             <summary><?php echo esc_html__('What’s new in this release', 'barber-architecte-v201'); ?></summary>
             <div><?php echo wp_kses_post(ba_v201_github_release_changelog_html($release)); ?></div>
         </details>
@@ -579,7 +586,7 @@ function ba_v201_render_theme_updates_page(): void
                     <a class="button" href="<?php echo esc_url(ba_v201_theme_update_check_url()); ?>"><?php echo esc_html__('Check for updates', 'barber-architecte-v201'); ?></a>
                     <a class="button button-link" href="<?php echo esc_url($update['release_url']); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html__('View GitHub release', 'barber-architecte-v201'); ?></a>
                 </div>
-                <details open>
+                <details open aria-expanded="true">
                     <summary><?php echo esc_html__('Release notes', 'barber-architecte-v201'); ?></summary>
                     <div><?php echo wp_kses_post(ba_v201_github_release_changelog_html($release)); ?></div>
                 </details>
