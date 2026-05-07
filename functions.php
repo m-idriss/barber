@@ -48,6 +48,12 @@ function ba_v201_github_latest_release_api_url(): string
     return 'https://api.github.com/repos/' . ba_v201_github_repository() . '/releases/latest';
 }
 
+function ba_v201_github_release_cache_ttl(): int
+{
+    $ttl = (int) apply_filters('ba_v201_github_release_cache_ttl', 12 * HOUR_IN_SECONDS);
+    return $ttl > 0 ? $ttl : 12 * HOUR_IN_SECONDS;
+}
+
 function ba_v201_upload_url(string $file): string
 {
     $uploads = wp_get_upload_dir();
@@ -162,7 +168,7 @@ function ba_v201_github_latest_release(): ?array
         return null;
     }
 
-    set_site_transient($cache_key, $release, 12 * HOUR_IN_SECONDS);
+    set_site_transient($cache_key, $release, ba_v201_github_release_cache_ttl());
     return $release;
 }
 
@@ -172,8 +178,12 @@ function ba_v201_github_release_package_url(array $release, string $theme_slug):
     if (!empty($release['assets']) && is_array($release['assets'])) {
         foreach ($release['assets'] as $asset) {
             $asset_name = strtolower((string) ($asset['name'] ?? ''));
-            $download_url = $asset['browser_download_url'] ?? '';
-            if (is_string($download_url) && str_ends_with(strtolower($download_url), '.zip')) {
+            $download_url = $asset['browser_download_url'] ?? null;
+            if (!is_string($download_url) || '' === $download_url) {
+                continue;
+            }
+
+            if (str_ends_with(strtolower($download_url), '.zip')) {
                 if ('' === $fallback_zip_url) {
                     $fallback_zip_url = $download_url;
                 }
@@ -194,8 +204,12 @@ function ba_v201_github_release_package_url(array $release, string $theme_slug):
 
 function ba_v201_release_version_from_tag(string $tag): string
 {
-    if (preg_match('/\d+(?:\.\d+)*/', $tag, $matches)) {
-        return $matches[0];
+    if (preg_match('/^[vV]?(\d+(?:\.\d+)*)/', trim($tag), $matches)) {
+        return $matches[1];
+    }
+
+    if (preg_match('/(\d+(?:\.\d+)*)/', $tag, $matches)) {
+        return $matches[1];
     }
 
     return ltrim($tag, 'vV');
@@ -224,11 +238,15 @@ function ba_v201_check_for_github_theme_update($transient)
     if ('' === $package_url) {
         return $transient;
     }
+    $release_url = !empty($release['html_url']) ? (string) $release['html_url'] : '';
+    if ('' === $release_url && !empty($release['tag_name'])) {
+        $release_url = ba_v201_github_repository_url() . '/releases/tag/' . rawurlencode((string) $release['tag_name']);
+    }
 
     $transient->response[$stylesheet] = [
         'theme' => $stylesheet,
         'new_version' => $latest_version,
-        'url' => !empty($release['html_url']) ? $release['html_url'] : ba_v201_github_repository_url(),
+        'url' => '' !== $release_url ? $release_url : ba_v201_github_repository_url(),
         'package' => $package_url,
         'requires' => $theme->get('RequiresWP'),
         'requires_php' => $theme->get('RequiresPHP'),
