@@ -4,6 +4,16 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+if (!defined('BA_V201_GITHUB_REPOSITORY')) {
+    define('BA_V201_GITHUB_REPOSITORY', 'm-idriss/barber');
+}
+if (!defined('BA_V201_GITHUB_REPOSITORY_URL')) {
+    define('BA_V201_GITHUB_REPOSITORY_URL', 'https://github.com/' . BA_V201_GITHUB_REPOSITORY);
+}
+if (!defined('BA_V201_GITHUB_LATEST_RELEASE_API')) {
+    define('BA_V201_GITHUB_LATEST_RELEASE_API', 'https://api.github.com/repos/' . BA_V201_GITHUB_REPOSITORY . '/releases/latest');
+}
+
 function ba_v201_setup(): void
 {
     add_theme_support('title-tag');
@@ -122,7 +132,7 @@ function ba_v201_github_latest_release(): ?array
     }
 
     $response = wp_remote_get(
-        'https://api.github.com/repos/m-idriss/barber/releases/latest',
+        BA_V201_GITHUB_LATEST_RELEASE_API,
         [
             'headers' => [
                 'Accept' => 'application/vnd.github+json',
@@ -187,7 +197,7 @@ function ba_v201_check_for_github_theme_update($transient)
     $transient->response[$stylesheet] = [
         'theme' => $stylesheet,
         'new_version' => $latest_version,
-        'url' => !empty($release['html_url']) ? $release['html_url'] : 'https://github.com/m-idriss/barber',
+        'url' => !empty($release['html_url']) ? $release['html_url'] : BA_V201_GITHUB_REPOSITORY_URL,
         'package' => $package_url,
         'requires' => $theme->get('RequiresWP'),
         'requires_php' => $theme->get('RequiresPHP'),
@@ -197,8 +207,10 @@ function ba_v201_check_for_github_theme_update($transient)
 }
 add_filter('pre_set_site_transient_update_themes', 'ba_v201_check_for_github_theme_update');
 
-function ba_v201_clear_github_release_cache($_upgrader, array $options): void
+function ba_v201_clear_github_release_cache($upgrader, array $options): void
 {
+    unset($upgrader);
+
     if (($options['action'] ?? '') !== 'update' || ($options['type'] ?? '') !== 'theme') {
         return;
     }
