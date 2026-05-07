@@ -84,6 +84,7 @@ Administrators can review GitHub-powered theme releases from **Appearance → Th
 
 ```
 barber-architecte-v201/
+├── admin-theme-updates.css # Admin-only theme update UI styles
 ├── footer.php          # Site footer (CTA, columns, legal links)
 ├── front-page.php      # Home page template (hero, services, team)
 ├── functions.php       # Theme setup, asset enqueue, helper functions

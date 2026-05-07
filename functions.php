@@ -307,6 +307,21 @@ function ba_v201_github_release_changelog_html(array $release): string
             continue;
         }
 
+        if (preg_match('/^(#{1,6})\s+(.+)$/', $line, $matches)) {
+            $flush_paragraph();
+            $flush_list();
+
+            $level = min(6, 2 + strlen($matches[1]));
+            $text = $normalize_text($matches[2]);
+            $html .= sprintf(
+                '<h%d>%s</h%d>',
+                $level,
+                wp_kses_post(make_clickable(esc_html($text))),
+                $level
+            );
+            continue;
+        }
+
         if (preg_match('/^[-*+]\s+(.+)$/', $line, $matches)) {
             $flush_paragraph();
             $list_items[] = $matches[1];
@@ -314,7 +329,7 @@ function ba_v201_github_release_changelog_html(array $release): string
         }
 
         $flush_list();
-        $paragraph[] = preg_replace('/^#{1,6}\s*/', '', $line);
+        $paragraph[] = $line;
     }
 
     $flush_paragraph();
@@ -420,7 +435,7 @@ function ba_v201_check_for_github_theme_update(mixed $transient): mixed
 }
 add_filter('pre_set_site_transient_update_themes', 'ba_v201_check_for_github_theme_update');
 
-function ba_v201_admin_theme_updates_styles(): void
+function ba_v201_admin_theme_updates_assets(): void
 {
     if (!is_admin()) {
         return;
@@ -432,21 +447,14 @@ function ba_v201_admin_theme_updates_styles(): void
         return;
     }
 
-    echo '<style>
-        .ba-v201-update-card{margin:16px 0 0;padding:20px 24px;border:1px solid #d0d7de;border-radius:12px;background:linear-gradient(135deg,#fff 0%,#f6f7f7 100%);box-shadow:0 10px 30px rgba(15,23,42,.06)}
-        .ba-v201-update-card h2,.ba-v201-update-card h3{margin:0 0 10px}
-        .ba-v201-update-card p{margin:0 0 12px}
-        .ba-v201-update-meta{display:flex;flex-wrap:wrap;gap:12px;margin:0 0 16px}
-        .ba-v201-update-meta span{display:inline-flex;align-items:center;padding:4px 10px;border-radius:999px;background:#f0f6fc;color:#0a4b78;font-weight:600}
-        .ba-v201-update-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
-        .ba-v201-update-card details{margin-top:16px}
-        .ba-v201-update-card summary{cursor:pointer;font-weight:600}
-        .ba-v201-update-card ul{list-style:disc;margin:12px 0 0 20px}
-        .ba-v201-update-layout{max-width:960px}
-        .ba-v201-update-layout .card{padding:24px}
-    </style>';
+    wp_enqueue_style(
+        'ba-v201-admin-theme-updates',
+        get_theme_file_uri('admin-theme-updates.css'),
+        [],
+        wp_get_theme()->get('Version')
+    );
 }
-add_action('admin_head', 'ba_v201_admin_theme_updates_styles');
+add_action('admin_enqueue_scripts', 'ba_v201_admin_theme_updates_assets');
 
 function ba_v201_render_theme_update_admin_notice(): void
 {
@@ -513,7 +521,7 @@ function ba_v201_render_theme_update_admin_notice(): void
             <?php endif; ?>
         </div>
         <p><?php echo esc_html__('A new GitHub release is ready for your WordPress theme. Review the highlights below or install it now.', 'barber-architecte-v201'); ?></p>
-        <details open aria-expanded="true">
+        <details open>
             <summary><?php echo esc_html__('What’s new in this release', 'barber-architecte-v201'); ?></summary>
             <div><?php echo wp_kses_post(ba_v201_github_release_changelog_html($release)); ?></div>
         </details>
@@ -586,7 +594,7 @@ function ba_v201_render_theme_updates_page(): void
                     <a class="button" href="<?php echo esc_url(ba_v201_theme_update_check_url()); ?>"><?php echo esc_html__('Check for updates', 'barber-architecte-v201'); ?></a>
                     <a class="button button-link" href="<?php echo esc_url($update['release_url']); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html__('View GitHub release', 'barber-architecte-v201'); ?></a>
                 </div>
-                <details open aria-expanded="true">
+                <details open>
                     <summary><?php echo esc_html__('Release notes', 'barber-architecte-v201'); ?></summary>
                     <div><?php echo wp_kses_post(ba_v201_github_release_changelog_html($release)); ?></div>
                 </details>
