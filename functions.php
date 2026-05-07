@@ -112,3 +112,102 @@ function ba_v201_current_status(): array
         'hours' => $today,
     ];
 }
+
+function ba_v201_github_latest_release(): ?array
+{
+    $cache_key = 'ba_v201_github_latest_release';
+    $cached_release = get_site_transient($cache_key);
+    if (is_array($cached_release)) {
+        return $cached_release;
+    }
+
+    $response = wp_remote_get(
+        'https://api.github.com/repos/m-idriss/barber/releases/latest',
+        [
+            'headers' => [
+                'Accept' => 'application/vnd.github+json',
+                'User-Agent' => 'WordPress/' . get_bloginfo('version') . '; ' . home_url('/'),
+            ],
+            'timeout' => 10,
+        ]
+    );
+
+    if (is_wp_error($response) || 200 !== wp_remote_retrieve_response_code($response)) {
+        return null;
+    }
+
+    $release = json_decode(wp_remote_retrieve_body($response), true);
+    if (!is_array($release) || empty($release['tag_name'])) {
+        return null;
+    }
+
+    set_site_transient($cache_key, $release, HOUR_IN_SECONDS);
+    return $release;
+}
+
+function ba_v201_github_release_package_url(array $release): string
+{
+    if (!empty($release['assets']) && is_array($release['assets'])) {
+        foreach ($release['assets'] as $asset) {
+            $download_url = $asset['browser_download_url'] ?? '';
+            if (is_string($download_url) && str_ends_with(strtolower($download_url), '.zip')) {
+                return $download_url;
+            }
+        }
+    }
+
+    $zipball_url = $release['zipball_url'] ?? '';
+    return is_string($zipball_url) ? $zipball_url : '';
+}
+
+function ba_v201_check_for_github_theme_update($transient)
+{
+    if (!is_object($transient) || empty($transient->checked) || !is_array($transient->checked)) {
+        return $transient;
+    }
+
+    $theme = wp_get_theme();
+    $stylesheet = $theme->get_stylesheet();
+    $current_version = $theme->get('Version');
+    $release = ba_v201_github_latest_release();
+    if (!$release) {
+        return $transient;
+    }
+
+    $latest_version = ltrim((string) $release['tag_name'], 'vV');
+    if ('' === $latest_version || version_compare($latest_version, $current_version, '<=')) {
+        return $transient;
+    }
+
+    $package_url = ba_v201_github_release_package_url($release);
+    if ('' === $package_url) {
+        return $transient;
+    }
+
+    $transient->response[$stylesheet] = [
+        'theme' => $stylesheet,
+        'new_version' => $latest_version,
+        'url' => !empty($release['html_url']) ? $release['html_url'] : $theme->get('ThemeURI'),
+        'package' => $package_url,
+        'requires' => $theme->get('RequiresWP'),
+        'requires_php' => $theme->get('RequiresPHP'),
+    ];
+
+    return $transient;
+}
+add_filter('pre_set_site_transient_update_themes', 'ba_v201_check_for_github_theme_update');
+
+function ba_v201_clear_github_release_cache($upgrader, array $options): void
+{
+    if (($options['action'] ?? '') !== 'update' || ($options['type'] ?? '') !== 'theme') {
+        return;
+    }
+
+    $themes = $options['themes'] ?? [];
+    if (!is_array($themes) || !in_array(get_stylesheet(), $themes, true)) {
+        return;
+    }
+
+    delete_site_transient('ba_v201_github_latest_release');
+}
+add_action('upgrader_process_complete', 'ba_v201_clear_github_release_cache', 10, 2);
