@@ -76,6 +76,10 @@ if (!defined('ABSPATH')) {
                 </svg>
             </a>
 
+            <button class="search-trigger" id="searchTrigger" aria-label="<?php esc_attr_e('Rechercher', 'barber-architecte-v201'); ?>" aria-expanded="false" aria-controls="searchOverlay">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            </button>
+
             <button class="nav-burger" id="navBurger" aria-label="<?php esc_attr_e('Ouvrir le menu', 'barber-architecte-v201'); ?>" aria-expanded="false" aria-controls="mobileNav">
                 <span class="nav-burger__line"></span>
                 <span class="nav-burger__line"></span>
@@ -84,6 +88,28 @@ if (!defined('ABSPATH')) {
         </div>
     </div>
 </header>
+
+<!-- Search Overlay -->
+<div class="search-overlay" id="searchOverlay" hidden aria-hidden="true" role="dialog" aria-modal="true" aria-label="<?php esc_attr_e('Recherche', 'barber-architecte-v201'); ?>">
+    <div class="search-overlay__backdrop" id="searchBackdrop"></div>
+    <div class="search-overlay__panel">
+        <div class="search-overlay__header">
+            <span class="search-overlay__label"><?php esc_html_e('Recherche', 'barber-architecte-v201'); ?></span>
+            <button class="search-overlay__close" id="searchClose" aria-label="<?php esc_attr_e('Fermer la recherche', 'barber-architecte-v201'); ?>">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+            </button>
+        </div>
+        <form class="search-overlay__form" role="search" method="get" action="<?php echo esc_url(home_url('/')); ?>">
+            <div class="search-overlay__field">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                <input type="search" name="s" id="searchInput" placeholder="<?php esc_attr_e('Rechercher…', 'barber-architecte-v201'); ?>" autocomplete="off" />
+                <button type="submit" aria-label="<?php esc_attr_e('Lancer la recherche', 'barber-architecte-v201'); ?>">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
 
 <div class="mobile-nav" id="mobileNav" aria-hidden="true">
     <div class="mobile-nav__backdrop" data-nav-close></div>
@@ -464,6 +490,47 @@ if (!defined('ABSPATH')) {
             startObserving();
         }
     }
+})();
+</script>
+
+<script>
+(function() {
+    var trigger  = document.getElementById('searchTrigger');
+    var overlay  = document.getElementById('searchOverlay');
+    var backdrop = document.getElementById('searchBackdrop');
+    var closeBtn = document.getElementById('searchClose');
+    var input    = document.getElementById('searchInput');
+    if (!trigger || !overlay) return;
+
+    function openSearch() {
+        overlay.removeAttribute('hidden');
+        setTimeout(function() {
+            overlay.classList.add('is-open');
+        }, 10);
+        overlay.setAttribute('aria-hidden', 'false');
+        trigger.setAttribute('aria-expanded', 'true');
+        document.body.style.overflow = 'hidden';
+        setTimeout(function() { if (input) input.focus(); }, 50);
+    }
+
+    function closeSearch() {
+        overlay.classList.remove('is-open');
+        overlay.setAttribute('hidden', '');
+        overlay.setAttribute('aria-hidden', 'true');
+        trigger.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+        trigger.focus();
+    }
+
+    trigger.addEventListener('click', openSearch);
+    if (closeBtn)  closeBtn.addEventListener('click', closeSearch);
+    if (backdrop)  backdrop.addEventListener('click', closeSearch);
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && overlay.classList.contains('is-open')) {
+            closeSearch();
+        }
+    });
 })();
 </script>
 

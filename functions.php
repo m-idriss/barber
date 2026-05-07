@@ -211,234 +211,39 @@ function ba_v201_release_version_from_tag(string $tag): string
     return '';
 }
 
-function ba_v201_github_release_url(array $release): string
-{
-    $release_url = !empty($release['html_url']) ? (string) $release['html_url'] : '';
-    if ('' === $release_url && !empty($release['tag_name'])) {
-        $release_url = ba_v201_github_repository_url() . '/releases/tag/' . rawurlencode((string) $release['tag_name']);
-    }
-
-    return '' !== $release_url ? $release_url : ba_v201_github_repository_url();
-}
-
-function ba_v201_github_theme_update(): ?array
-{
-    $theme = wp_get_theme(get_stylesheet());
-    $stylesheet = $theme->get_stylesheet();
-    $current_version = (string) $theme->get('Version');
-    $release = ba_v201_github_latest_release();
-    if (!$release) {
-        return null;
-    }
-
-    $latest_version = ba_v201_release_version_from_tag((string) $release['tag_name']);
-    if ('' === $latest_version || version_compare($latest_version, $current_version, '<=')) {
-        return null;
-    }
-
-    $package_url = ba_v201_github_release_package_url($release, $stylesheet);
-    if ('' === $package_url) {
-        return null;
-    }
-
-    return [
-        'theme' => $theme,
-        'stylesheet' => $stylesheet,
-        'current_version' => $current_version,
-        'latest_version' => $latest_version,
-        'release' => $release,
-        'release_url' => ba_v201_github_release_url($release),
-        'package_url' => $package_url,
-    ];
-}
-
-function ba_v201_theme_update_url(string $stylesheet): string
-{
-    return wp_nonce_url(
-        self_admin_url('update.php?action=upgrade-theme&theme=' . rawurlencode($stylesheet)),
-        'upgrade-theme_' . $stylesheet
-    );
-}
-
-function ba_v201_github_release_changelog_html(array $release): string
-{
-    $body = trim((string) ($release['body'] ?? ''));
-    if ('' === $body) {
-        return '<p>' . esc_html__('Release notes are not available for this version yet.', 'barber-architecte-v201') . '</p>';
-    }
-
-    $lines = preg_split('/\R/', $body) ?: [];
-    $html = '';
-    $paragraph = [];
-    $list_items = [];
-    $normalize_text = static function (string $text): string {
-        $text = preg_replace('/\[([^\r\n]+?)\]\((https?:\/\/[^\s)]+)\)/', '$1: $2', $text);
-        if (null === $text) {
-            return '';
-        }
-
-        $text = preg_replace('/(\*\*|__)([^\r\n]+?)\1/', '$2', $text);
-        if (null === $text) {
-            return '';
-        }
-
-        $text = preg_replace('/(`|~~|\*|_)([^\r\n]+?)\1/', '$2', $text);
-        return is_string($text) ? $text : '';
-    };
-
-    $flush_paragraph = static function () use (&$html, &$paragraph, $normalize_text): void {
-        if ([] === $paragraph) {
-            return;
-        }
-
-        $text = $normalize_text(implode(' ', array_map('trim', $paragraph)));
-        $html .= '<p>' . wp_kses_post(make_clickable(esc_html($text))) . '</p>';
-        $paragraph = [];
-    };
-
-    $flush_list = static function () use (&$html, &$list_items, $normalize_text): void {
-        if ([] === $list_items) {
-            return;
-        }
-
-        $html .= '<ul>';
-        foreach ($list_items as $item) {
-            $item = $normalize_text($item);
-            $html .= '<li>' . wp_kses_post(make_clickable(esc_html($item))) . '</li>';
-        }
-        $html .= '</ul>';
-        $list_items = [];
-    };
-
-    foreach ($lines as $line) {
-        $line = trim($line);
-        if ('' === $line) {
-            $flush_paragraph();
-            $flush_list();
-            continue;
-        }
-
-        if (preg_match('/^(#{1,6})\s+(.+)$/', $line, $matches)) {
-            $flush_paragraph();
-            $flush_list();
-
-            // Promote Markdown headings to h3-h6 so release notes fit inside admin cards without duplicate page-level headings.
-            $level = max(3, min(6, strlen($matches[1]) + 2));
-            $text = $normalize_text($matches[2]);
-            $html .= sprintf(
-                '<h%d>%s</h%d>',
-                $level,
-                wp_kses_post(make_clickable(esc_html($text))),
-                $level
-            );
-            continue;
-        }
-
-        if (preg_match('/^[-*+]\s+(.+)$/', $line, $matches)) {
-            $flush_paragraph();
-            $list_items[] = $matches[1];
-            continue;
-        }
-
-        $flush_list();
-        $paragraph[] = $line;
-    }
-
-    $flush_paragraph();
-    $flush_list();
-
-    return '' !== $html ? $html : '<p>' . esc_html__('Release notes are not available for this version yet.', 'barber-architecte-v201') . '</p>';
-}
-
-function ba_v201_theme_update_admin_url(array $query_args = []): string
-{
-    return add_query_arg($query_args, admin_url('themes.php?page=ba-v201-theme-updates'));
-}
-
-function ba_v201_theme_update_check_url(): string
-{
-    return wp_nonce_url(
-        ba_v201_theme_update_admin_url(['ba_v201_check_theme_update' => '1']),
-        'ba_v201_check_theme_update'
-    );
-}
-
-function ba_v201_theme_update_notice_key(): string
-{
-    return 'ba_v201_theme_update_admin_notice_' . wp_hash((string) get_current_user_id());
-}
-
-function ba_v201_theme_updates_screen_ids(): array
-{
-    return ['dashboard', 'themes', 'update-core', 'appearance_page_ba-v201-theme-updates'];
-}
-
-function ba_v201_set_theme_update_notice(string $type, string $message): void
-{
-    set_transient(
-        ba_v201_theme_update_notice_key(),
-        [
-            'type' => $type,
-            'message' => $message,
-        ],
-        MINUTE_IN_SECONDS * 10
-    );
-}
-
-function ba_v201_handle_manual_theme_update_check(): void
-{
-    if (!is_admin() || !current_user_can('update_themes')) {
-        return;
-    }
-
-    if (!isset($_GET['ba_v201_check_theme_update'])) {
-        return;
-    }
-
-    check_admin_referer('ba_v201_check_theme_update');
-
-    delete_site_transient('ba_v201_github_latest_release');
-    delete_site_transient('update_themes');
-
-    if (!function_exists('wp_update_themes')) {
-        require_once ABSPATH . WPINC . '/update.php';
-    }
-
-    wp_update_themes();
-
-    $update = ba_v201_github_theme_update();
-    $message = $update
-        ? sprintf(
-            /* translators: %s: new theme version. */
-            __('Barber Theme %s is available and ready to install.', 'barber-architecte-v201'),
-            $update['latest_version']
-        )
-        : __('Barber Theme is already up to date.', 'barber-architecte-v201');
-
-    ba_v201_set_theme_update_notice('success', $message);
-
-    wp_safe_redirect(ba_v201_theme_update_admin_url());
-    exit;
-}
-add_action('admin_init', 'ba_v201_handle_manual_theme_update_check');
-
 function ba_v201_check_for_github_theme_update(mixed $transient): mixed
 {
     if (!is_object($transient) || empty($transient->checked) || !is_array($transient->checked)) {
         return $transient;
     }
 
-    $update = ba_v201_github_theme_update();
-    if (!$update) {
+    $theme = wp_get_theme(get_stylesheet());
+    $stylesheet = $theme->get_stylesheet();
+    $current_version = $theme->get('Version');
+    $release = ba_v201_github_latest_release();
+    if (!$release) {
         return $transient;
     }
 
-    $theme = $update['theme'];
-    $transient->response[$update['stylesheet']] = [
-        'theme' => $update['stylesheet'],
-        'new_version' => $update['latest_version'],
-        'url' => $update['release_url'],
-        'package' => $update['package_url'],
+    $latest_version = ba_v201_release_version_from_tag((string) $release['tag_name']);
+    if ('' === $latest_version || version_compare($latest_version, $current_version, '<=')) {
+        return $transient;
+    }
+
+    $package_url = ba_v201_github_release_package_url($release, $stylesheet);
+    if ('' === $package_url) {
+        return $transient;
+    }
+    $release_url = !empty($release['html_url']) ? (string) $release['html_url'] : '';
+    if ('' === $release_url && !empty($release['tag_name'])) {
+        $release_url = ba_v201_github_repository_url() . '/releases/tag/' . rawurlencode((string) $release['tag_name']);
+    }
+
+    $transient->response[$stylesheet] = [
+        'theme' => $stylesheet,
+        'new_version' => $latest_version,
+        'url' => '' !== $release_url ? $release_url : ba_v201_github_repository_url(),
+        'package' => $package_url,
         'requires' => $theme->get('RequiresWP'),
         'requires_php' => $theme->get('RequiresPHP'),
     ];
@@ -446,202 +251,6 @@ function ba_v201_check_for_github_theme_update(mixed $transient): mixed
     return $transient;
 }
 add_filter('pre_set_site_transient_update_themes', 'ba_v201_check_for_github_theme_update');
-
-function ba_v201_admin_theme_updates_assets(): void
-{
-    if (!is_admin()) {
-        return;
-    }
-
-    $screen = function_exists('get_current_screen') ? get_current_screen() : null;
-    $screen_id = $screen ? $screen->id : '';
-    if (!in_array($screen_id, ba_v201_theme_updates_screen_ids(), true)) {
-        return;
-    }
-
-    wp_enqueue_style(
-        'ba-v201-admin-theme-updates',
-        get_theme_file_uri('admin-theme-updates.css'),
-        [],
-        wp_get_theme()->get('Version')
-    );
-}
-add_action('admin_enqueue_scripts', 'ba_v201_admin_theme_updates_assets');
-
-function ba_v201_render_theme_update_admin_notice(): void
-{
-    if (!is_admin() || !current_user_can('update_themes')) {
-        return;
-    }
-
-    $notice = get_transient(ba_v201_theme_update_notice_key());
-    if (is_array($notice) && !empty($notice['message'])) {
-        delete_transient(ba_v201_theme_update_notice_key());
-        printf(
-            '<div class="notice notice-%1$s is-dismissible"><p>%2$s</p></div>',
-            esc_attr((string) ($notice['type'] ?? 'info')),
-            esc_html((string) $notice['message'])
-        );
-    }
-
-    $screen = function_exists('get_current_screen') ? get_current_screen() : null;
-    $screen_id = $screen ? $screen->id : '';
-    if (!in_array($screen_id, array_diff(ba_v201_theme_updates_screen_ids(), ['appearance_page_ba-v201-theme-updates']), true)) {
-        return;
-    }
-
-    $update = ba_v201_github_theme_update();
-    if (!$update) {
-        return;
-    }
-
-    $theme_name = $update['theme']->get('Name');
-    $release = $update['release'];
-    ?>
-    <div class="notice notice-info ba-v201-update-card">
-        <h2>
-            <?php
-            printf(
-                /* translators: 1: theme name, 2: latest version. */
-                esc_html__('%1$s v%2$s is available', 'barber-architecte-v201'),
-                esc_html($theme_name),
-                esc_html($update['latest_version'])
-            );
-            ?>
-        </h2>
-        <div class="ba-v201-update-meta">
-            <span>
-                <?php
-                printf(
-                    /* translators: 1: current version, 2: latest version. */
-                    esc_html__('Current %1$s → New %2$s', 'barber-architecte-v201'),
-                    esc_html($update['current_version']),
-                    esc_html($update['latest_version'])
-                );
-                ?>
-            </span>
-            <?php if (!empty($release['published_at'])) : ?>
-                <span>
-                    <?php
-                    $published_at = strtotime((string) $release['published_at']);
-                    printf(
-                        /* translators: %s: release publication date. */
-                        esc_html__('Published %s', 'barber-architecte-v201'),
-                        esc_html(
-                            false !== $published_at
-                                ? wp_date(get_option('date_format'), $published_at)
-                                : __('Date unavailable', 'barber-architecte-v201')
-                        )
-                    );
-                    ?>
-                </span>
-            <?php endif; ?>
-        </div>
-        <p><?php echo esc_html__('A new GitHub release is ready for your WordPress theme. Review the highlights below or install it now.', 'barber-architecte-v201'); ?></p>
-        <details open>
-            <summary><?php echo esc_html__('What’s new in this release', 'barber-architecte-v201'); ?></summary>
-            <div>
-                <?php
-                echo wp_kses_post(
-                    is_array($release)
-                        ? ba_v201_github_release_changelog_html($release)
-                        : '<p>' . esc_html__('Release notes are not available for this version yet.', 'barber-architecte-v201') . '</p>'
-                );
-                ?>
-            </div>
-        </details>
-        <div class="ba-v201-update-actions">
-            <a class="button button-primary" href="<?php echo esc_url(ba_v201_theme_update_url($update['stylesheet'])); ?>"><?php echo esc_html__('Update now', 'barber-architecte-v201'); ?></a>
-            <a class="button" href="<?php echo esc_url(ba_v201_theme_update_check_url()); ?>"><?php echo esc_html__('Check for updates', 'barber-architecte-v201'); ?></a>
-            <a class="button button-link" href="<?php echo esc_url(ba_v201_theme_update_admin_url()); ?>"><?php echo esc_html__('Open theme updater', 'barber-architecte-v201'); ?></a>
-            <a class="button button-link" href="<?php echo esc_url($update['release_url']); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html__('View GitHub release', 'barber-architecte-v201'); ?></a>
-        </div>
-    </div>
-    <?php
-}
-add_action('admin_notices', 'ba_v201_render_theme_update_admin_notice');
-
-function ba_v201_register_theme_updates_page(): void
-{
-    add_theme_page(
-        __('Barber Theme updates', 'barber-architecte-v201'),
-        __('Barber Theme updates', 'barber-architecte-v201'),
-        'update_themes',
-        'ba-v201-theme-updates',
-        'ba_v201_render_theme_updates_page'
-    );
-}
-add_action('admin_menu', 'ba_v201_register_theme_updates_page');
-
-function ba_v201_render_theme_updates_page(): void
-{
-    if (!current_user_can('update_themes')) {
-        wp_die(esc_html__('You are not allowed to manage theme updates.', 'barber-architecte-v201'));
-    }
-
-    $theme = wp_get_theme(get_stylesheet());
-    $update = ba_v201_github_theme_update();
-    $release = $update ? ($update['release'] ?? null) : null;
-    ?>
-    <div class="wrap ba-v201-update-layout">
-        <h1><?php echo esc_html__('Barber Theme updates', 'barber-architecte-v201'); ?></h1>
-        <div class="card ba-v201-update-card">
-            <h2><?php echo esc_html($theme->get('Name')); ?></h2>
-            <div class="ba-v201-update-meta">
-                <span>
-                    <?php
-                    printf(
-                        /* translators: %s: installed theme version. */
-                        esc_html__('Installed version %s', 'barber-architecte-v201'),
-                        esc_html((string) $theme->get('Version'))
-                    );
-                    ?>
-                </span>
-                <?php if ($update) : ?>
-                    <span>
-                        <?php
-                        printf(
-                            /* translators: %s: available theme version. */
-                            esc_html__('Update available %s', 'barber-architecte-v201'),
-                            esc_html($update['latest_version'])
-                        );
-                        ?>
-                    </span>
-                <?php else : ?>
-                    <span><?php echo esc_html__('Theme is up to date', 'barber-architecte-v201'); ?></span>
-                <?php endif; ?>
-            </div>
-
-            <?php if ($update) : ?>
-                <p><?php echo esc_html__('A newer GitHub release has been detected for this theme.', 'barber-architecte-v201'); ?></p>
-                <div class="ba-v201-update-actions">
-                    <a class="button button-primary" href="<?php echo esc_url(ba_v201_theme_update_url($update['stylesheet'])); ?>"><?php echo esc_html__('Update now', 'barber-architecte-v201'); ?></a>
-                    <a class="button" href="<?php echo esc_url(ba_v201_theme_update_check_url()); ?>"><?php echo esc_html__('Check for updates', 'barber-architecte-v201'); ?></a>
-                    <a class="button button-link" href="<?php echo esc_url($update['release_url']); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html__('View GitHub release', 'barber-architecte-v201'); ?></a>
-                </div>
-                <details open>
-                    <summary><?php echo esc_html__('Release notes', 'barber-architecte-v201'); ?></summary>
-                    <div>
-                        <?php
-                        echo wp_kses_post(
-                            is_array($release)
-                                ? ba_v201_github_release_changelog_html($release)
-                                : '<p>' . esc_html__('Release notes are not available for this version yet.', 'barber-architecte-v201') . '</p>'
-                        );
-                        ?>
-                    </div>
-                </details>
-            <?php else : ?>
-                <p><?php echo esc_html__('No newer GitHub release is available right now, but you can still run a fresh check at any time.', 'barber-architecte-v201'); ?></p>
-                <div class="ba-v201-update-actions">
-                    <a class="button button-primary" href="<?php echo esc_url(ba_v201_theme_update_check_url()); ?>"><?php echo esc_html__('Check for updates', 'barber-architecte-v201'); ?></a>
-                    <a class="button button-link" href="<?php echo esc_url(ba_v201_github_repository_url() . '/releases'); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html__('Browse releases', 'barber-architecte-v201'); ?></a>
-                </div>
-            <?php endif; ?>
-        </div>
-    </div>
-    <?php
-}
 
 function ba_v201_clear_github_release_cache($upgrader, array $options): void
 {
@@ -655,13 +264,200 @@ function ba_v201_clear_github_release_cache($upgrader, array $options): void
     }
 
     delete_site_transient('ba_v201_github_latest_release');
-    ba_v201_set_theme_update_notice(
-        'success',
-        sprintf(
-            /* translators: %s: updated theme version. */
-            __('Barber Theme successfully updated to v%s.', 'barber-architecte-v201'),
-            wp_get_theme(get_stylesheet())->get('Version')
-        )
-    );
 }
 add_action('upgrader_process_complete', 'ba_v201_clear_github_release_cache', 10, 2);
+
+/**
+ * After logout, redirect to the login page template with ?loggedout=true
+ * so the user sees a branded confirmation instead of wp-login.php.
+ */
+function ba_v201_logout_redirect(): void
+{
+    $login_page = get_page_by_path('login');
+    if (!$login_page) {
+        // Fallback: find any page using the login template
+        $pages = get_posts([
+            'post_type'  => 'page',
+            'meta_key'   => '_wp_page_template',
+            'meta_value' => 'page-login.php',
+            'numberposts' => 1,
+            'fields'     => 'ids',
+        ]);
+        if ($pages) {
+            $login_page = get_post($pages[0]);
+        }
+    }
+
+    if ($login_page) {
+        wp_redirect(add_query_arg('loggedout', 'true', get_permalink($login_page->ID)));
+        exit;
+    }
+}
+add_action('wp_logout', 'ba_v201_logout_redirect');
+
+/**
+ * Style wp-login.php to match the barbershop theme.
+ */
+function ba_v201_login_styles(): void
+{
+    ?>
+    <style>
+        :root {
+            --ba-bg:         #0e0f0f;
+            --ba-panel:      #171918;
+            --ba-panel-soft: #20231f;
+            --ba-text:       #f4f0e8;
+            --ba-muted:      #beb6a8;
+            --ba-line:       rgba(244,240,232,0.16);
+            --ba-gold:       #c8a45d;
+            --ba-rust:       #8d3f30;
+            --ba-ink:        #15120b;
+        }
+
+        body.login {
+            background: var(--ba-bg);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        /* Logo area */
+        #login h1 a {
+            background-image: none !important;
+            background-color: transparent;
+            width: auto;
+            height: auto;
+            font-size: 2rem;
+            color: var(--ba-gold);
+            text-indent: 0;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+            margin-bottom: 0.25rem;
+        }
+
+        #login h1 a::before {
+            content: '✂';
+            font-size: 2.5rem;
+            display: block;
+        }
+
+        #login h1 a::after {
+            content: '<?php echo esc_js(get_bloginfo("name")); ?>';
+            display: block;
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            color: var(--ba-text);
+        }
+
+        /* Card */
+        #loginform,
+        #lostpasswordform {
+            background: var(--ba-panel) !important;
+            border: 1px solid var(--ba-line) !important;
+            border-radius: 14px !important;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.5) !important;
+            padding: 2rem !important;
+        }
+
+        /* Labels */
+        #loginform label,
+        #lostpasswordform label {
+            color: var(--ba-muted) !important;
+            font-size: 0.78rem !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.08em !important;
+        }
+
+        /* Inputs */
+        #loginform input[type="text"],
+        #loginform input[type="password"],
+        #lostpasswordform input[type="text"] {
+            background: var(--ba-panel-soft) !important;
+            border: 1px solid var(--ba-line) !important;
+            border-radius: 8px !important;
+            color: var(--ba-text) !important;
+            padding: 0.75rem 1rem !important;
+            font-size: 0.95rem !important;
+            box-shadow: none !important;
+            outline: none !important;
+        }
+
+        #loginform input[type="text"]:focus,
+        #loginform input[type="password"]:focus,
+        #lostpasswordform input[type="text"]:focus {
+            border-color: var(--ba-gold) !important;
+            box-shadow: 0 0 0 1px var(--ba-gold) !important;
+        }
+
+        /* Submit button */
+        #loginform .button-primary,
+        #lostpasswordform .button-primary,
+        input#wp-submit {
+            background: var(--ba-gold) !important;
+            border: none !important;
+            border-radius: 8px !important;
+            color: var(--ba-ink) !important;
+            font-weight: 700 !important;
+            font-size: 0.95rem !important;
+            letter-spacing: 0.04em !important;
+            padding: 0.85rem 1.5rem !important;
+            box-shadow: none !important;
+            text-shadow: none !important;
+            width: 100% !important;
+            height: auto !important;
+            transition: background 0.2s !important;
+        }
+
+        #loginform .button-primary:hover,
+        input#wp-submit:hover {
+            background: #d4b06a !important;
+        }
+
+        /* Remember me */
+        .forgetmenot label {
+            color: var(--ba-muted) !important;
+            font-size: 0.85rem !important;
+            text-transform: none !important;
+            letter-spacing: 0 !important;
+        }
+
+        /* Links below the form */
+        #nav a, #backtoblog a {
+            color: var(--ba-muted) !important;
+            font-size: 0.85rem !important;
+            text-decoration: none !important;
+        }
+
+        #nav a:hover, #backtoblog a:hover {
+            color: var(--ba-gold) !important;
+        }
+
+        #nav, #backtoblog {
+            text-align: center;
+        }
+
+        /* Error / info messages */
+        #login_error,
+        .message {
+            background: rgba(141,63,48,0.15) !important;
+            border-left: 4px solid var(--ba-rust) !important;
+            border-radius: 8px !important;
+            color: #e08070 !important;
+            box-shadow: none !important;
+        }
+
+        .message {
+            background: rgba(200,164,93,0.1) !important;
+            border-left-color: var(--ba-gold) !important;
+            color: var(--ba-muted) !important;
+        }
+    </style>
+    <?php
+}
+add_action('login_enqueue_scripts', 'ba_v201_login_styles');
+
+/**
+ * Make the login logo link go to the site homepage instead of wordpress.org.
+ */
+add_filter('login_headerurl', fn() => home_url('/'));
+add_filter('login_headertext', fn() => get_bloginfo('name'));

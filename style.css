@@ -4346,3 +4346,610 @@ body .elementor-223 .elementor-element.elementor-element-ca331d7 .sln-bootstrap 
     width: calc(100% - 28px) !important;
   }
 }
+
+/* =============================================================
+   404 — Error Page
+   ============================================================= */
+.ba-error-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 70vh;
+  padding: 6rem 1.5rem;
+  text-align: center;
+}
+
+.ba-error-page__inner {
+  max-width: 560px;
+  width: 100%;
+}
+
+.ba-error-page__code {
+  font-size: clamp(6rem, 20vw, 12rem);
+  font-weight: 900;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 2px var(--ba-gold);
+  letter-spacing: -0.04em;
+  margin-bottom: 0;
+}
+
+.ba-error-page__scissors {
+  font-size: 2.5rem;
+  color: var(--ba-gold);
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.ba-error-page__title {
+  font-size: clamp(1.5rem, 4vw, 2.25rem);
+  color: var(--ba-text);
+  margin-bottom: 1rem;
+}
+
+.ba-error-page__desc {
+  color: var(--ba-muted);
+  line-height: 1.7;
+  margin-bottom: 2rem;
+}
+
+.ba-error-page__search {
+  margin-bottom: 2rem;
+}
+
+.ba-error-page__actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* =============================================================
+   SEARCH — Shared field
+   ============================================================= */
+.ba-search-field {
+  display: flex;
+  align-items: center;
+  background: var(--ba-panel);
+  border: 1px solid var(--ba-line);
+  border-radius: 999px;
+  overflow: hidden;
+  max-width: 540px;
+  margin: 0 auto;
+  transition: border-color 0.2s;
+}
+
+.ba-search-field:focus-within {
+  border-color: var(--ba-gold);
+}
+
+.ba-search-field input[type="search"] {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  padding: 0.85rem 1.25rem;
+  color: var(--ba-text);
+  font-size: 0.95rem;
+  font-family: inherit;
+}
+
+.ba-search-field input[type="search"]::placeholder {
+  color: var(--ba-muted);
+}
+
+.ba-search-field button {
+  background: var(--ba-gold);
+  border: none;
+  color: var(--ba-ink);
+  padding: 0.75rem 1.25rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+  flex-shrink: 0;
+}
+
+.ba-search-field button:hover {
+  background: #d4b06a;
+}
+
+/* =============================================================
+   SEARCH — Results page
+   ============================================================= */
+.ba-search-page {
+  padding: 5rem 0 6rem;
+}
+
+.ba-search-page__header {
+  margin-bottom: 2.5rem;
+}
+
+.ba-search-page__title {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  color: var(--ba-text);
+  margin-bottom: 0.5rem;
+}
+
+.ba-search-highlight {
+  color: var(--ba-gold);
+}
+
+.ba-search-page__count {
+  color: var(--ba-muted);
+  font-size: 0.9rem;
+}
+
+.ba-search-form {
+  margin-bottom: 3rem;
+}
+
+.ba-search-results {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.ba-search-card {
+  display: flex;
+  gap: 1.5rem;
+  background: var(--ba-panel);
+  border: 1px solid var(--ba-line);
+  border-radius: var(--ba-radius-md, 12px);
+  overflow: hidden;
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.ba-search-card:hover {
+  border-color: var(--ba-gold);
+  transform: translateY(-2px);
+}
+
+.ba-search-card__thumb {
+  flex-shrink: 0;
+  width: 200px;
+}
+
+.ba-search-card__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.ba-search-card__body {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.ba-search-card__type {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ba-gold);
+  margin: 0;
+}
+
+.ba-search-card__title {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.ba-search-card__title a {
+  color: var(--ba-text);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.ba-search-card__title a:hover {
+  color: var(--ba-gold);
+}
+
+.ba-search-card__excerpt {
+  color: var(--ba-muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin: 0;
+  flex: 1;
+}
+
+.ba-search-card__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--ba-gold);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: gap 0.2s;
+}
+
+.ba-search-card__link:hover {
+  gap: 0.65rem;
+}
+
+/* Search — empty state */
+.ba-search-empty {
+  text-align: center;
+  padding: 4rem 1.5rem;
+}
+
+.ba-search-empty__icon {
+  font-size: 3rem;
+  color: var(--ba-gold);
+  opacity: 0.4;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.ba-search-empty__title {
+  font-size: 1.5rem;
+  color: var(--ba-text);
+  margin-bottom: 0.75rem;
+}
+
+.ba-search-empty__desc {
+  color: var(--ba-muted);
+  margin-bottom: 2rem;
+}
+
+/* Search — pagination */
+.ba-search-pagination .nav-links {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.ba-search-pagination .page-numbers {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.5rem;
+  height: 2.5rem;
+  padding: 0 0.75rem;
+  border: 1px solid var(--ba-line);
+  border-radius: 6px;
+  color: var(--ba-muted);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+.ba-search-pagination .page-numbers:hover,
+.ba-search-pagination .page-numbers.current {
+  background: var(--ba-gold);
+  border-color: var(--ba-gold);
+  color: var(--ba-ink);
+}
+
+/* Search card — mobile */
+@media (max-width: 600px) {
+  .ba-search-card {
+    flex-direction: column;
+  }
+
+  .ba-search-card__thumb {
+    width: 100%;
+    height: 180px;
+  }
+}
+
+/* =============================================================
+   LOGIN / LOGOUT — Page
+   ============================================================= */
+.ba-login-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 70vh;
+  padding: 5rem 1.5rem;
+}
+
+.ba-login-page__inner {
+  width: 100%;
+  max-width: 440px;
+}
+
+.ba-login-card {
+  background: var(--ba-panel);
+  border: 1px solid var(--ba-line);
+  border-radius: var(--ba-radius-md, 14px);
+  padding: 2.5rem 2rem;
+  text-align: center;
+}
+
+.ba-login-card__icon {
+  font-size: 2.25rem;
+  color: var(--ba-gold);
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.ba-login-card__title {
+  font-size: 1.75rem;
+  color: var(--ba-text);
+  margin-bottom: 0.4rem;
+}
+
+.ba-login-card__subtitle {
+  color: var(--ba-muted);
+  margin-bottom: 1.75rem;
+  font-size: 0.95rem;
+}
+
+/* Override WP default login form styles */
+.ba-login-page #ba-login-form {
+  text-align: left;
+}
+
+.ba-login-page #ba-login-form p {
+  margin-bottom: 1.1rem;
+}
+
+.ba-login-page #ba-login-form label {
+  display: block;
+  color: var(--ba-muted);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.4rem;
+}
+
+.ba-login-page #ba-login-form input[type="text"],
+.ba-login-page #ba-login-form input[type="password"] {
+  width: 100%;
+  background: var(--ba-panel-soft);
+  border: 1px solid var(--ba-line);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  color: var(--ba-text);
+  font-size: 0.95rem;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+
+.ba-login-page #ba-login-form input[type="text"]:focus,
+.ba-login-page #ba-login-form input[type="password"]:focus {
+  border-color: var(--ba-gold);
+}
+
+.ba-login-page #ba-login-form .forgetmenot {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--ba-muted);
+  font-size: 0.85rem;
+}
+
+.ba-login-page #ba-login-form .forgetmenot label {
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+.ba-login-page #ba-login-form input[type="submit"] {
+  width: 100%;
+  background: var(--ba-gold);
+  color: var(--ba-ink);
+  border: none;
+  border-radius: 8px;
+  padding: 0.85rem 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  transition: background 0.2s;
+}
+
+.ba-login-page #ba-login-form input[type="submit"]:hover {
+  background: #d4b06a;
+}
+
+.ba-login-error {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(141, 63, 48, 0.15);
+  border: 1px solid var(--ba-rust);
+  border-radius: 8px;
+  color: #e08070;
+  font-size: 0.875rem;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1.25rem;
+  text-align: left;
+}
+
+.ba-login-card__links {
+  margin-top: 1.25rem;
+}
+
+.ba-login-card__links a {
+  color: var(--ba-muted);
+  font-size: 0.85rem;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.ba-login-card__links a:hover {
+  color: var(--ba-gold);
+}
+
+.ba-login-card__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+@media (min-width: 400px) {
+  .ba-login-card__actions {
+    flex-direction: row;
+    justify-content: center;
+  }
+}
+
+/* =============================================================
+   SEARCH — Header trigger button
+   ============================================================= */
+.search-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  background: transparent;
+  border: 1px solid var(--ba-line);
+  border-radius: 50%;
+  color: var(--ba-text);
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+  flex-shrink: 0;
+}
+
+.search-trigger:hover {
+  border-color: var(--ba-gold);
+  color: var(--ba-gold);
+  background: rgba(200, 164, 93, 0.08);
+}
+
+/* =============================================================
+   SEARCH — Full-screen overlay
+   ============================================================= */
+.search-overlay {
+  display: none;
+}
+
+.search-overlay.is-open {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  animation: baSearchFadeIn 0.25s ease both;
+}
+
+@keyframes baSearchFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.search-overlay__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(14, 15, 15, 0.92);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.search-overlay__panel {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 680px;
+  margin: 6rem 1.5rem 0;
+  transform: translateY(-16px);
+  transition: transform 0.25s ease;
+}
+
+.search-overlay.is-open .search-overlay__panel {
+  transform: translateY(0);
+}
+
+.search-overlay__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.search-overlay__label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--ba-muted);
+}
+
+.search-overlay__close {
+  background: transparent;
+  border: 1px solid var(--ba-line);
+  border-radius: 50%;
+  color: var(--ba-muted);
+  width: 2.25rem;
+  height: 2.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.search-overlay__close:hover {
+  border-color: var(--ba-gold);
+  color: var(--ba-gold);
+}
+
+.search-overlay__field {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: var(--ba-panel);
+  border: 1px solid var(--ba-line);
+  border-radius: 14px;
+  padding: 0.5rem 0.75rem 0.5rem 1.25rem;
+  transition: border-color 0.2s;
+}
+
+.search-overlay__field:focus-within {
+  border-color: var(--ba-gold);
+}
+
+.search-overlay__field > svg {
+  color: var(--ba-muted);
+  flex-shrink: 0;
+}
+
+.search-overlay__field input[type="search"] {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  color: var(--ba-text);
+  font-size: 1.25rem;
+  font-family: inherit;
+  padding: 0.6rem 0;
+}
+
+.search-overlay__field input[type="search"]::placeholder {
+  color: var(--ba-muted);
+}
+
+.search-overlay__field button[type="submit"] {
+  background: var(--ba-gold);
+  border: none;
+  border-radius: 8px;
+  color: var(--ba-ink);
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.2s;
+}
+
+.search-overlay__field button[type="submit"]:hover {
+  background: #d4b06a;
+}
