@@ -315,7 +315,7 @@ function ba_v201_github_release_changelog_html(array $release): string
             $flush_list();
 
             // Promote Markdown headings to h3-h6 so release notes fit inside admin cards without duplicate page-level headings.
-            $level = max(3, min(6, 2 + strlen($matches[1])));
+            $level = min(6, strlen($matches[1]) + 2);
             $text = $normalize_text($matches[2]);
             $html .= sprintf(
                 '<h%d>%s</h%d>',
@@ -531,7 +531,7 @@ function ba_v201_render_theme_update_admin_notice(): void
         </div>
         <p><?php echo esc_html__('A new GitHub release is ready for your WordPress theme. Review the highlights below or install it now.', 'barber-architecte-v201'); ?></p>
         <details open>
-            <summary><?php echo esc_html__('What’s new in this release.', 'barber-architecte-v201'); ?></summary>
+            <summary><?php echo esc_html__('What’s new in this release', 'barber-architecte-v201'); ?></summary>
             <div>
                 <?php
                 echo wp_kses_post(
