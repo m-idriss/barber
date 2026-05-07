@@ -7,12 +7,6 @@ if (!defined('ABSPATH')) {
 if (!defined('BA_V201_GITHUB_REPOSITORY')) {
     define('BA_V201_GITHUB_REPOSITORY', 'm-idriss/barber');
 }
-if (!defined('BA_V201_GITHUB_REPOSITORY_URL')) {
-    define('BA_V201_GITHUB_REPOSITORY_URL', 'https://github.com/' . BA_V201_GITHUB_REPOSITORY);
-}
-if (!defined('BA_V201_GITHUB_LATEST_RELEASE_API')) {
-    define('BA_V201_GITHUB_LATEST_RELEASE_API', 'https://api.github.com/repos/' . BA_V201_GITHUB_REPOSITORY . '/releases/latest');
-}
 
 function ba_v201_setup(): void
 {
@@ -37,6 +31,22 @@ function ba_v201_assets(): void
     wp_enqueue_style('ba-v201-style', get_stylesheet_uri(), [], wp_get_theme()->get('Version'));
 }
 add_action('wp_enqueue_scripts', 'ba_v201_assets');
+
+function ba_v201_github_repository(): string
+{
+    $repository = (string) apply_filters('ba_v201_github_repository', BA_V201_GITHUB_REPOSITORY);
+    return '' !== $repository ? $repository : BA_V201_GITHUB_REPOSITORY;
+}
+
+function ba_v201_github_repository_url(): string
+{
+    return 'https://github.com/' . ba_v201_github_repository();
+}
+
+function ba_v201_github_latest_release_api_url(): string
+{
+    return 'https://api.github.com/repos/' . ba_v201_github_repository() . '/releases/latest';
+}
 
 function ba_v201_upload_url(string $file): string
 {
@@ -133,11 +143,11 @@ function ba_v201_github_latest_release(): ?array
 
     $theme_slug = sanitize_key(get_stylesheet());
     $response = wp_remote_get(
-        BA_V201_GITHUB_LATEST_RELEASE_API,
+        ba_v201_github_latest_release_api_url(),
         [
             'headers' => [
                 'Accept' => 'application/vnd.github+json',
-                'User-Agent' => $theme_slug . '-updater WordPress/' . get_bloginfo('version') . '; ' . home_url('/'),
+                'User-Agent' => $theme_slug . '-updater WordPress/' . get_bloginfo('version'),
             ],
             'timeout' => 10,
         ]
@@ -156,19 +166,39 @@ function ba_v201_github_latest_release(): ?array
     return $release;
 }
 
-function ba_v201_github_release_package_url(array $release): string
+function ba_v201_github_release_package_url(array $release, string $theme_slug): string
 {
+    $fallback_zip_url = '';
     if (!empty($release['assets']) && is_array($release['assets'])) {
         foreach ($release['assets'] as $asset) {
+            $asset_name = strtolower((string) ($asset['name'] ?? ''));
             $download_url = $asset['browser_download_url'] ?? '';
             if (is_string($download_url) && str_ends_with(strtolower($download_url), '.zip')) {
-                return $download_url;
+                if ('' === $fallback_zip_url) {
+                    $fallback_zip_url = $download_url;
+                }
+                if (str_contains($asset_name, strtolower($theme_slug))) {
+                    return $download_url;
+                }
             }
         }
     }
 
-    $zipball_url = $release['zipball_url'] ?? '';
-    return is_string($zipball_url) ? $zipball_url : '';
+    if ('' !== $fallback_zip_url) {
+        return $fallback_zip_url;
+    }
+
+    $zipball_url = (string) ($release['zipball_url'] ?? '');
+    return '' !== $zipball_url ? $zipball_url : '';
+}
+
+function ba_v201_release_version_from_tag(string $tag): string
+{
+    if (preg_match('/\d+(?:\.\d+)+/', $tag, $matches)) {
+        return $matches[0];
+    }
+
+    return ltrim($tag, 'vV');
 }
 
 function ba_v201_check_for_github_theme_update($transient)
@@ -185,12 +215,12 @@ function ba_v201_check_for_github_theme_update($transient)
         return $transient;
     }
 
-    $latest_version = ltrim((string) $release['tag_name'], 'vV');
+    $latest_version = ba_v201_release_version_from_tag((string) $release['tag_name']);
     if ('' === $latest_version || version_compare($latest_version, $current_version, '<=')) {
         return $transient;
     }
 
-    $package_url = ba_v201_github_release_package_url($release);
+    $package_url = ba_v201_github_release_package_url($release, $stylesheet);
     if ('' === $package_url) {
         return $transient;
     }
@@ -198,7 +228,7 @@ function ba_v201_check_for_github_theme_update($transient)
     $transient->response[$stylesheet] = [
         'theme' => $stylesheet,
         'new_version' => $latest_version,
-        'url' => !empty($release['html_url']) ? $release['html_url'] : BA_V201_GITHUB_REPOSITORY_URL,
+        'url' => !empty($release['html_url']) ? $release['html_url'] : ba_v201_github_repository_url(),
         'package' => $package_url,
         'requires' => $theme->get('RequiresWP'),
         'requires_php' => $theme->get('RequiresPHP'),
@@ -208,8 +238,10 @@ function ba_v201_check_for_github_theme_update($transient)
 }
 add_filter('pre_set_site_transient_update_themes', 'ba_v201_check_for_github_theme_update');
 
-function ba_v201_clear_github_release_cache($_upgrader, array $options): void
+function ba_v201_clear_github_release_cache($upgrader_instance, array $options): void
 {
+    unset($upgrader_instance);
+
     if (($options['action'] ?? '') !== 'update' || ($options['type'] ?? '') !== 'theme') {
         return;
     }
