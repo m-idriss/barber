@@ -273,7 +273,15 @@ function ba_v201_github_release_changelog_html(array $release): string
     $list_items = [];
     $normalize_text = static function (string $text): string {
         $text = preg_replace('/\[([^\r\n]+?)\]\((https?:\/\/[^\s)]+)\)/', '$1: $2', $text);
+        if (null === $text) {
+            return '';
+        }
+
         $text = preg_replace('/(\*\*|__)([^\r\n]+?)\1/', '$2', $text);
+        if (null === $text) {
+            return '';
+        }
+
         $text = preg_replace('/(`|~~|\*|_)([^\r\n]+?)\1/', '$2', $text);
         return is_string($text) ? $text : '';
     };
@@ -315,7 +323,7 @@ function ba_v201_github_release_changelog_html(array $release): string
             $flush_list();
 
             // Promote Markdown headings to h3-h6 so release notes fit inside admin cards without duplicate page-level headings.
-            $level = min(6, strlen($matches[1]) + 2);
+            $level = max(3, min(6, strlen($matches[1]) + 2));
             $text = $normalize_text($matches[2]);
             $html .= sprintf(
                 '<h%d>%s</h%d>',
@@ -357,7 +365,7 @@ function ba_v201_theme_update_check_url(): string
 
 function ba_v201_theme_update_notice_key(): string
 {
-    return 'ba_v201_theme_update_admin_notice_' . get_current_user_id();
+    return 'ba_v201_theme_update_admin_notice_' . wp_hash((string) get_current_user_id());
 }
 
 function ba_v201_theme_updates_screen_ids(): array
@@ -522,7 +530,7 @@ function ba_v201_render_theme_update_admin_notice(): void
                         esc_html(
                             false !== $published_at
                                 ? wp_date(get_option('date_format'), $published_at)
-                                : (string) $release['published_at']
+                                : __('Date unavailable', 'barber-architecte-v201')
                         )
                     );
                     ?>
