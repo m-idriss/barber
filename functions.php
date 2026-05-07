@@ -461,3 +461,39 @@ add_action('login_enqueue_scripts', 'ba_v201_login_styles');
  */
 add_filter('login_headerurl', fn() => home_url('/'));
 add_filter('login_headertext', fn() => get_bloginfo('name'));
+
+/**
+ * Auto-create required pages on theme activation.
+ * Skips creation if a page with the same slug already exists.
+ */
+function ba_v201_create_starter_pages(): void
+{
+    $pages = [
+        [
+            'title'    => 'Connexion',
+            'slug'     => 'login',
+            'template' => 'page-login.php',
+            'content'  => '',
+        ],
+    ];
+
+    foreach ($pages as $page) {
+        $existing = get_page_by_path($page['slug']);
+        if ($existing) {
+            continue;
+        }
+
+        $id = wp_insert_post([
+            'post_title'   => $page['title'],
+            'post_name'    => $page['slug'],
+            'post_content' => $page['content'],
+            'post_status'  => 'publish',
+            'post_type'    => 'page',
+        ]);
+
+        if ($id && !is_wp_error($id)) {
+            update_post_meta($id, '_wp_page_template', $page['template']);
+        }
+    }
+}
+add_action('after_switch_theme', 'ba_v201_create_starter_pages');
