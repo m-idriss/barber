@@ -475,6 +475,36 @@ function ba_v201_create_starter_pages(): void
             'template' => 'page-login.php',
             'content'  => '',
         ],
+        [
+            'title'    => 'Actualités',
+            'slug'     => 'actualites',
+            'template' => 'default',
+            'content'  => '',
+        ],
+        [
+            'title'    => 'À propos',
+            'slug'     => 'a-propos',
+            'template' => 'default',
+            'content'  => '',
+        ],
+        [
+            'title'    => 'Contact',
+            'slug'     => 'contact',
+            'template' => 'default',
+            'content'  => '',
+        ],
+        [
+            'title'    => 'Mentions légales',
+            'slug'     => 'mentions-legales',
+            'template' => 'default',
+            'content'  => '',
+        ],
+        [
+            'title'    => 'Politique de confidentialité',
+            'slug'     => 'politique-confidentialite',
+            'template' => 'default',
+            'content'  => '',
+        ],
     ];
 
     foreach ($pages as $page) {
