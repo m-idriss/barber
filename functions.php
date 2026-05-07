@@ -131,12 +131,13 @@ function ba_v201_github_latest_release(): ?array
         return $cached_release;
     }
 
+    $theme_slug = sanitize_key(get_stylesheet());
     $response = wp_remote_get(
         BA_V201_GITHUB_LATEST_RELEASE_API,
         [
             'headers' => [
                 'Accept' => 'application/vnd.github+json',
-                'User-Agent' => 'barber-architecte-v201-updater WordPress/' . get_bloginfo('version') . '; ' . home_url('/'),
+                'User-Agent' => $theme_slug . '-updater WordPress/' . get_bloginfo('version') . '; ' . home_url('/'),
             ],
             'timeout' => 10,
         ]
@@ -176,7 +177,7 @@ function ba_v201_check_for_github_theme_update($transient)
         return $transient;
     }
 
-    $theme = wp_get_theme();
+    $theme = wp_get_theme(get_stylesheet());
     $stylesheet = $theme->get_stylesheet();
     $current_version = $theme->get('Version');
     $release = ba_v201_github_latest_release();
@@ -207,10 +208,8 @@ function ba_v201_check_for_github_theme_update($transient)
 }
 add_filter('pre_set_site_transient_update_themes', 'ba_v201_check_for_github_theme_update');
 
-function ba_v201_clear_github_release_cache($upgrader, array $options): void
+function ba_v201_clear_github_release_cache($_upgrader, array $options): void
 {
-    unset($upgrader);
-
     if (($options['action'] ?? '') !== 'update' || ($options['type'] ?? '') !== 'theme') {
         return;
     }
