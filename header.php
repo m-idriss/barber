@@ -80,6 +80,16 @@ if (!defined('ABSPATH')) {
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
             </button>
 
+            <?php if (is_user_logged_in()): ?>
+            <a href="<?php echo esc_url(wp_logout_url(home_url('/login/'))); ?>" class="header-login" aria-label="<?php esc_attr_e('Déconnexion', 'barber-architecte-v201'); ?>">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            </a>
+            <?php else: ?>
+            <a href="<?php echo esc_url(home_url('/login/')); ?>" class="header-login" aria-label="<?php esc_attr_e('Connexion', 'barber-architecte-v201'); ?>">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </a>
+            <?php endif; ?>
+
             <button class="nav-burger" id="navBurger" aria-label="<?php esc_attr_e('Ouvrir le menu', 'barber-architecte-v201'); ?>" aria-expanded="false" aria-controls="mobileNav">
                 <span class="nav-burger__line"></span>
                 <span class="nav-burger__line"></span>
@@ -137,6 +147,11 @@ if (!defined('ABSPATH')) {
 
         <div class="mobile-nav__footer">
             <a class="mobile-nav__cta" href="#reservation"><?php esc_html_e('Réserver maintenant', 'barber-architecte-v201'); ?></a>
+            <?php if (is_user_logged_in()): ?>
+            <a href="<?php echo esc_url(wp_logout_url(home_url('/login/'))); ?>" class="mobile-nav__login"><?php esc_html_e('Déconnexion', 'barber-architecte-v201'); ?></a>
+            <?php else: ?>
+            <a href="<?php echo esc_url(home_url('/login/')); ?>" class="mobile-nav__login"><?php esc_html_e('Connexion', 'barber-architecte-v201'); ?></a>
+            <?php endif; ?>
             <div class="mobile-nav__socials">
                 <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
