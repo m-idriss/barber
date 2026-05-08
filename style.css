@@ -883,6 +883,11 @@ body .elementor-223 .elementor-element.elementor-element-a5c19d3 > .elementor-el
   width: 100%;
 }
 
+/* Hero overlay: no transition at any breakpoint — prevents light-to-dark flash on load */
+.elementor-223 .elementor-element.elementor-element-8ab9075 > .elementor-background-overlay {
+  transition: none !important;
+}
+
 .ba-accueil-page .hero-booking::before,
 .ba-accueil-page .ba-el-booking-widget::before,
 .ba-accueil-page .elementor-widget:has(#sln-salon) > .elementor-widget-container::before {
@@ -4060,10 +4065,11 @@ body .elementor-223 .elementor-element.elementor-element-cd7f074:not(.elementor-
     padding: 34px 14px 28px !important;
   }
 
-  /* Switch gradient from horizontal to vertical so full-width title stays legible */
+  /* Switch gradient to vertical and disable transition to prevent flash on load */
   .elementor-223 .elementor-element.elementor-element-8ab9075 > .elementor-background-overlay {
     background-image: linear-gradient(180deg, rgba(14, 15, 15, 0.55) 0%, rgba(14, 15, 15, 0.92) 100%) !important;
     opacity: 1 !important;
+    transition: none !important;
   }
 
   .ba-el-hero::after {
