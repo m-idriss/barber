@@ -393,6 +393,93 @@ function ba_v201_create_starter_pages(): void
 add_action('after_switch_theme', 'ba_v201_create_starter_pages');
 
 /**
+ * Register Customizer settings for contact info and social URLs.
+ */
+function ba_v201_customizer(WP_Customize_Manager $wp_customize): void
+{
+    $wp_customize->add_section('ba_contact', [
+        'title'    => __('Contact & Réseaux sociaux', 'barber-architecte-v201'),
+        'priority' => 30,
+    ]);
+
+    $fields = [
+        'ba_phone'            => [__('Téléphone (lien tel:)', 'barber-architecte-v201'), '+33123456789', 'sanitize_text_field'],
+        'ba_phone_display'    => [__('Téléphone (affiché)', 'barber-architecte-v201'), '+33 1 23 45 67 89', 'sanitize_text_field'],
+        'ba_email'            => [__('Email', 'barber-architecte-v201'), 'contact@barberlarchitecte.com', 'sanitize_email'],
+        'ba_address_line1'    => [__('Adresse (ligne 1)', 'barber-architecte-v201'), '123 Rue de la Coupe', 'sanitize_text_field'],
+        'ba_address_line2'    => [__('Adresse (ligne 2)', 'barber-architecte-v201'), '75000 Paris', 'sanitize_text_field'],
+        'ba_maps_url'         => [__('Lien Google Maps', 'barber-architecte-v201'), 'https://maps.google.com', 'esc_url_raw'],
+        'ba_maps_label'       => [__('Ville (topbar)', 'barber-architecte-v201'), 'Paris', 'sanitize_text_field'],
+        'ba_social_facebook'  => [__('URL Facebook', 'barber-architecte-v201'), 'https://facebook.com', 'esc_url_raw'],
+        'ba_social_instagram' => [__('URL Instagram', 'barber-architecte-v201'), 'https://instagram.com', 'esc_url_raw'],
+        'ba_social_tiktok'    => [__('URL TikTok', 'barber-architecte-v201'), 'https://tiktok.com', 'esc_url_raw'],
+    ];
+
+    foreach ($fields as $id => [$label, $default, $sanitize]) {
+        $wp_customize->add_setting($id, [
+            'default'           => $default,
+            'sanitize_callback' => $sanitize,
+        ]);
+        $wp_customize->add_control($id, [
+            'label'   => $label,
+            'section' => 'ba_contact',
+            'type'    => 'text',
+        ]);
+    }
+}
+add_action('customize_register', 'ba_v201_customizer');
+
+/**
+ * Render business hours for the footer, grouped by identical schedules.
+ */
+function ba_v201_render_footer_hours(): string
+{
+    $hours    = ba_v201_business_hours();
+    $day_names = [
+        0 => __('Dimanche', 'barber-architecte-v201'),
+        1 => __('Lundi', 'barber-architecte-v201'),
+        2 => __('Mardi', 'barber-architecte-v201'),
+        3 => __('Mercredi', 'barber-architecte-v201'),
+        4 => __('Jeudi', 'barber-architecte-v201'),
+        5 => __('Vendredi', 'barber-architecte-v201'),
+        6 => __('Samedi', 'barber-architecte-v201'),
+    ];
+
+    // Mon→Sun order so Sunday appears last
+    $ordered = [1, 2, 3, 4, 5, 6, 0];
+    $groups  = [];
+    $prev_key = null;
+
+    foreach ($ordered as $day) {
+        $schedule = $hours[$day] ?? null;
+        $key      = $schedule ? implode('-', $schedule) : 'closed';
+        if ($key !== $prev_key) {
+            $groups[] = ['key' => $key, 'schedule' => $schedule, 'days' => [$day]];
+        } else {
+            $groups[array_key_last($groups)]['days'][] = $day;
+        }
+        $prev_key = $key;
+    }
+
+    $html = '<div class="footer-hours-premium">';
+    foreach ($groups as $group) {
+        $label     = implode(' • ', array_map(fn($d) => $day_names[$d], $group['days']));
+        $is_closed = $group['key'] === 'closed';
+        $html     .= '<div class="hour-row' . ($is_closed ? ' closed' : '') . '">';
+        $html     .= '<span class="hour-label">' . esc_html($label) . '</span>';
+        if ($is_closed) {
+            $html .= '<span class="hour-value">' . esc_html__('Repos', 'barber-architecte-v201') . '</span>';
+        } else {
+            [$open, $close] = $group['schedule'];
+            $html .= '<span class="hour-value">' . esc_html($open) . ' <span class="hour-dash">–</span> ' . esc_html($close) . '</span>';
+        }
+        $html .= '</div>';
+    }
+    $html .= '</div>';
+    return $html;
+}
+
+/**
  * Pre-select attendant when clicking "Book now" from the assistants page.
  * Clears booking session, stores preferred attendant in a cookie,
  * then redirects to the booking form at the services step.

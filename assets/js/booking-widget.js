@@ -1,33 +1,27 @@
-(function () {
-    function markBookingWidget() {
-        var salon = document.getElementById('sln-salon') || document.querySelector('.sln-bootstrap');
-        if (!salon) return false;
+(function() {
+    function waitFor(selector, callback, timeout) {
+        timeout = timeout !== undefined ? timeout : 4000;
+        var el = document.querySelector(selector);
+        if (el) { callback(el); return; }
+        var done = false;
+        var observer = new MutationObserver(function() {
+            var found = document.querySelector(selector);
+            if (found) { done = true; observer.disconnect(); callback(found); }
+        });
+        observer.observe(document.body, { childList: true, subtree: true });
+        setTimeout(function() { if (!done) observer.disconnect(); }, timeout);
+    }
 
+    function markBookingWidget(salon) {
         salon.classList.add('ba-live-booking-shell');
-
         var widget = salon.closest('.elementor-widget') || salon.closest('.elementor-element') || salon.parentElement;
-        if (widget) {
-            widget.classList.add('ba-live-booking-widget');
-        }
-
-        return true;
+        if (widget) widget.classList.add('ba-live-booking-widget');
     }
 
-    function init() {
-        if (markBookingWidget()) return;
-        var attempts = 0;
-        var timer = setInterval(function () {
-            attempts++;
-            if (markBookingWidget() || attempts > 40) {
-                clearInterval(timer);
-            }
-        }, 250);
-    }
+    waitFor('#sln-salon', markBookingWidget);
 
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', init);
-    } else {
-        init();
-    }
-    window.addEventListener('load', markBookingWidget);
+    window.addEventListener('load', function() {
+        var salon = document.getElementById('sln-salon') || document.querySelector('.sln-bootstrap');
+        if (salon) markBookingWidget(salon);
+    });
 })();

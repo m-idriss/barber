@@ -21,7 +21,7 @@ $booking_url = get_permalink($_sln->getSettings()->getPayPageId());
 ?>
 
 <div class="ba-accueil-page ba-accueil-page--theme" id="accueil">
-<section class="hero" style="background-image: linear-gradient(90deg, rgba(14, 15, 15, 0.94) 0%, rgba(14, 15, 15, 0.62) 48%, rgba(14, 15, 15, 0.22) 100%), url('<?php echo esc_url($hero); ?>');">
+<section class="hero" style="background-image: url('<?php echo esc_url($hero); ?>');">
     <div class="hero__content">
         <div class="hero__copy">
             <span class="eyebrow"><?php esc_html_e("Bienvenue chez Barbershop L'Architecte", 'barber-architecte-v201'); ?></span>
