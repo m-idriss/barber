@@ -1289,6 +1289,310 @@ body .elementor-223 .elementor-element.elementor-element-a5c19d3 > .elementor-el
   }
 }
 
+/* ========== SERVICES FULL PAGE ========== */
+
+.ba-services-page {
+  padding-bottom: 80px;
+}
+
+.ba-services-page__hero {
+  padding: 72px 0 56px;
+  text-align: center;
+  border-bottom: var(--ba-border);
+  margin-bottom: 56px;
+}
+
+.ba-services-page__eyebrow {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--ba-gold);
+  margin-bottom: 16px;
+}
+
+.ba-services-page__title {
+  font-size: clamp(32px, 5vw, 56px);
+  line-height: 1.05;
+  margin: 0 0 20px;
+  color: var(--ba-text);
+}
+
+.ba-services-page__subtitle {
+  max-width: 520px;
+  margin: 0 auto;
+  color: var(--ba-muted);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.ba-services-page__content {
+  margin-bottom: 24px;
+}
+
+.ba-services-page #sln-salon,
+.ba-services-page .sln-bootstrap {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+.ba-services-page #sln-salon__content,
+.ba-services-page #sln-salon #sln-salon__content {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+/* Category headings */
+.ba-services-page .sln-panel {
+  background: transparent !important;
+  border: none !important;
+  margin-bottom: 40px !important;
+}
+
+.ba-services-page .sln-panel-heading {
+  background: transparent !important;
+  border: none !important;
+  border-bottom: var(--ba-border) !important;
+  padding: 0 0 14px !important;
+  margin-bottom: 24px !important;
+  text-decoration: none !important;
+}
+
+.ba-services-page .sln-panel-heading h2,
+.ba-services-page .sln-panel-heading .sln-btn {
+  background: transparent !important;
+  border: none !important;
+  color: var(--ba-text) !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  letter-spacing: 2px !important;
+  text-transform: uppercase !important;
+  padding: 0 !important;
+  text-align: left !important;
+}
+
+.ba-services-page .sln-panel-heading h2::before {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 2px;
+  background: var(--ba-gold);
+  vertical-align: middle;
+  margin-right: 10px;
+}
+
+/* Service list grid */
+.ba-services-page .sln-service-list,
+.ba-services-page .sln-service-list.sln-list {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 24px !important;
+  max-height: none !important;
+  overflow: visible !important;
+  mask-image: none !important;
+  -webkit-mask-image: none !important;
+  padding: 0 !important;
+}
+
+/* Service card */
+.ba-services-page .sln-list__item.sln-service {
+  display: flex !important;
+  flex-direction: column !important;
+  background: var(--ba-panel) !important;
+  border: var(--ba-border) !important;
+  border-radius: var(--ba-radius-xl) !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  cursor: pointer !important;
+  transition: border-color 0.3s, transform 0.3s !important;
+  width: auto !important;
+  float: none !important;
+}
+
+.ba-services-page .sln-list__item.sln-service:hover {
+  border-color: var(--ba-gold) !important;
+  transform: translateY(-3px) !important;
+}
+
+.ba-services-page #sln-salon .sln-list__item input:checked + label {
+  border-color: var(--ba-gold) !important;
+  background: var(--ba-gold-08) !important;
+}
+
+/* Service image */
+.ba-services-page .sln-list__item__thumb {
+  width: 100% !important;
+  height: 180px !important;
+  overflow: hidden !important;
+  border-radius: 0 !important;
+  flex-shrink: 0 !important;
+}
+
+.ba-services-page .sln-list__item__thumb img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  border-radius: 0 !important;
+  display: block !important;
+  margin: 0 !important;
+}
+
+/* Card content */
+.ba-services-page .sln-list__item__content {
+  flex: 1 !important;
+  padding: 20px 20px 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+/* Service name */
+.ba-services-page .sln-list__item__name {
+  font-size: 17px !important;
+  font-weight: 700 !important;
+  color: var(--ba-text) !important;
+  margin: 0 0 10px !important;
+}
+
+/* Description */
+.ba-services-page .sln-list__item__description {
+  color: var(--ba-muted) !important;
+  font-size: 13px !important;
+  line-height: 1.6 !important;
+  margin: 0 0 16px !important;
+  flex-grow: 1 !important;
+}
+
+/* Price + duration */
+.ba-services-page .sln-list__item__info {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  padding: 12px 0 !important;
+  border-top: var(--ba-border) !important;
+  margin-top: auto !important;
+}
+
+.ba-services-page .sln-list__item__price {
+  color: var(--ba-gold) !important;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  margin: 0 !important;
+}
+
+.ba-services-page .sln-list__item__duration {
+  color: var(--ba-muted) !important;
+  font-size: 12px !important;
+}
+
+.ba-services-page .sln-list__item__info h3 {
+  margin: 0 !important;
+  font-size: inherit !important;
+}
+
+/* Checkbox — styled as a "Select" button */
+.ba-services-page .sln-list__item__action {
+  padding: 14px 20px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.ba-services-page .sln-checkbox input[type="checkbox"] {
+  display: none !important;
+}
+
+.ba-services-page .sln-checkbox label {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  padding: 10px 20px !important;
+  background: var(--ba-gold) !important;
+  color: var(--ba-ink) !important;
+  border: 1.5px solid var(--ba-gold) !important;
+  border-radius: var(--ba-radius-lg) !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.8px !important;
+  text-transform: uppercase !important;
+  cursor: pointer !important;
+  transition: background 0.2s, color 0.2s !important;
+}
+
+.ba-services-page .sln-checkbox label::before {
+  content: '+ ';
+}
+
+.ba-services-page .sln-checkbox input:checked + label,
+.ba-services-page .sln-checkbox input:checked ~ label {
+  background: transparent !important;
+  color: var(--ba-gold) !important;
+}
+
+.ba-services-page .sln-checkbox input:checked + label::before,
+.ba-services-page .sln-checkbox input:checked ~ label::before {
+  content: '✓ ';
+}
+
+/* Bottom action bar */
+.ba-services-page .sln-box__bottombar,
+.ba-services-page .sln-form-actions,
+.ba-services-page .sln-cart-footer,
+.ba-services-page .sln-summary-bar {
+  background: transparent !important;
+  border: none !important;
+  border-top: var(--ba-border) !important;
+  margin-top: 40px !important;
+  padding: 24px 0 0 !important;
+  display: flex !important;
+  justify-content: flex-end !important;
+}
+
+.ba-services-page .sln-btn button,
+.ba-services-page button#sln-step-submit {
+  padding: 14px 36px !important;
+  background: var(--ba-gold) !important;
+  color: var(--ba-ink) !important;
+  border: 1.5px solid var(--ba-gold) !important;
+  border-radius: var(--ba-radius-lg) !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.8px !important;
+  text-transform: uppercase !important;
+  cursor: pointer !important;
+  transition: background 0.2s, color 0.2s !important;
+}
+
+.ba-services-page .sln-btn button:hover,
+.ba-services-page button#sln-step-submit:hover {
+  background: transparent !important;
+  color: var(--ba-gold) !important;
+}
+
+@media (max-width: 860px) {
+  .ba-services-page .sln-service-list,
+  .ba-services-page .sln-service-list.sln-list {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+@media (max-width: 520px) {
+  .ba-services-page .sln-service-list,
+  .ba-services-page .sln-service-list.sln-list {
+    grid-template-columns: 1fr !important;
+  }
+
+  .ba-services-page__hero {
+    padding: 48px 0 40px;
+    margin-bottom: 40px;
+  }
+}
+
 /* ========== ASSISTANTS COMPACT (hero) ========== */
 
 .ba-el-assistants-compact .sln-datashortcode--assistants .sln-datalist {
