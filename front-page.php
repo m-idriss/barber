@@ -92,32 +92,6 @@ $booking_url = get_permalink($_sln->getSettings()->getPayPageId());
     </div>
 </section>
 
-<section id="equipe" class="section section--soft">
-    <div class="section-inner">
-        <div class="section-head">
-            <h2><?php esc_html_e('Choisis ton barber.', 'barber-architecte-v201'); ?></h2>
-            <p><?php esc_html_e('Une équipe de passionnés à votre service, chaque jour de la semaine.', 'barber-architecte-v201'); ?></p>
-        </div>
-        <div class="team-grid">
-            <?php foreach ($attendants as $attendant) : ?>
-                <article class="team-card">
-                    <?php echo get_the_post_thumbnail($attendant, 'large', ['loading' => 'lazy', 'decoding' => 'async']); ?>
-                    <div class="team-card__body">
-                        <h3><?php echo esc_html(get_the_title($attendant)); ?></h3>
-                        <?php if ($attendant->post_excerpt) : ?>
-                            <p><?php echo esc_html($attendant->post_excerpt); ?></p>
-                        <?php else : ?>
-                            <p><?php esc_html_e('Disponible à la réservation.', 'barber-architecte-v201'); ?></p>
-                        <?php endif; ?>
-                        <a href="<?php echo esc_url(add_query_arg(['sln_book_attendant' => $attendant->ID], $booking_url)); ?>" class="team-card__cta">
-                            <?php esc_html_e('Réserver', 'barber-architecte-v201'); ?>
-                        </a>
-                    </div>
-                </article>
-            <?php endforeach; ?>
-        </div>
-    </div>
-</section>
 
 </div>
 
