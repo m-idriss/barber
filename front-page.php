@@ -12,20 +12,27 @@ $booking_url = get_permalink($_sln->getSettings()->getPayPageId());
 <section class="hero" style="background-image: url('<?php echo esc_url($hero); ?>');">
     <div class="hero__content">
         <div class="hero__copy">
-            <span class="eyebrow"><?php esc_html_e("Bienvenue chez Barbershop L'Architecte", 'barber-architecte-v201'); ?></span>
+            <span class="eyebrow"><?php esc_html_e("Barbershop L'Architecte — Marseille", 'barber-architecte-v201'); ?></span>
             <h1><?php bloginfo('name'); ?></h1>
-            <p><?php esc_html_e("Votre lieu dédié à l’homme de tout âge. Nos coiffeurs/barbiers sont à votre disposition pour répondre à vos besoins, prodiguer les meilleurs conseils et vous procurer des soins adaptés afin de sublimer votre apparence et faciliter votre coiffage au quotidien.", 'barber-architecte-v201'); ?></p>
+            <p><?php esc_html_e("Votre lieu dédié à l'homme de tout âge. Expertise, précision et raffinement — par des coiffeurs-barbiers passionnés.", 'barber-architecte-v201'); ?></p>
             <div class="hero-team" aria-label="<?php esc_attr_e('Choisir un barber', 'barber-architecte-v201'); ?>">
-                <?php foreach (array_slice($attendants, 0, 4) as $attendant) : ?>
+                <?php foreach (array_slice($attendants, 0, 4) as $attendant) :
+                    $excerpt = $attendant->post_excerpt ?: '';
+                ?>
                     <a class="hero-barber" href="<?php echo esc_url(add_query_arg(['sln_book_attendant' => $attendant->ID], $booking_url)); ?>">
-                        <?php echo get_the_post_thumbnail($attendant, 'thumbnail'); ?>
-                        <span><?php echo esc_html(get_the_title($attendant)); ?></span>
+                        <?php echo get_the_post_thumbnail($attendant, 'thumbnail', ['loading' => 'eager', 'decoding' => 'async']); ?>
+                        <span>
+                            <?php echo esc_html(get_the_title($attendant)); ?>
+                            <?php if ($excerpt) : ?>
+                                <small><?php echo esc_html($excerpt); ?></small>
+                            <?php endif; ?>
+                        </span>
                         <strong><?php esc_html_e('Choisir', 'barber-architecte-v201'); ?></strong>
                     </a>
                 <?php endforeach; ?>
             </div>
             <div class="hero__actions">
-                <a class="btn" href="#reservation"><?php esc_html_e('Reserver maintenant', 'barber-architecte-v201'); ?></a>
+                <a class="btn" href="#reservation"><?php esc_html_e('Réserver maintenant', 'barber-architecte-v201'); ?></a>
                 <a class="btn btn--ghost" href="#services"><?php esc_html_e('Voir les services', 'barber-architecte-v201'); ?></a>
             </div>
         </div>
@@ -44,24 +51,26 @@ $booking_url = get_permalink($_sln->getSettings()->getPayPageId());
 <section id="services" class="section">
     <div class="section-inner">
         <div class="section-head">
-            <h2><?php esc_html_e('Formules claires, resultat net.', 'barber-architecte-v201'); ?></h2>
-            <p><?php esc_html_e('Les prestations Salon Booking sont reprises automatiquement depuis le plugin.', 'barber-architecte-v201'); ?></p>
+            <h2><?php esc_html_e('Formules claires, résultat net.', 'barber-architecte-v201'); ?></h2>
+            <p><?php esc_html_e('Toutes nos prestations, tarifs et disponibilités en temps réel.', 'barber-architecte-v201'); ?></p>
         </div>
         <div class="service-grid">
-            <?php foreach ($services as $service) : ?>
-                <?php
-                $price = get_post_meta($service->ID, '_sln_service_price', true);
+            <?php foreach ($services as $service) :
+                $price    = get_post_meta($service->ID, '_sln_service_price', true);
                 $duration = get_post_meta($service->ID, '_sln_service_duration', true);
-                ?>
-                <?php
                 $book_service_url = add_query_arg([
                     'action'                 => 'salon-booking-services-book-now',
                     'service'                => $service->ID,
                     'skip_service_selection' => 1,
                     'secondary'              => 0,
                 ], $booking_url);
-                ?>
+            ?>
                 <article class="service-card">
+                    <?php if (has_post_thumbnail($service->ID)) : ?>
+                        <div class="service-card__image">
+                            <?php echo get_the_post_thumbnail($service->ID, 'medium', ['loading' => 'lazy', 'decoding' => 'async']); ?>
+                        </div>
+                    <?php endif; ?>
                     <div>
                         <h3><?php echo esc_html(get_the_title($service)); ?></h3>
                         <?php if ($service->post_excerpt) : ?>
@@ -70,7 +79,9 @@ $booking_url = get_permalink($_sln->getSettings()->getPayPageId());
                     </div>
                     <div class="service-card__meta">
                         <span><?php echo esc_html($duration ?: ''); ?></span>
-                        <span><?php echo $price !== '' ? esc_html($price . ' EUR') : ''; ?></span>
+                        <?php if ($price !== '') : ?>
+                            <strong><?php echo esc_html($price . ' EUR'); ?></strong>
+                        <?php endif; ?>
                     </div>
                     <a href="<?php echo esc_url($book_service_url); ?>" class="service-card__cta">
                         <?php esc_html_e('Réserver', 'barber-architecte-v201'); ?>
@@ -85,15 +96,19 @@ $booking_url = get_permalink($_sln->getSettings()->getPayPageId());
     <div class="section-inner">
         <div class="section-head">
             <h2><?php esc_html_e('Choisis ton barber.', 'barber-architecte-v201'); ?></h2>
-            <p><?php esc_html_e('Chaque assistant vient directement des donnees Salon Booking Pro.', 'barber-architecte-v201'); ?></p>
+            <p><?php esc_html_e('Une équipe de passionnés à votre service, chaque jour de la semaine.', 'barber-architecte-v201'); ?></p>
         </div>
         <div class="team-grid">
             <?php foreach ($attendants as $attendant) : ?>
                 <article class="team-card">
-                    <?php echo get_the_post_thumbnail($attendant, 'large'); ?>
+                    <?php echo get_the_post_thumbnail($attendant, 'large', ['loading' => 'lazy', 'decoding' => 'async']); ?>
                     <div class="team-card__body">
                         <h3><?php echo esc_html(get_the_title($attendant)); ?></h3>
-                        <p><?php esc_html_e('Disponible a la reservation.', 'barber-architecte-v201'); ?></p>
+                        <?php if ($attendant->post_excerpt) : ?>
+                            <p><?php echo esc_html($attendant->post_excerpt); ?></p>
+                        <?php else : ?>
+                            <p><?php esc_html_e('Disponible à la réservation.', 'barber-architecte-v201'); ?></p>
+                        <?php endif; ?>
                         <a href="<?php echo esc_url(add_query_arg(['sln_book_attendant' => $attendant->ID], $booking_url)); ?>" class="team-card__cta">
                             <?php esc_html_e('Réserver', 'barber-architecte-v201'); ?>
                         </a>
