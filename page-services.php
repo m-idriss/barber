@@ -22,7 +22,7 @@ get_header();
 
     <div class="ba-services-page__content section-inner">
         <?php echo do_shortcode('[salon_booking_services styled=true columns="3" skip_service_selection=true]'); ?>
-        <button class="services-toggle" data-toggles=".ba-services-page .sln-datashortcode--services .sln-datalist" aria-expanded="false">
+        <button class="services-toggle" data-toggles=".ba-services-page__content" aria-expanded="false">
             <span><?php esc_html_e('Voir plus', 'barber-architecte-v201'); ?></span>
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
