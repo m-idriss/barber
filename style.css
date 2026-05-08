@@ -725,19 +725,9 @@ img {
   position: relative;
   overflow: hidden;
   background-color: var(--ba-bg);
-}
-
-.ba-hero-bg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 100vh;
-  height: 100dvh;
+  background-position: center center;
   background-size: cover;
-  background-position: 65% center;
   background-repeat: no-repeat;
-  z-index: 0;
 }
 
 .hero::before {
@@ -1661,6 +1651,9 @@ body.page-id-7 #sln-salon .sln-service-list.sln-list {
   position: relative;
   padding: 96px 0 80px;
   background-color: var(--ba-bg);
+  background-size: cover;
+  background-position: 65% center;
+  background-repeat: no-repeat;
   margin-bottom: 0;
   overflow: hidden;
 }
