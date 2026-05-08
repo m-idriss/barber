@@ -2424,6 +2424,32 @@ body .elementor-223 .elementor-element.elementor-element-cd7f074:not(.elementor-
   border-color: var(--ba-gold) !important;
 }
 
+/* Bouton principal "Étape suivante" / "Réserver" */
+#sln-salon .sln-btn--emphasis,
+#sln-salon .sln-btn--emphasis a,
+#sln-salon .sln-btn--emphasis button,
+#sln-salon .sln-btn--emphasis input[type="submit"],
+#sln-salon button#sln-step-submit,
+.sln-bootstrap .sln-btn--emphasis,
+.sln-bootstrap .sln-btn--emphasis button {
+  background-color: var(--ba-gold) !important;
+  background: var(--ba-gold) !important;
+  color: var(--ba-ink) !important;
+  border-color: var(--ba-gold) !important;
+}
+
+#sln-salon .sln-btn--emphasis:hover,
+#sln-salon .sln-btn--emphasis:focus,
+#sln-salon button#sln-step-submit:hover,
+#sln-salon button#sln-step-submit:focus,
+.sln-bootstrap .sln-btn--emphasis:hover,
+.sln-bootstrap .sln-btn--emphasis:focus {
+  background-color: #b89450 !important;
+  background: #b89450 !important;
+  color: var(--ba-ink) !important;
+  border-color: #b89450 !important;
+}
+
 /* Bouton "Back" en outline */
 #sln-salon .sln-btn--back,
 #sln-salon .sln-btn--cancel,
