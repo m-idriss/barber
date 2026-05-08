@@ -3884,16 +3884,9 @@ body .elementor-223 .elementor-element.elementor-element-cd7f074:not(.elementor-
     gap: 16px;
   }
 
-  .service-grid:not(.is-expanded) .service-card:nth-child(n+5) {
+  .service-grid:not(.is-expanded) .service-card:nth-child(n+5),
+  .team-grid:not(.is-expanded) .team-card:nth-child(n+5) {
     display: none;
-  }
-
-  .ba-services-page__content:not(.is-expanded) .sln-datalist__item:nth-child(n+5) {
-    display: none !important;
-  }
-
-  .ba-assistants-page__grid:not(.is-expanded) .sln-datalist__item:nth-child(n+5) {
-    display: none !important;
   }
 
   .services-toggle {

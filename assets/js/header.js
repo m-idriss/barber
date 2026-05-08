@@ -157,7 +157,7 @@ function waitForElement(selector, callback, timeout) {
         (function(btn) {
             var grid = document.querySelector(btn.getAttribute('data-toggles'));
             if (!grid) return;
-            var items = grid.querySelectorAll('.service-card, .sln-datalist__item');
+            var items = grid.querySelectorAll('.service-card, .team-card, .sln-datalist__item');
             if (items.length <= 4) { btn.hidden = true; return; }
             var label = btn.querySelector('span');
             btn.addEventListener('click', function() {

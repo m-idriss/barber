@@ -10,12 +10,9 @@ if (!defined('ABSPATH')) {
 
 get_header();
 
-$plugin           = SLN_Plugin::getInstance();
-$booking_url_base = get_permalink($plugin->getSettings()->getPayPageId());
-$repo             = $plugin->getRepository(SLN_Plugin::POST_TYPE_ATTENDANT);
-$service_repo     = $plugin->getRepository(SLN_Plugin::POST_TYPE_SERVICE);
-$all_services     = $service_repo->getAll();
-$attendants       = $repo->sortByPos($repo->get([]));
+$attendants  = ba_v201_salon_posts('sln_attendant');
+$_sln        = SLN_Plugin::getInstance();
+$booking_url = get_permalink($_sln->getSettings()->getPayPageId());
 ?>
 
 <section class="ba-assistants-page">
@@ -27,53 +24,32 @@ $attendants       = $repo->sortByPos($repo->get([]));
         </div>
     </div>
 
-    <div class="ba-assistants-page__grid section-inner">
-        <?php if ($attendants) : ?>
-        <section class="sln-datashortcode sln-datashortcode--assistants">
-            <div class="sln-datalist sln-datalist--styled sln-datalist--3cols">
-                <?php foreach ($attendants as $attendant) :
-                    if (get_post_status($attendant->getId()) !== 'publish') continue;
-                    $thumb    = has_post_thumbnail($attendant->getId())
-                        ? get_the_post_thumbnail($attendant->getId(), 'thumbnail')
-                        : '';
-                    $services = $attendant->getServices() ?: $all_services;
-                    $book_url = add_query_arg(
-                        ['sln_book_attendant' => $attendant->getId()],
-                        $booking_url_base
-                    );
-                ?>
-                <div class="sln-datalist__item">
-                    <h3 class="sln-datalist__item__name"><?php echo esc_html($attendant->getName()); ?></h3>
-                    <div class="sln-datalist__item__image"><?php echo $thumb; ?></div>
-                    <?php if ($attendant->getContent()) : ?>
-                    <p class="sln-datalist__item__description"><?php echo wp_kses_post($attendant->getContent()); ?></p>
-                    <?php endif; ?>
-                    <?php if ($services) : ?>
-                    <div class="sln-datalist__item__list">
-                        <h5><?php esc_html_e('Spécialités', 'barber-architecte-v201'); ?></h5>
-                        <ul>
-                            <?php foreach ($services as $service) : ?>
-                            <li><?php echo esc_html($service->getTitle()); ?></li>
-                            <?php endforeach; ?>
-                        </ul>
-                    </div>
-                    <?php endif; ?>
-                    <div class="sln-datalist__item__actions">
-                        <a href="<?php echo esc_url($book_url); ?>" class="sln-datalist__item__cta">
-                            <?php esc_html_e('Réserver', 'barber-architecte-v201'); ?>
-                        </a>
-                    </div>
-                </div>
+    <section class="section section--soft">
+        <div class="section-inner">
+            <div class="team-grid">
+                <?php foreach ($attendants as $attendant) : ?>
+                    <article class="team-card">
+                        <?php echo get_the_post_thumbnail($attendant, 'large', ['loading' => 'lazy', 'decoding' => 'async']); ?>
+                        <div class="team-card__body">
+                            <h3><?php echo esc_html(get_the_title($attendant)); ?></h3>
+                            <?php if ($attendant->post_excerpt) : ?>
+                                <p><?php echo esc_html($attendant->post_excerpt); ?></p>
+                            <?php else : ?>
+                                <p><?php esc_html_e('Disponible à la réservation.', 'barber-architecte-v201'); ?></p>
+                            <?php endif; ?>
+                            <a href="<?php echo esc_url(add_query_arg(['sln_book_attendant' => $attendant->ID], $booking_url)); ?>" class="team-card__cta">
+                                <?php esc_html_e('Réserver', 'barber-architecte-v201'); ?>
+                            </a>
+                        </div>
+                    </article>
                 <?php endforeach; ?>
-                <div class="sln-datalist_clearfix"></div>
             </div>
-        </section>
-        <?php endif; ?>
-        <button class="services-toggle" data-toggles=".ba-assistants-page__grid" aria-expanded="false">
-            <span><?php esc_html_e('Voir plus', 'barber-architecte-v201'); ?></span>
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-    </div>
+            <button class="services-toggle" data-toggles=".ba-assistants-page .team-grid" aria-expanded="false">
+                <span><?php esc_html_e('Voir plus', 'barber-architecte-v201'); ?></span>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+        </div>
+    </section>
 
     <div class="ba-assistants-page__cta section-inner">
         <a href="<?php echo esc_url(home_url('/booking/')); ?>" class="btn">
