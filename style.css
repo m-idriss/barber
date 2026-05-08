@@ -853,7 +853,8 @@ body .elementor-223 .elementor-element.elementor-element-a5c19d3 > .elementor-el
 }
 
 .hero-booking #sln-salon,
-.hero-booking .sln-bootstrap {
+.hero-booking .sln-bootstrap,
+.hero-booking #sln-salon #sln-salon__content {
   background: transparent !important;
   background-color: transparent !important;
 }
