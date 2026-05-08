@@ -22,43 +22,27 @@ $hero        = ba_v201_upload_url('2026/05/barber-hero-v2-flipped.png');
             <div class="ba-assistants-page__eyebrow"><?php esc_html_e('Notre équipe', 'barber-architecte-v201'); ?></div>
             <h1 class="ba-assistants-page__title"><?php the_title(); ?></h1>
             <p class="ba-assistants-page__subtitle"><?php esc_html_e('Des experts passionnés à votre service. Chaque coupe, chaque soin est une signature.', 'barber-architecte-v201'); ?></p>
+            <div class="hero-team" aria-label="<?php esc_attr_e('Choisir un barber', 'barber-architecte-v201'); ?>">
+                <?php foreach ($attendants as $attendant) :
+                    $excerpt = $attendant->post_excerpt ?: '';
+                ?>
+                    <a class="hero-barber" href="<?php echo esc_url(add_query_arg(['sln_book_attendant' => $attendant->ID], $booking_url)); ?>">
+                        <?php echo get_the_post_thumbnail($attendant, 'thumbnail', ['loading' => 'lazy', 'decoding' => 'async']); ?>
+                        <span>
+                            <?php echo esc_html(get_the_title($attendant)); ?>
+                            <?php if ($excerpt) : ?>
+                                <small><?php echo esc_html($excerpt); ?></small>
+                            <?php endif; ?>
+                        </span>
+                        <strong><?php esc_html_e('Choisir', 'barber-architecte-v201'); ?></strong>
+                    </a>
+                <?php endforeach; ?>
+            </div>
             <div class="ba-page-hero__actions">
-                <a class="btn" href="#equipe"><?php esc_html_e('Voir l\'équipe', 'barber-architecte-v201'); ?></a>
                 <a class="btn btn--ghost" href="<?php echo esc_url($booking_url); ?>"><?php esc_html_e('Réserver', 'barber-architecte-v201'); ?></a>
             </div>
         </div>
     </div>
-
-    <section id="equipe" class="section">
-        <div class="section-inner">
-            <div class="section-head">
-                <h2><?php esc_html_e('Choisis ton barber.', 'barber-architecte-v201'); ?></h2>
-                <p><?php esc_html_e('Une équipe de passionnés à votre service, chaque jour de la semaine.', 'barber-architecte-v201'); ?></p>
-            </div>
-            <div class="team-grid">
-                <?php foreach ($attendants as $attendant) : ?>
-                    <article class="team-card">
-                        <?php echo get_the_post_thumbnail($attendant, 'large', ['loading' => 'lazy', 'decoding' => 'async']); ?>
-                        <div class="team-card__body">
-                            <h3><?php echo esc_html(get_the_title($attendant)); ?></h3>
-                            <?php if ($attendant->post_excerpt) : ?>
-                                <p><?php echo esc_html($attendant->post_excerpt); ?></p>
-                            <?php else : ?>
-                                <p><?php esc_html_e('Disponible à la réservation.', 'barber-architecte-v201'); ?></p>
-                            <?php endif; ?>
-                            <a href="<?php echo esc_url(add_query_arg(['sln_book_attendant' => $attendant->ID], $booking_url)); ?>" class="team-card__cta">
-                                <?php esc_html_e('Réserver', 'barber-architecte-v201'); ?>
-                            </a>
-                        </div>
-                    </article>
-                <?php endforeach; ?>
-            </div>
-            <button class="services-toggle" data-toggles=".ba-assistants-page .team-grid" aria-expanded="false">
-                <span><?php esc_html_e('Voir plus', 'barber-architecte-v201'); ?></span>
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </button>
-        </div>
-    </section>
 
     <section class="ba-page-cta">
         <div class="section-inner">
