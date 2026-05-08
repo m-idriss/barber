@@ -9,7 +9,8 @@ $booking_url = get_permalink($_sln->getSettings()->getPayPageId());
 ?>
 
 <div class="ba-accueil-page ba-accueil-page--theme" id="accueil">
-<section class="hero" style="background-image: url('<?php echo esc_url($hero); ?>');">
+<section class="hero">
+    <div class="ba-hero-bg" style="background-image: url('<?php echo esc_url($hero); ?>');"></div>
     <div class="hero__content">
         <div class="hero__copy">
             <span class="eyebrow"><?php esc_html_e("Barbershop L'Architecte — Marseille", 'barber-architecte-v201'); ?></span>

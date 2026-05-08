@@ -17,7 +17,8 @@ $hero        = ba_v201_upload_url('2026/05/barber-hero-v2-flipped.png');
 ?>
 
 <section class="ba-assistants-page">
-    <div class="ba-assistants-page__hero" style="background-image: url('<?php echo esc_url($hero); ?>')">
+    <div class="ba-assistants-page__hero">
+        <div class="ba-hero-bg" style="background-image: url('<?php echo esc_url($hero); ?>');"></div>
         <div class="section-inner">
             <div class="ba-assistants-page__eyebrow"><?php esc_html_e('Notre équipe', 'barber-architecte-v201'); ?></div>
             <h1 class="ba-assistants-page__title"><?php the_title(); ?></h1>
