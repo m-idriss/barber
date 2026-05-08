@@ -1058,6 +1058,11 @@ body .elementor-223 .elementor-element.elementor-element-a5c19d3 > .elementor-el
   letter-spacing: 0.3px;
 }
 
+.service-card__meta strong {
+  font-size: 15px;
+  font-weight: 800;
+}
+
 .service-card__cta {
   display: block;
   text-align: center;
@@ -1604,6 +1609,12 @@ body.page-id-7 #sln-salon .sln-service-list.sln-list {
     min-height: 50vh;
     padding: 64px 0 56px;
   }
+
+  .ba-services-page__hero::before,
+  .ba-assistants-page__hero::before,
+  .ba-booking-page__hero::before {
+    background: linear-gradient(180deg, rgba(14,15,15,0.88) 0%, rgba(14,15,15,0.68) 60%, rgba(14,15,15,0.94) 100%);
+  }
 }
 
 /* ========== SERVICES FULL PAGE ========== */
@@ -1630,7 +1641,7 @@ body.page-id-7 #sln-salon .sln-service-list.sln-list {
   padding: 96px 0 80px;
   background-color: var(--ba-bg);
   background-size: cover;
-  background-position: center;
+  background-position: 65% center;
   background-repeat: no-repeat;
   margin-bottom: 0;
   overflow: hidden;
@@ -1674,6 +1685,7 @@ body.page-id-7 #sln-salon .sln-service-list.sln-list {
   color: var(--ba-gold);
   font-size: 13px;
   font-weight: 800;
+  letter-spacing: 1.5px;
   text-transform: uppercase;
 }
 
