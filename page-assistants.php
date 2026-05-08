@@ -69,6 +69,10 @@ $attendants       = $repo->sortByPos($repo->get([]));
             </div>
         </section>
         <?php endif; ?>
+        <button class="services-toggle" data-toggles=".ba-assistants-page__grid .sln-datalist" aria-expanded="false">
+            <span><?php esc_html_e('Voir plus', 'barber-architecte-v201'); ?></span>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
     </div>
 
     <div class="ba-assistants-page__cta section-inner">

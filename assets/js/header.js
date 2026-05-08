@@ -150,22 +150,23 @@ function waitForElement(selector, callback, timeout) {
     });
 })();
 
-// Services collapse/expand (mobile only)
+// Services / assistants collapse/expand (mobile only)
 (function() {
-    var btn  = document.getElementById('servicesToggle');
-    var grid = document.querySelector('#services .service-grid');
-    if (!btn || !grid) return;
-
-    var cards = grid.querySelectorAll('.service-card');
-    if (cards.length <= 4) { btn.hidden = true; return; }
-
-    var label = btn.querySelector('span');
-
-    btn.addEventListener('click', function() {
-        var expanded = grid.classList.toggle('is-expanded');
-        btn.setAttribute('aria-expanded', String(expanded));
-        if (label) label.textContent = expanded ? 'Voir moins' : 'Voir plus';
-    });
+    var toggles = document.querySelectorAll('.services-toggle[data-toggles]');
+    for (var i = 0; i < toggles.length; i++) {
+        (function(btn) {
+            var grid = document.querySelector(btn.getAttribute('data-toggles'));
+            if (!grid) return;
+            var items = grid.querySelectorAll('.service-card, .sln-datalist__item');
+            if (items.length <= 4) { btn.hidden = true; return; }
+            var label = btn.querySelector('span');
+            btn.addEventListener('click', function() {
+                var expanded = grid.classList.toggle('is-expanded');
+                btn.setAttribute('aria-expanded', String(expanded));
+                if (label) label.textContent = expanded ? 'Voir moins' : 'Voir plus';
+            });
+        })(toggles[i]);
+    }
 })();
 
 // Search overlay

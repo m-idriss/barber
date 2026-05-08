@@ -89,7 +89,7 @@ $booking_url = get_permalink($_sln->getSettings()->getPayPageId());
                 </article>
             <?php endforeach; ?>
         </div>
-        <button class="services-toggle" id="servicesToggle" aria-expanded="false">
+        <button class="services-toggle" id="servicesToggle" data-toggles="#services .service-grid" aria-expanded="false">
             <span><?php esc_html_e('Voir plus', 'barber-architecte-v201'); ?></span>
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
