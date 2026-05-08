@@ -1,0 +1,134 @@
+:root {
+    --ba-bg:         #0e0f0f;
+    --ba-panel:      #171918;
+    --ba-panel-soft: #20231f;
+    --ba-text:       #f4f0e8;
+    --ba-muted:      #beb6a8;
+    --ba-line:       rgba(244,240,232,0.16);
+    --ba-gold:       #c8a45d;
+    --ba-rust:       #8d3f30;
+    --ba-ink:        #15120b;
+}
+
+body.login {
+    background: var(--ba-bg);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+#login h1 a {
+    background-image: none !important;
+    background-color: transparent;
+    width: auto;
+    height: auto;
+    font-size: 2rem;
+    color: var(--ba-gold);
+    text-indent: 0;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+    margin-bottom: 0.25rem;
+}
+
+#login h1 a::before {
+    content: '✂';
+    font-size: 2.5rem;
+    display: block;
+}
+
+/* #login h1 a::after — site name added via wp_add_inline_style in functions.php */
+
+#loginform,
+#lostpasswordform {
+    background: var(--ba-panel) !important;
+    border: 1px solid var(--ba-line) !important;
+    border-radius: 14px !important;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.5) !important;
+    padding: 2rem !important;
+}
+
+#loginform label,
+#lostpasswordform label {
+    color: var(--ba-muted) !important;
+    font-size: 0.78rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.08em !important;
+}
+
+#loginform input[type="text"],
+#loginform input[type="password"],
+#lostpasswordform input[type="text"] {
+    background: var(--ba-panel-soft) !important;
+    border: 1px solid var(--ba-line) !important;
+    border-radius: 8px !important;
+    color: var(--ba-text) !important;
+    padding: 0.75rem 1rem !important;
+    font-size: 0.95rem !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+#loginform input[type="text"]:focus,
+#loginform input[type="password"]:focus,
+#lostpasswordform input[type="text"]:focus {
+    border-color: var(--ba-gold) !important;
+    box-shadow: 0 0 0 1px var(--ba-gold) !important;
+}
+
+#loginform .button-primary,
+#lostpasswordform .button-primary,
+input#wp-submit {
+    background: var(--ba-gold) !important;
+    border: none !important;
+    border-radius: 8px !important;
+    color: var(--ba-ink) !important;
+    font-weight: 700 !important;
+    font-size: 0.95rem !important;
+    letter-spacing: 0.04em !important;
+    padding: 0.85rem 1.5rem !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    width: 100% !important;
+    height: auto !important;
+    transition: background 0.2s !important;
+}
+
+#loginform .button-primary:hover,
+input#wp-submit:hover {
+    background: #d4b06a !important;
+}
+
+.forgetmenot label {
+    color: var(--ba-muted) !important;
+    font-size: 0.85rem !important;
+    text-transform: none !important;
+    letter-spacing: 0 !important;
+}
+
+#nav a, #backtoblog a {
+    color: var(--ba-muted) !important;
+    font-size: 0.85rem !important;
+    text-decoration: none !important;
+}
+
+#nav a:hover, #backtoblog a:hover {
+    color: var(--ba-gold) !important;
+}
+
+#nav, #backtoblog {
+    text-align: center;
+}
+
+#login_error,
+.message {
+    background: rgba(141,63,48,0.15) !important;
+    border-left: 4px solid var(--ba-rust) !important;
+    border-radius: 8px !important;
+    color: #e08070 !important;
+    box-shadow: none !important;
+}
+
+.message {
+    background: rgba(200,164,93,0.1) !important;
+    border-left-color: var(--ba-gold) !important;
+    color: var(--ba-muted) !important;
+}

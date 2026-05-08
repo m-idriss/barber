@@ -28,7 +28,16 @@ add_action('after_setup_theme', 'ba_v201_setup');
 
 function ba_v201_assets(): void
 {
-    wp_enqueue_style('ba-v201-style', get_stylesheet_uri(), [], wp_get_theme()->get('Version'));
+    $version = wp_get_theme()->get('Version');
+    $dir     = get_template_directory_uri();
+
+    wp_enqueue_style('ba-v201-style', get_stylesheet_uri(), [], $version);
+    wp_enqueue_script('ba-v201-header', $dir . '/assets/js/header.js', [], $version, true);
+    wp_enqueue_script('ba-v201-booking-widget', $dir . '/assets/js/booking-widget.js', [], $version, true);
+    wp_enqueue_script('ba-v201-booking-attendant', $dir . '/assets/js/booking-attendant.js', [], $version, true);
+    wp_localize_script('ba-v201-booking-attendant', 'baAttendant', [
+        'cookiePath' => COOKIEPATH ?: '/',
+    ]);
 }
 add_action('wp_enqueue_scripts', 'ba_v201_assets');
 
@@ -300,159 +309,12 @@ add_action('wp_logout', 'ba_v201_logout_redirect');
  */
 function ba_v201_login_styles(): void
 {
-    ?>
-    <style>
-        :root {
-            --ba-bg:         #0e0f0f;
-            --ba-panel:      #171918;
-            --ba-panel-soft: #20231f;
-            --ba-text:       #f4f0e8;
-            --ba-muted:      #beb6a8;
-            --ba-line:       rgba(244,240,232,0.16);
-            --ba-gold:       #c8a45d;
-            --ba-rust:       #8d3f30;
-            --ba-ink:        #15120b;
-        }
-
-        body.login {
-            background: var(--ba-bg);
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-        }
-
-        /* Logo area */
-        #login h1 a {
-            background-image: none !important;
-            background-color: transparent;
-            width: auto;
-            height: auto;
-            font-size: 2rem;
-            color: var(--ba-gold);
-            text-indent: 0;
-            text-decoration: none;
-            display: block;
-            text-align: center;
-            margin-bottom: 0.25rem;
-        }
-
-        #login h1 a::before {
-            content: '✂';
-            font-size: 2.5rem;
-            display: block;
-        }
-
-        #login h1 a::after {
-            content: '<?php echo esc_js(get_bloginfo("name")); ?>';
-            display: block;
-            font-size: 1.1rem;
-            font-weight: 700;
-            letter-spacing: 0.05em;
-            color: var(--ba-text);
-        }
-
-        /* Card */
-        #loginform,
-        #lostpasswordform {
-            background: var(--ba-panel) !important;
-            border: 1px solid var(--ba-line) !important;
-            border-radius: 14px !important;
-            box-shadow: 0 8px 40px rgba(0,0,0,0.5) !important;
-            padding: 2rem !important;
-        }
-
-        /* Labels */
-        #loginform label,
-        #lostpasswordform label {
-            color: var(--ba-muted) !important;
-            font-size: 0.78rem !important;
-            text-transform: uppercase !important;
-            letter-spacing: 0.08em !important;
-        }
-
-        /* Inputs */
-        #loginform input[type="text"],
-        #loginform input[type="password"],
-        #lostpasswordform input[type="text"] {
-            background: var(--ba-panel-soft) !important;
-            border: 1px solid var(--ba-line) !important;
-            border-radius: 8px !important;
-            color: var(--ba-text) !important;
-            padding: 0.75rem 1rem !important;
-            font-size: 0.95rem !important;
-            box-shadow: none !important;
-            outline: none !important;
-        }
-
-        #loginform input[type="text"]:focus,
-        #loginform input[type="password"]:focus,
-        #lostpasswordform input[type="text"]:focus {
-            border-color: var(--ba-gold) !important;
-            box-shadow: 0 0 0 1px var(--ba-gold) !important;
-        }
-
-        /* Submit button */
-        #loginform .button-primary,
-        #lostpasswordform .button-primary,
-        input#wp-submit {
-            background: var(--ba-gold) !important;
-            border: none !important;
-            border-radius: 8px !important;
-            color: var(--ba-ink) !important;
-            font-weight: 700 !important;
-            font-size: 0.95rem !important;
-            letter-spacing: 0.04em !important;
-            padding: 0.85rem 1.5rem !important;
-            box-shadow: none !important;
-            text-shadow: none !important;
-            width: 100% !important;
-            height: auto !important;
-            transition: background 0.2s !important;
-        }
-
-        #loginform .button-primary:hover,
-        input#wp-submit:hover {
-            background: #d4b06a !important;
-        }
-
-        /* Remember me */
-        .forgetmenot label {
-            color: var(--ba-muted) !important;
-            font-size: 0.85rem !important;
-            text-transform: none !important;
-            letter-spacing: 0 !important;
-        }
-
-        /* Links below the form */
-        #nav a, #backtoblog a {
-            color: var(--ba-muted) !important;
-            font-size: 0.85rem !important;
-            text-decoration: none !important;
-        }
-
-        #nav a:hover, #backtoblog a:hover {
-            color: var(--ba-gold) !important;
-        }
-
-        #nav, #backtoblog {
-            text-align: center;
-        }
-
-        /* Error / info messages */
-        #login_error,
-        .message {
-            background: rgba(141,63,48,0.15) !important;
-            border-left: 4px solid var(--ba-rust) !important;
-            border-radius: 8px !important;
-            color: #e08070 !important;
-            box-shadow: none !important;
-        }
-
-        .message {
-            background: rgba(200,164,93,0.1) !important;
-            border-left-color: var(--ba-gold) !important;
-            color: var(--ba-muted) !important;
-        }
-    </style>
-    <?php
+    $version = wp_get_theme()->get('Version');
+    wp_enqueue_style('ba-v201-login', get_template_directory_uri() . '/assets/css/login.css', [], $version);
+    wp_add_inline_style('ba-v201-login', sprintf(
+        '#login h1 a::after { content: "%s"; display: block; font-size: 1.1rem; font-weight: 700; letter-spacing: 0.05em; color: var(--ba-text); }',
+        esc_attr(get_bloginfo('name'))
+    ));
 }
 add_action('login_enqueue_scripts', 'ba_v201_login_styles');
 
@@ -462,196 +324,7 @@ add_action('login_enqueue_scripts', 'ba_v201_login_styles');
 add_filter('login_headerurl', fn() => home_url('/'));
 add_filter('login_headertext', fn() => get_bloginfo('name'));
 
-/**
- * Late booking widget polish for Elementor/live pages.
- * Printed after enqueued styles so it can override Elementor generated CSS.
- */
-function ba_v201_live_booking_overrides(): void
-{
-    ?>
-    <style id="ba-v201-live-booking-overrides">
-        body #sln-salon,
-        body .sln-bootstrap,
-        body .ba-live-booking-widget,
-        body .ba-live-booking-widget > .elementor-widget-container {
-            border-radius: var(--ba-radius-xl) !important;
-        }
 
-        body .ba-live-booking-widget > .elementor-widget-container,
-        body .ba-live-booking-shell {
-            position: relative !important;
-            overflow: hidden !important;
-            border: 2px solid var(--ba-gold-30) !important;
-            border-radius: var(--ba-radius-xl) !important;
-            background: linear-gradient(180deg, var(--ba-white-08), transparent 44%), var(--ba-panel) !important;
-            box-shadow: 0 28px 80px rgba(0, 0, 0, 0.42), 0 0 0 1px rgba(200, 164, 93, 0.08) inset !important;
-        }
-
-        body .ba-live-booking-widget > .elementor-widget-container::before,
-        body .ba-live-booking-shell::before {
-            content: "" !important;
-            display: block !important;
-            height: 4px !important;
-            background: linear-gradient(90deg, var(--ba-gold), var(--ba-rust), var(--ba-green)) !important;
-        }
-
-        body #sln-salon #sln-salon__content,
-        body .sln-bootstrap #sln-salon__content,
-        body .sln-salon--m__content {
-            background: transparent !important;
-        }
-
-        body #sln-salon .sln-salon-title,
-        body #sln-salon .salon-step-title {
-            text-align: left !important;
-        }
-
-        body #sln-salon .sln-salon-title {
-            color: var(--ba-white) !important;
-            font-size: clamp(21px, 2.4vw, 30px) !important;
-            letter-spacing: 0 !important;
-        }
-
-        body #sln-salon .salon-step-title {
-            color: var(--ba-muted) !important;
-            font-size: 14px !important;
-        }
-
-        body #sln-salon .sln-progbar {
-            overflow: hidden !important;
-            background: var(--ba-white-08) !important;
-        }
-
-        body #sln-salon .sln-progbar span,
-        body #sln-salon .sln-progbar__bar {
-            background: var(--ba-gold) !important;
-        }
-
-        body #sln-salon .sln-list__item,
-        body #sln-salon .sln-panel {
-            border-color: var(--ba-white-13) !important;
-            background: var(--ba-white-06) !important;
-        }
-
-        body #sln-salon .sln-list__item:hover {
-            border-color: var(--ba-gold-65) !important;
-            background: var(--ba-gold-10) !important;
-        }
-
-        body #sln-salon .sln-list__item__name {
-            color: var(--ba-white) !important;
-        }
-
-        body #sln-salon .sln-box__bottombar,
-        body #sln-salon .sln-cart-footer,
-        body #sln-salon .sln-form-actions,
-        body #sln-salon .sln-step-actions,
-        body #sln-salon .sln-summary-bar {
-            border-top-color: var(--ba-white-13) !important;
-            background: rgba(14, 15, 15, 0.78) !important;
-        }
-
-        body #sln-salon .sln-btn--emphasis,
-        body #sln-salon .sln-btn--emphasis button,
-        body #sln-salon button#sln-step-submit {
-            border-radius: var(--ba-radius-lg) !important;
-            box-shadow: 0 10px 24px rgba(200, 164, 93, 0.22) !important;
-        }
-
-        @media (max-width: 767px) {
-            body .ba-live-booking-widget > .elementor-widget-container {
-                overflow: visible !important;
-                border: 0 !important;
-                background: transparent !important;
-                box-shadow: none !important;
-            }
-
-            body .ba-live-booking-widget > .elementor-widget-container::before {
-                display: none !important;
-            }
-
-            body #sln-salon #sln-salon__content,
-            body .sln-salon--m__content {
-                overflow: hidden !important;
-                border: 2px solid var(--ba-gold-30) !important;
-                box-shadow: var(--ba-shadow-sm) !important;
-            }
-
-            body.home.page-id-223 .ba-live-booking-widget > .elementor-widget-container {
-                overflow: hidden !important;
-                border: 1px solid var(--ba-gold-20) !important;
-                border-radius: var(--ba-radius-md) !important;
-                background: var(--ba-panel) !important;
-                box-shadow: var(--ba-shadow-sm) !important;
-            }
-
-            body.home.page-id-223 #sln-salon,
-            body.home.page-id-223 #sln-salon #sln-salon__content,
-            body.home.page-id-223 .sln-salon--m__content {
-                position: static !important;
-                left: auto !important;
-                width: 100% !important;
-                max-width: 100% !important;
-                margin-right: 0 !important;
-                margin-left: 0 !important;
-                overflow: visible !important;
-                border: 0 !important;
-                border-radius: 0 !important;
-                background: transparent !important;
-                box-shadow: none !important;
-            }
-
-            body.home.page-id-223 #sln-salon #sln-salon__content,
-            body.home.page-id-223 .sln-salon--m__content {
-                padding: 10px !important;
-            }
-        }
-    </style>
-    <?php
-}
-add_action('wp_head', 'ba_v201_live_booking_overrides', 999);
-
-function ba_v201_mark_live_booking_widget(): void
-{
-    ?>
-    <script>
-    (function () {
-        function markBookingWidget() {
-            var salon = document.getElementById('sln-salon') || document.querySelector('.sln-bootstrap');
-            if (!salon) return false;
-
-            salon.classList.add('ba-live-booking-shell');
-
-            var widget = salon.closest('.elementor-widget') || salon.closest('.elementor-element') || salon.parentElement;
-            if (widget) {
-                widget.classList.add('ba-live-booking-widget');
-            }
-
-            return true;
-        }
-
-        function init() {
-            if (markBookingWidget()) return;
-            var attempts = 0;
-            var timer = setInterval(function () {
-                attempts++;
-                if (markBookingWidget() || attempts > 40) {
-                    clearInterval(timer);
-                }
-            }, 250);
-        }
-
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', init);
-        } else {
-            init();
-        }
-        window.addEventListener('load', markBookingWidget);
-    })();
-    </script>
-    <?php
-}
-add_action('wp_footer', 'ba_v201_mark_live_booking_widget', 5);
 
 /**
  * Auto-create required pages on theme activation.
@@ -724,7 +397,8 @@ add_action('after_switch_theme', 'ba_v201_create_starter_pages');
  * Clears booking session, stores preferred attendant in a cookie,
  * then redirects to the booking form at the services step.
  */
-add_action('wp_loaded', function () {
+function ba_v201_attendant_redirect(): void
+{
     if (empty($_GET['sln_book_attendant']) || !is_numeric($_GET['sln_book_attendant'])) {
         return;
     }
@@ -738,7 +412,6 @@ add_action('wp_loaded', function () {
     $bb->clear();
     $bb->save();
 
-    // Store for JS auto-selection on the attendant step (1 hour, httpOnly off so JS can clear it)
     setcookie('sln_pref_att', $attendant_id, time() + 3600, COOKIEPATH ?: '/', COOKIE_DOMAIN ?: '', is_ssl(), false);
 
     $booking_url = add_query_arg(
@@ -747,63 +420,6 @@ add_action('wp_loaded', function () {
     );
     wp_safe_redirect($booking_url);
     exit;
-});
+}
+add_action('wp_loaded', 'ba_v201_attendant_redirect');
 
-/**
- * When the attendant step is rendered, auto-select the preferred attendant
- * and submit the form so the user doesn't have to click manually.
- * Reads the cookie in JS so it works whether set by PHP redirect or by JS.
- */
-add_action('wp_footer', function () {
-    $cookie_path = COOKIEPATH ?: '/';
-    ?>
-    <script>
-    (function () {
-        var cookiePath = '<?php echo esc_js($cookie_path); ?>';
-
-        function getPref() {
-            var m = document.cookie.match(/(?:^|; )sln_pref_att=(\d+)/);
-            return m ? m[1] : null;
-        }
-
-        function clearPref() {
-            document.cookie = 'sln_pref_att=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=' + cookiePath;
-        }
-
-        function tryAutoSelect() {
-            var attId = getPref();
-            if (!attId) return false;
-            var form = document.getElementById('salon-step-attendant');
-            if (!form) return false;
-            var radio = form.querySelector('input[name="sln[attendant]"][value="' + attId + '"]');
-            if (!radio) return false;
-
-            // Click label (triggers plugin's own selection styling)
-            var lbl = document.querySelector('label[for="' + radio.id + '"]');
-            if (lbl) lbl.click(); else radio.click();
-
-            clearPref();
-
-            // Auto-submit after the plugin has processed the click
-            setTimeout(function () {
-                var btn = document.getElementById('sln-step-submit');
-                if (btn) btn.click();
-            }, 400);
-
-            return true;
-        }
-
-        document.addEventListener('DOMContentLoaded', function () {
-            if (!tryAutoSelect()) {
-                // Booking form loads steps via AJAX — watch for DOM changes
-                var observer = new MutationObserver(function () {
-                    if (tryAutoSelect()) observer.disconnect();
-                });
-                observer.observe(document.body, { childList: true, subtree: true });
-                setTimeout(function () { observer.disconnect(); }, 30000);
-            }
-        });
-    })();
-    </script>
-    <?php
-});

@@ -39,20 +39,7 @@ get_header();
         </div>
 
         <form class="ba-search-form" role="search" method="get" action="<?php echo esc_url(home_url('/')); ?>">
-            <div class="ba-search-field">
-                <input
-                    type="search"
-                    name="s"
-                    placeholder="<?php esc_attr_e('Nouvelle recherche…', 'barber-architecte-v201'); ?>"
-                    value="<?php echo esc_attr(get_search_query()); ?>"
-                    aria-label="<?php esc_attr_e('Rechercher sur le site', 'barber-architecte-v201'); ?>"
-                />
-                <button type="submit" aria-label="<?php esc_attr_e('Lancer la recherche', 'barber-architecte-v201'); ?>">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
-                    </svg>
-                </button>
-            </div>
+            <?php get_template_part('template-parts/search-form', null, ['placeholder' => __('Nouvelle recherche…', 'barber-architecte-v201')]); ?>
         </form>
 
         <?php if (have_posts()) : ?>
