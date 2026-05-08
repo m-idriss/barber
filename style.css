@@ -1935,54 +1935,8 @@ body.page-id-7 #sln-salon .sln-service-list.sln-list {
 }
 
 .ba-booking-page__content {
-  display: grid;
-  grid-template-columns: 220px minmax(0, 1fr);
-  align-items: start;
-  gap: 28px;
-}
-
-.ba-booking-page__side {
-  position: sticky;
-  top: calc(var(--ba-header-height-scrolled) + 24px);
-  display: grid;
-  gap: 10px;
-}
-
-.ba-booking-page__step {
-  display: grid;
-  grid-template-columns: 38px minmax(0, 1fr);
-  align-items: center;
-  gap: 12px;
-  min-height: 58px;
-  padding: 10px 12px;
-  background: var(--ba-panel);
-  border: var(--ba-border);
-  border-radius: var(--ba-radius-lg);
-}
-
-.ba-booking-page__step span {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 38px;
-  height: 38px;
-  color: var(--ba-gold);
-  background: var(--ba-gold-08);
-  border: 1px solid var(--ba-gold-30);
-  border-radius: var(--ba-radius-md);
-  font-size: 12px;
-  font-weight: 800;
-}
-
-.ba-booking-page__step strong {
-  overflow: hidden;
-  color: var(--ba-text);
-  font-size: 13px;
-  font-weight: 800;
-  letter-spacing: 0.6px;
-  text-overflow: ellipsis;
-  text-transform: uppercase;
-  white-space: nowrap;
+  width: var(--ba-container);
+  margin: 0 auto;
 }
 
 .ba-booking-page__widget {
@@ -2019,23 +1973,6 @@ body.page-id-7 #sln-salon .sln-service-list.sln-list {
   max-height: min(62vh, 640px) !important;
 }
 
-@media (max-width: 860px) {
-  .ba-booking-page__content {
-    grid-template-columns: 1fr;
-  }
-
-  .ba-booking-page__side {
-    position: static;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  .ba-booking-page__step {
-    grid-template-columns: 1fr;
-    justify-items: center;
-    text-align: center;
-  }
-}
-
 @media (max-width: 520px) {
   .ba-booking-page {
     padding-bottom: 64px;
@@ -2044,20 +1981,6 @@ body.page-id-7 #sln-salon .sln-service-list.sln-list {
   .ba-booking-page__hero {
     padding: 48px 0 40px;
     margin-bottom: 40px;
-  }
-
-  .ba-booking-page__content {
-    gap: 18px;
-  }
-
-  .ba-booking-page__side {
-    grid-template-columns: 1fr;
-  }
-
-  .ba-booking-page__step {
-    grid-template-columns: 38px minmax(0, 1fr);
-    justify-items: stretch;
-    text-align: left;
   }
 
   .ba-booking-page__widget #sln-salon #sln-salon__content,

@@ -23,21 +23,6 @@ $hero = ba_v201_upload_url('2026/05/barber-hero-v2-flipped.png');
     </div>
 
     <div class="ba-booking-page__content section-inner">
-        <aside class="ba-booking-page__side" aria-label="<?php esc_attr_e('Étapes de réservation', 'barber-architecte-v201'); ?>">
-            <div class="ba-booking-page__step">
-                <span>01</span>
-                <strong><?php esc_html_e('Prestation', 'barber-architecte-v201'); ?></strong>
-            </div>
-            <div class="ba-booking-page__step">
-                <span>02</span>
-                <strong><?php esc_html_e('Barber', 'barber-architecte-v201'); ?></strong>
-            </div>
-            <div class="ba-booking-page__step">
-                <span>03</span>
-                <strong><?php esc_html_e('Créneau', 'barber-architecte-v201'); ?></strong>
-            </div>
-        </aside>
-
         <main class="ba-booking-page__widget" id="reservation">
             <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
                 <?php
