@@ -1367,6 +1367,317 @@ body .elementor-223 .elementor-element.elementor-element-cd7f074:not(.elementor-
   color: var(--ba-gold) !important;
 }
 
+/* ========== MY ACCOUNT PAGE — sln-account ========== */
+
+/* Hide plugin's built-in empty logout link (we have our own in the template) */
+.sln-account__logout {
+  display: none !important;
+}
+
+/* Account wrapper — transparent, full width */
+.sln-account {
+  background: transparent !important;
+  color: var(--ba-text) !important;
+}
+
+/* Welcome header */
+.sln-account__header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  flex-wrap: wrap !important;
+  gap: 12px !important;
+  padding-bottom: 20px !important;
+  margin-bottom: 24px !important;
+  border-bottom: var(--ba-border) !important;
+  background: transparent !important;
+}
+
+.sln-account__title {
+  font-size: 18px !important;
+  font-weight: 400 !important;
+  color: var(--ba-muted) !important;
+  letter-spacing: 0 !important;
+  margin: 0 !important;
+}
+
+.sln-account__title strong {
+  color: var(--ba-gold) !important;
+  font-weight: 700 !important;
+}
+
+/* Fidelity score badge */
+.sln-account__score {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  padding: 4px 12px !important;
+  background: var(--ba-gold-08) !important;
+  border: 1px solid var(--ba-gold) !important;
+  border-radius: 999px !important;
+  color: var(--ba-gold) !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+}
+
+/* Nav tabs */
+.sln-account__nav__wrapper {
+  background: transparent !important;
+  margin-bottom: 24px !important;
+}
+
+.sln-account__nav__inner {
+  background: transparent !important;
+}
+
+#sln-account__nav,
+.sln-account__nav {
+  display: flex !important;
+  gap: 0 !important;
+  border-bottom: var(--ba-border) !important;
+  background: transparent !important;
+  padding: 0 !important;
+  list-style: none !important;
+  margin: 0 !important;
+}
+
+.sln-account__nav__item {
+  background: transparent !important;
+}
+
+.sln-account__nav__item a {
+  display: inline-block !important;
+  padding: 10px 20px !important;
+  color: var(--ba-muted) !important;
+  text-decoration: none !important;
+  font-size: 13px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.8px !important;
+  font-weight: 600 !important;
+  border-bottom: 2px solid transparent !important;
+  margin-bottom: -1px !important;
+  transition: color 0.2s, border-color 0.2s !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+}
+
+.sln-account__nav__item a:hover {
+  color: var(--ba-text) !important;
+  border-bottom-color: var(--ba-line) !important;
+}
+
+.sln-account__nav__item.active a,
+.sln-account__nav__item > a[aria-expanded="true"] {
+  color: var(--ba-gold) !important;
+  border-bottom-color: var(--ba-gold) !important;
+}
+
+/* Tab panels */
+.sln-account__tabpanel {
+  background: transparent !important;
+  padding: 0 !important;
+}
+
+/* Upcoming & past appointment cards */
+.sln-account__tabpanel .table,
+.sln-account__tabpanel table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+  background: transparent !important;
+  color: var(--ba-text) !important;
+  font-size: 14px !important;
+}
+
+.sln-account__tabpanel .table th,
+.sln-account__tabpanel table th {
+  color: var(--ba-muted) !important;
+  font-size: 11px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.8px !important;
+  font-weight: 600 !important;
+  padding: 10px 12px !important;
+  border-bottom: var(--ba-border) !important;
+  background: transparent !important;
+}
+
+.sln-account__tabpanel .table td,
+.sln-account__tabpanel table td {
+  padding: 14px 12px !important;
+  border-bottom: var(--ba-border) !important;
+  vertical-align: middle !important;
+  color: var(--ba-text) !important;
+  background: transparent !important;
+}
+
+.sln-account__tabpanel .table tr:hover td,
+.sln-account__tabpanel table tr:hover td {
+  background: var(--ba-panel-soft) !important;
+}
+
+/* Appointment action buttons (cancel, etc.) */
+.sln-account__tabpanel .sln-btn a,
+.sln-account__tabpanel .sln-btn button {
+  font-size: 12px !important;
+  padding: 6px 14px !important;
+  border-radius: var(--ba-radius-lg) !important;
+  text-decoration: none !important;
+}
+
+/* New reservation CTA */
+.sln-account-new-res {
+  margin-bottom: 28px !important;
+  background: transparent !important;
+}
+
+.sln-account-new-res > div:last-child {
+  color: var(--ba-muted) !important;
+  font-size: 13px !important;
+  text-align: center !important;
+  margin-top: 8px !important;
+}
+
+/* Primary gold button */
+.sln-account .sln-btn--emphasis,
+.sln-account .sln-btn--emphasis a,
+.sln-account .sln-btn--emphasis button,
+.sln-account .sln-btn--emphasis input[type="submit"] {
+  background: var(--ba-gold) !important;
+  color: var(--ba-ink) !important;
+  border: 1.5px solid var(--ba-gold) !important;
+  border-radius: var(--ba-radius-lg) !important;
+  font-weight: 700 !important;
+  font-size: 13px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.8px !important;
+  transition: background 0.2s, color 0.2s !important;
+  text-decoration: none !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 12px 24px !important;
+}
+
+.sln-account .sln-btn--emphasis:hover,
+.sln-account .sln-btn--emphasis a:hover,
+.sln-account .sln-btn--emphasis button:hover,
+.sln-account .sln-btn--emphasis input[type="submit"]:hover {
+  background: transparent !important;
+  color: var(--ba-gold) !important;
+}
+
+/* "Display past reservations" toggle */
+.sln-account__history__trigger {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 14px 0 !important;
+  margin-top: 16px !important;
+  color: var(--ba-muted) !important;
+  text-decoration: none !important;
+  border-top: var(--ba-border) !important;
+  background: transparent !important;
+}
+
+.sln-account__history__trigger h3 {
+  font-size: 13px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.8px !important;
+  color: var(--ba-muted) !important;
+  margin: 0 !important;
+  font-weight: 600 !important;
+}
+
+.sln-account__history__trigger:hover h3 {
+  color: var(--ba-text) !important;
+}
+
+/* History collapsible panel */
+.sln-account__history .card,
+.sln-account__history .card-body {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+}
+
+/* Hint text */
+.sln-account .hint {
+  color: var(--ba-muted) !important;
+  font-style: italic !important;
+  font-size: 14px !important;
+  padding: 20px 0 !important;
+}
+
+/* Alert messages */
+.sln-account .sln-alert--problem {
+  background: rgba(141, 63, 48, 0.15) !important;
+  border: 1px solid var(--ba-rust) !important;
+  color: var(--ba-rust) !important;
+  border-radius: var(--ba-radius-lg) !important;
+  padding: 12px 16px !important;
+  font-size: 14px !important;
+}
+
+.sln-account .sln-alert--success {
+  background: rgba(47, 94, 78, 0.15) !important;
+  border: 1px solid var(--ba-green) !important;
+  color: #6fcfb0 !important;
+  border-radius: var(--ba-radius-lg) !important;
+  padding: 12px 16px !important;
+  font-size: 14px !important;
+}
+
+/* Profile form labels */
+.sln-account label {
+  color: var(--ba-muted) !important;
+  font-size: 12px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.6px !important;
+  margin-bottom: 6px !important;
+  display: block !important;
+}
+
+/* Profile form inputs */
+.sln-account input[type="text"],
+.sln-account input[type="email"],
+.sln-account input[type="tel"],
+.sln-account input[type="password"],
+.sln-account textarea,
+.sln-account select {
+  background: var(--ba-panel-soft) !important;
+  border: var(--ba-border) !important;
+  border-radius: var(--ba-radius-lg) !important;
+  color: var(--ba-text) !important;
+  padding: 10px 14px !important;
+  width: 100% !important;
+  font-size: 14px !important;
+}
+
+.sln-account input:focus,
+.sln-account textarea:focus,
+.sln-account select:focus {
+  border-color: var(--ba-gold) !important;
+  outline: none !important;
+}
+
+/* Last update note */
+.sln-account--last-update {
+  color: var(--ba-muted) !important;
+  font-size: 12px !important;
+  padding-top: 8px !important;
+}
+
+/* Switch toggle (history expand) */
+.sln-account .sln-switch {
+  width: 36px !important;
+  height: 20px !important;
+  background: var(--ba-panel-soft) !important;
+  border: var(--ba-border) !important;
+  border-radius: 999px !important;
+  position: relative !important;
+  display: inline-block !important;
+  flex-shrink: 0 !important;
+}
+
 /* Wrapper principal du widget */
 #sln-salon,
 .sln-bootstrap,
