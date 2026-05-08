@@ -852,6 +852,12 @@ body .elementor-223 .elementor-element.elementor-element-a5c19d3 > .elementor-el
   color: var(--ba-plugin-ink);
 }
 
+.hero-booking #sln-salon,
+.hero-booking .sln-bootstrap {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
 .hero-booking .btn {
   width: 100%;
 }
