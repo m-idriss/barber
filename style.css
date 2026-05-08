@@ -107,6 +107,11 @@ Text Domain: barber-architecte-v201
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--ba-header-height-scrolled) + 16px);
+}
+
 body {
   margin: 0;
   background: var(--ba-bg);
@@ -957,6 +962,7 @@ body .elementor-223 .elementor-element.elementor-element-a5c19d3 > .elementor-el
   margin: 0;
   font-size: var(--ba-h2);
   line-height: 1.02;
+  letter-spacing: -0.02em;
 }
 
 .section-head h2::before {
@@ -1621,11 +1627,16 @@ body.page-id-7 #sln-salon .sln-service-list.sln-list {
 
 /* ========== SHARED PAGE HERO ========== */
 
-.ba-services-page__hero,
 .ba-assistants-page__hero {
   min-height: 75vh;
   display: flex;
   align-items: center;
+}
+
+.ba-services-page__hero {
+  min-height: 75vh;
+  display: flex;
+  align-items: flex-start;
 }
 
 .ba-booking-page__hero {
@@ -1756,8 +1767,9 @@ body.page-id-7 #sln-salon .sln-service-list.sln-list {
 }
 
 .ba-services-page .sln-datalist__item:hover {
-  border-color: var(--ba-gold) !important;
-  transform: translateY(-3px) !important;
+  border-color: rgba(200, 164, 93, 0.6) !important;
+  transform: translateY(-4px) !important;
+  box-shadow: 0 8px 32px rgba(200, 164, 93, 0.1) !important;
 }
 
 /* Image banner (not circular) */
@@ -1776,6 +1788,11 @@ body.page-id-7 #sln-salon .sln-service-list.sln-list {
   border-radius: 0 !important;
   margin: 0 !important;
   display: block !important;
+  transition: transform 0.4s ease !important;
+}
+
+.ba-services-page .sln-datalist__item:hover .sln-datalist__item__image img {
+  transform: scale(1.04) !important;
 }
 
 /* Service name */
@@ -1816,7 +1833,8 @@ body.page-id-7 #sln-salon .sln-service-list.sln-list {
 
 .ba-services-page .sln-datalist__item__info strong {
   color: var(--ba-gold) !important;
-  font-weight: 700 !important;
+  font-size: 15px !important;
+  font-weight: 800 !important;
 }
 
 .ba-services-page .sln-datalist__item__info span {
@@ -6705,5 +6723,16 @@ body #sln-salon button#sln-step-submit {
   body.home.page-id-223 #sln-salon #sln-salon__content,
   body.home.page-id-223 .sln-salon--m__content {
     padding: 10px !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html {
+    scroll-behavior: auto;
   }
 }
