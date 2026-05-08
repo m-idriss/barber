@@ -150,6 +150,24 @@ function waitForElement(selector, callback, timeout) {
     });
 })();
 
+// Services collapse/expand (mobile only)
+(function() {
+    var btn  = document.getElementById('servicesToggle');
+    var grid = document.querySelector('#services .service-grid');
+    if (!btn || !grid) return;
+
+    var cards = grid.querySelectorAll('.service-card');
+    if (cards.length <= 4) { btn.hidden = true; return; }
+
+    var label = btn.querySelector('span');
+
+    btn.addEventListener('click', function() {
+        var expanded = grid.classList.toggle('is-expanded');
+        btn.setAttribute('aria-expanded', String(expanded));
+        if (label) label.textContent = expanded ? 'Voir moins' : 'Voir plus';
+    });
+})();
+
 // Search overlay
 (function() {
     var trigger  = document.getElementById('searchTrigger');

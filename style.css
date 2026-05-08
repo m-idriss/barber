@@ -1080,6 +1080,10 @@ body .elementor-223 .elementor-element.elementor-element-a5c19d3 > .elementor-el
   text-decoration: none;
 }
 
+.services-toggle {
+  display: none;
+}
+
 .team-card__cta {
   display: block;
   text-align: center;
@@ -3878,6 +3882,43 @@ body .elementor-223 .elementor-element.elementor-element-cd7f074:not(.elementor-
   .team-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 16px;
+  }
+
+  .service-grid:not(.is-expanded) .service-card:nth-child(n+5) {
+    display: none;
+  }
+
+  .services-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    margin-top: 12px;
+    padding: 12px 16px;
+    background: none;
+    border: 1px solid var(--ba-line);
+    border-radius: var(--ba-radius-xl);
+    color: var(--ba-muted);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+    cursor: pointer;
+    transition: color var(--ba-ease), border-color var(--ba-ease);
+  }
+
+  .services-toggle:hover {
+    color: var(--ba-gold);
+    border-color: var(--ba-gold);
+  }
+
+  .services-toggle svg {
+    transition: transform var(--ba-ease);
+    flex-shrink: 0;
+  }
+
+  .services-toggle[aria-expanded="true"] svg {
+    transform: rotate(180deg);
   }
 
   /* Footer Mobile */
