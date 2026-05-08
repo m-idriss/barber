@@ -527,3 +527,89 @@ function ba_v201_create_starter_pages(): void
     }
 }
 add_action('after_switch_theme', 'ba_v201_create_starter_pages');
+
+/**
+ * Pre-select attendant when clicking "Book now" from the assistants page.
+ * Clears booking session, stores preferred attendant in a cookie,
+ * then redirects to the booking form at the services step.
+ */
+add_action('wp_loaded', function () {
+    if (empty($_GET['sln_book_attendant']) || !is_numeric($_GET['sln_book_attendant'])) {
+        return;
+    }
+    $attendant_id = intval($_GET['sln_book_attendant']);
+    if (!$attendant_id) {
+        return;
+    }
+
+    $plugin = SLN_Plugin::getInstance();
+    $bb     = $plugin->getBookingBuilder();
+    $bb->clear();
+    $bb->save();
+
+    // Store for JS auto-selection on the attendant step (1 hour, httpOnly off so JS can clear it)
+    setcookie('sln_pref_att', $attendant_id, time() + 3600, COOKIEPATH ?: '/', COOKIE_DOMAIN ?: '', is_ssl(), false);
+
+    $booking_url = add_query_arg(
+        ['sln_step_page' => 'services'],
+        get_permalink($plugin->getSettings()->getPayPageId())
+    );
+    wp_safe_redirect($booking_url);
+    exit;
+});
+
+/**
+ * When the attendant step is rendered, auto-select the preferred attendant
+ * and submit the form so the user doesn't have to click manually.
+ */
+add_action('wp_footer', function () {
+    if (empty($_COOKIE['sln_pref_att']) || !is_numeric($_COOKIE['sln_pref_att'])) {
+        return;
+    }
+    $att_id   = intval($_COOKIE['sln_pref_att']);
+    $cookie_path = COOKIEPATH ?: '/';
+    ?>
+    <script>
+    (function () {
+        var attId = <?php echo $att_id; ?>;
+        var cookiePath = '<?php echo esc_js($cookie_path); ?>';
+
+        function clearPref() {
+            document.cookie = 'sln_pref_att=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=' + cookiePath;
+        }
+
+        function tryAutoSelect() {
+            var form = document.getElementById('salon-step-attendant');
+            if (!form) return false;
+            var radio = form.querySelector('input[name="sln[attendant]"][value="' + attId + '"]');
+            if (!radio) return false;
+
+            // Click label (triggers plugin's own selection styling)
+            var lbl = document.querySelector('label[for="' + radio.id + '"]');
+            if (lbl) lbl.click(); else radio.click();
+
+            clearPref();
+
+            // Auto-submit after the plugin has processed the click
+            setTimeout(function () {
+                var btn = document.getElementById('sln-step-submit');
+                if (btn) btn.click();
+            }, 400);
+
+            return true;
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            if (!tryAutoSelect()) {
+                // Booking form loads steps via AJAX — watch for DOM changes
+                var observer = new MutationObserver(function () {
+                    if (tryAutoSelect()) observer.disconnect();
+                });
+                observer.observe(document.body, { childList: true, subtree: true });
+                setTimeout(function () { observer.disconnect(); }, 30000);
+            }
+        });
+    })();
+    </script>
+    <?php
+});
