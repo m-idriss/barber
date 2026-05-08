@@ -21,7 +21,7 @@ get_header();
     </div>
 
     <div class="ba-services-page__content section-inner">
-        <?php echo do_shortcode('[salon_booking_services styled=true columns="3"]'); ?>
+        <?php echo do_shortcode('[salon_booking_services styled=true columns="3" skip_service_selection=true]'); ?>
     </div>
 </div>
 
