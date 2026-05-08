@@ -27,7 +27,7 @@ $hero        = ba_v201_upload_url('2026/05/barber-hero-v2-flipped.png');
                     $excerpt = $attendant->post_excerpt ?: '';
                 ?>
                     <a class="hero-barber" href="<?php echo esc_url(add_query_arg(['sln_book_attendant' => $attendant->ID], $booking_url)); ?>">
-                        <?php echo get_the_post_thumbnail($attendant, 'thumbnail', ['loading' => 'lazy', 'decoding' => 'async']); ?>
+                        <?php echo get_the_post_thumbnail($attendant, 'thumbnail', ['loading' => 'eager', 'decoding' => 'async']); ?>
                         <span>
                             <?php echo esc_html(get_the_title($attendant)); ?>
                             <?php if ($excerpt) : ?>
