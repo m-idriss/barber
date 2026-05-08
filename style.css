@@ -958,6 +958,9 @@ body .elementor-223 .elementor-element.elementor-element-a5c19d3 > .elementor-el
 
 .ba-account-header .page-title {
   margin-bottom: 0;
+  font-size: clamp(22px, 3vw, 32px);
+  line-height: 1.2;
+  letter-spacing: 0.02em;
 }
 
 .ba-logout-link {
@@ -1420,7 +1423,7 @@ body .elementor-223 .elementor-element.elementor-element-cd7f074:not(.elementor-
   font-weight: 700 !important;
 }
 
-/* Nav tabs */
+/* Nav tabs — preserve plugin's grid layout (icon row 1, label row 2) */
 .sln-account__nav__wrapper {
   background: transparent !important;
   margin-bottom: 24px !important;
@@ -1432,44 +1435,54 @@ body .elementor-223 .elementor-element.elementor-element-cd7f074:not(.elementor-
 
 #sln-account__nav,
 .sln-account__nav {
-  display: flex !important;
-  gap: 0 !important;
-  border-bottom: var(--ba-border) !important;
   background: transparent !important;
   padding: 0 !important;
   list-style: none !important;
   margin: 0 !important;
+  border-bottom: var(--ba-border) !important;
 }
 
+/* Item border — use the plugin's ::after pseudo for the active underline */
 .sln-account__nav__item {
   background: transparent !important;
+  border-bottom-color: transparent !important;
 }
 
+.sln-account__nav__item::after {
+  background-color: transparent !important;
+}
+
+.sln-account__nav__item.active::after {
+  background-color: var(--ba-gold) !important;
+}
+
+/* Link colours — DO NOT override display (plugin uses grid for icon+label) */
 .sln-account__nav__item a {
-  display: inline-block !important;
-  padding: 10px 20px !important;
   color: var(--ba-muted) !important;
-  text-decoration: none !important;
-  font-size: 13px !important;
-  text-transform: uppercase !important;
-  letter-spacing: 0.8px !important;
-  font-weight: 600 !important;
-  border-bottom: 2px solid transparent !important;
-  margin-bottom: -1px !important;
-  transition: color 0.2s, border-color 0.2s !important;
   background: transparent !important;
-  border-radius: 0 !important;
+  font-size: 12px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.6px !important;
+  font-weight: 600 !important;
 }
 
 .sln-account__nav__item a:hover {
   color: var(--ba-text) !important;
-  border-bottom-color: var(--ba-line) !important;
 }
 
-.sln-account__nav__item.active a,
-.sln-account__nav__item > a[aria-expanded="true"] {
+.sln-account__nav__item.active a {
   color: var(--ba-gold) !important;
-  border-bottom-color: var(--ba-gold) !important;
+}
+
+/* Tint icons to match theme (muted → active gold) */
+.sln-account__nav__item a::before,
+.sln-account__nav__item a::after {
+  filter: brightness(0) saturate(100%) invert(70%) sepia(5%) saturate(400%) hue-rotate(170deg) brightness(90%) !important;
+}
+
+.sln-account__nav__item.active a::before,
+.sln-account__nav__item.active a::after {
+  filter: brightness(0) saturate(100%) invert(70%) sepia(50%) saturate(500%) hue-rotate(5deg) brightness(95%) !important;
 }
 
 /* Tab panels */
