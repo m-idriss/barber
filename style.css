@@ -4049,6 +4049,23 @@ body .elementor-223 .elementor-element.elementor-element-cd7f074:not(.elementor-
     background-position: center top !important;
   }
 
+  /* Hero section (Elementor ID) — cap height and fix overlay gradient on mobile */
+  .elementor-223 .elementor-element.elementor-element-8ab9075 {
+    min-height: auto !important;
+    padding: 0 !important;
+  }
+
+  .elementor-223 .elementor-element.elementor-element-8ab9075 > .elementor-container {
+    min-height: auto !important;
+    padding: 34px 14px 28px !important;
+  }
+
+  /* Switch gradient from horizontal to vertical so full-width title stays legible */
+  .elementor-223 .elementor-element.elementor-element-8ab9075 > .elementor-background-overlay {
+    background-image: linear-gradient(180deg, rgba(14, 15, 15, 0.55) 0%, rgba(14, 15, 15, 0.92) 100%) !important;
+    opacity: 1 !important;
+  }
+
   .ba-el-hero::after {
     height: 42%;
     background: linear-gradient(180deg, transparent, var(--ba-bg) 92%);
