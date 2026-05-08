@@ -1432,31 +1432,6 @@ body.page-id-7 #sln-salon .sln-service-list.sln-list {
   padding-bottom: 80px;
 }
 
-.ba-assistants-page__hero {
-  position: relative;
-  padding: 96px 0 80px;
-  text-align: center;
-  background-color: var(--ba-bg);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  margin-bottom: 0;
-  overflow: hidden;
-}
-
-.ba-assistants-page__hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(14,15,15,0.82) 0%, rgba(14,15,15,0.60) 60%, rgba(14,15,15,0.92) 100%);
-  pointer-events: none;
-}
-
-.ba-assistants-page__hero > * {
-  position: relative;
-  z-index: 1;
-}
-
 .ba-assistants-page__eyebrow {
   display: inline-block;
   font-size: 11px;
@@ -1658,11 +1633,11 @@ body.page-id-7 #sln-salon .sln-service-list.sln-list {
 
 /* ========== SERVICES FULL PAGE ========== */
 
-.ba-services-page {
-  padding-bottom: 80px;
-}
+/* ========== SHARED PAGE HERO ========== */
 
-.ba-services-page__hero {
+.ba-services-page__hero,
+.ba-assistants-page__hero,
+.ba-booking-page__hero {
   position: relative;
   padding: 96px 0 80px;
   text-align: center;
@@ -1674,7 +1649,9 @@ body.page-id-7 #sln-salon .sln-service-list.sln-list {
   overflow: hidden;
 }
 
-.ba-services-page__hero::before {
+.ba-services-page__hero::before,
+.ba-assistants-page__hero::before,
+.ba-booking-page__hero::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -1682,9 +1659,38 @@ body.page-id-7 #sln-salon .sln-service-list.sln-list {
   pointer-events: none;
 }
 
-.ba-services-page__hero > * {
+.ba-services-page__hero::after,
+.ba-assistants-page__hero::after,
+.ba-booking-page__hero::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 30%;
+  background: linear-gradient(180deg, transparent, var(--ba-bg));
+  pointer-events: none;
+}
+
+.ba-services-page__hero > *,
+.ba-assistants-page__hero > *,
+.ba-booking-page__hero > * {
   position: relative;
   z-index: 1;
+}
+
+.ba-page-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 32px;
+  justify-content: center;
+}
+
+/* ========== SERVICES FULL PAGE ========== */
+
+.ba-services-page {
+  padding-bottom: 0;
 }
 
 .ba-services-page__eyebrow {
@@ -1859,6 +1865,40 @@ body.page-id-7 #sln-salon .sln-service-list.sln-list {
   }
 }
 
+/* ========== PAGE CTA BAND ========== */
+
+.ba-page-cta {
+  padding: 80px 0;
+  text-align: center;
+  border-top: var(--ba-border);
+  background: var(--ba-panel-soft);
+}
+
+.ba-page-cta__eyebrow {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--ba-gold);
+  margin: 0 0 16px;
+}
+
+.ba-page-cta h2 {
+  font-size: clamp(28px, 4vw, 44px);
+  line-height: 1.05;
+  color: var(--ba-text);
+  margin: 0 0 16px;
+}
+
+.ba-page-cta > .section-inner > p {
+  color: var(--ba-muted);
+  font-size: 16px;
+  line-height: 1.6;
+  max-width: 480px;
+  margin: 0 auto 32px;
+}
+
 /* ========== BOOKING FULL PAGE ========== */
 
 .ba-booking-page {
@@ -1866,9 +1906,6 @@ body.page-id-7 #sln-salon .sln-service-list.sln-list {
 }
 
 .ba-booking-page__hero {
-  padding: 72px 0 56px;
-  text-align: center;
-  border-bottom: var(--ba-border);
   margin-bottom: 56px;
 }
 

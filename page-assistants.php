@@ -22,11 +22,19 @@ $hero        = ba_v201_upload_url('2026/05/barber-hero-v2-flipped.png');
             <div class="ba-assistants-page__eyebrow"><?php esc_html_e('Notre équipe', 'barber-architecte-v201'); ?></div>
             <h1 class="ba-assistants-page__title"><?php the_title(); ?></h1>
             <p class="ba-assistants-page__subtitle"><?php esc_html_e('Des experts passionnés à votre service. Chaque coupe, chaque soin est une signature.', 'barber-architecte-v201'); ?></p>
+            <div class="ba-page-hero__actions">
+                <a class="btn" href="#equipe"><?php esc_html_e('Voir l\'équipe', 'barber-architecte-v201'); ?></a>
+                <a class="btn btn--ghost" href="<?php echo esc_url($booking_url); ?>"><?php esc_html_e('Réserver', 'barber-architecte-v201'); ?></a>
+            </div>
         </div>
     </div>
 
-    <section class="section section--soft">
+    <section id="equipe" class="section section--soft">
         <div class="section-inner">
+            <div class="section-head">
+                <h2><?php esc_html_e('Choisis ton barber.', 'barber-architecte-v201'); ?></h2>
+                <p><?php esc_html_e('Une équipe de passionnés à votre service, chaque jour de la semaine.', 'barber-architecte-v201'); ?></p>
+            </div>
             <div class="team-grid">
                 <?php foreach ($attendants as $attendant) : ?>
                     <article class="team-card">
@@ -52,12 +60,14 @@ $hero        = ba_v201_upload_url('2026/05/barber-hero-v2-flipped.png');
         </div>
     </section>
 
-    <div class="ba-assistants-page__cta section-inner">
-        <a href="<?php echo esc_url(home_url('/booking/')); ?>" class="btn">
-            <?php esc_html_e('Prendre rendez-vous', 'barber-architecte-v201'); ?>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
-    </div>
+    <section class="ba-page-cta">
+        <div class="section-inner">
+            <p class="ba-page-cta__eyebrow"><?php esc_html_e('Barbershop L\'Architecte', 'barber-architecte-v201'); ?></p>
+            <h2><?php esc_html_e('Ton barber t\'attend.', 'barber-architecte-v201'); ?></h2>
+            <p><?php esc_html_e('Réservez en ligne, choisissez votre expert et votre créneau en quelques secondes.', 'barber-architecte-v201'); ?></p>
+            <a class="btn" href="<?php echo esc_url($booking_url); ?>"><?php esc_html_e('Prendre rendez-vous', 'barber-architecte-v201'); ?></a>
+        </div>
+    </section>
 </section>
 
 <?php get_footer(); ?>
