@@ -105,13 +105,13 @@ function ba_v201_salon_posts(string $post_type): array
 function ba_v201_business_hours(): array
 {
     return [
-        0 => null, // Dimanche - fermé
-        1 => ['09:00', '19:00'], // Lundi
-        2 => ['09:00', '19:00'], // Mardi
-        3 => ['09:00', '19:00'], // Mercredi
-        4 => ['09:00', '20:00'], // Jeudi
-        5 => ['09:00', '20:00'], // Vendredi
-        6 => ['10:00', '18:00'], // Samedi
+        0 => null,               // Dimanche - fermé
+        1 => null,               // Lundi - fermé
+        2 => ['09:00', '18:30'], // Mardi
+        3 => ['09:00', '18:30'], // Mercredi
+        4 => ['09:00', '18:30'], // Jeudi
+        5 => ['09:00', '18:30'], // Vendredi
+        6 => ['09:00', '18:30'], // Samedi
     ];
 }
 
