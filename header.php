@@ -81,8 +81,8 @@ if (!defined('ABSPATH')) {
             </button>
 
             <?php if (is_user_logged_in()): ?>
-            <a href="<?php echo esc_url(wp_logout_url(home_url('/login/'))); ?>" class="header-login" aria-label="<?php esc_attr_e('Déconnexion', 'barber-architecte-v201'); ?>">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            <a href="<?php echo esc_url(home_url('/booking-my-account/')); ?>" class="header-login" aria-label="<?php esc_attr_e('Mon compte', 'barber-architecte-v201'); ?>">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
             </a>
             <?php else: ?>
             <a href="<?php echo esc_url(home_url('/login/')); ?>" class="header-login" aria-label="<?php esc_attr_e('Connexion', 'barber-architecte-v201'); ?>">
@@ -148,7 +148,7 @@ if (!defined('ABSPATH')) {
         <div class="mobile-nav__footer">
             <a class="mobile-nav__cta" href="#reservation"><?php esc_html_e('Réserver maintenant', 'barber-architecte-v201'); ?></a>
             <?php if (is_user_logged_in()): ?>
-            <a href="<?php echo esc_url(wp_logout_url(home_url('/login/'))); ?>" class="mobile-nav__login"><?php esc_html_e('Déconnexion', 'barber-architecte-v201'); ?></a>
+            <a href="<?php echo esc_url(home_url('/booking-my-account/')); ?>" class="mobile-nav__login"><?php esc_html_e('Mon compte', 'barber-architecte-v201'); ?></a>
             <?php else: ?>
             <a href="<?php echo esc_url(home_url('/login/')); ?>" class="mobile-nav__login"><?php esc_html_e('Connexion', 'barber-architecte-v201'); ?></a>
             <?php endif; ?>
