@@ -11,9 +11,11 @@ if (is_page() && get_post_meta(get_queried_object_id(), '_elementor_edit_mode', 
 
 get_header();
 
-$hero = ba_v201_upload_url('2026/05/barber-hero-v2-flipped.png');
-$services = ba_v201_salon_posts('sln_service');
-$attendants = ba_v201_salon_posts('sln_attendant');
+$hero        = ba_v201_upload_url('2026/05/barber-hero-v2-flipped.png');
+$services    = ba_v201_salon_posts('sln_service');
+$attendants  = ba_v201_salon_posts('sln_attendant');
+$_sln        = SLN_Plugin::getInstance();
+$booking_url = get_permalink($_sln->getSettings()->getPayPageId());
 ?>
 
 <section class="hero" style="background-image: linear-gradient(90deg, rgba(14, 15, 15, 0.94) 0%, rgba(14, 15, 15, 0.62) 48%, rgba(14, 15, 15, 0.22) 100%), url('<?php echo esc_url($hero); ?>');">
@@ -24,7 +26,7 @@ $attendants = ba_v201_salon_posts('sln_attendant');
             <p><?php esc_html_e("Votre lieu dédié à l’homme de tout âge. Nos coiffeurs/barbiers sont à votre disposition pour répondre à vos besoins, prodiguer les meilleurs conseils et vous procurer des soins adaptés afin de sublimer votre apparence et faciliter votre coiffage au quotidien.", 'barber-architecte-v201'); ?></p>
             <div class="hero-team" aria-label="<?php esc_attr_e('Choisir un barber', 'barber-architecte-v201'); ?>">
                 <?php foreach (array_slice($attendants, 0, 4) as $attendant) : ?>
-                    <a class="hero-barber" href="<?php echo esc_url(add_query_arg(['sln_book_attendant' => $attendant->ID], home_url('/'))); ?>">
+                    <a class="hero-barber" href="<?php echo esc_url(add_query_arg(['sln_book_attendant' => $attendant->ID], $booking_url)); ?>">
                         <?php echo get_the_post_thumbnail($attendant, 'thumbnail'); ?>
                         <span><?php echo esc_html(get_the_title($attendant)); ?></span>
                         <strong><?php esc_html_e('Choisir', 'barber-architecte-v201'); ?></strong>
@@ -66,7 +68,7 @@ $attendants = ba_v201_salon_posts('sln_attendant');
                     'service'                => $service->ID,
                     'skip_service_selection' => 1,
                     'secondary'              => 0,
-                ], home_url('/'));
+                ], $booking_url);
                 ?>
                 <article class="service-card">
                     <div>
@@ -101,7 +103,7 @@ $attendants = ba_v201_salon_posts('sln_attendant');
                     <div class="team-card__body">
                         <h3><?php echo esc_html(get_the_title($attendant)); ?></h3>
                         <p><?php esc_html_e('Disponible a la reservation.', 'barber-architecte-v201'); ?></p>
-                        <a href="<?php echo esc_url(add_query_arg(['sln_book_attendant' => $attendant->ID], home_url('/'))); ?>" class="team-card__cta">
+                        <a href="<?php echo esc_url(add_query_arg(['sln_book_attendant' => $attendant->ID], $booking_url)); ?>" class="team-card__cta">
                             <?php esc_html_e('Réserver', 'barber-architecte-v201'); ?>
                         </a>
                     </div>
