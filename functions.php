@@ -463,6 +463,197 @@ add_filter('login_headerurl', fn() => home_url('/'));
 add_filter('login_headertext', fn() => get_bloginfo('name'));
 
 /**
+ * Late booking widget polish for Elementor/live pages.
+ * Printed after enqueued styles so it can override Elementor generated CSS.
+ */
+function ba_v201_live_booking_overrides(): void
+{
+    ?>
+    <style id="ba-v201-live-booking-overrides">
+        body #sln-salon,
+        body .sln-bootstrap,
+        body .ba-live-booking-widget,
+        body .ba-live-booking-widget > .elementor-widget-container {
+            border-radius: var(--ba-radius-xl) !important;
+        }
+
+        body .ba-live-booking-widget > .elementor-widget-container,
+        body .ba-live-booking-shell {
+            position: relative !important;
+            overflow: hidden !important;
+            border: 2px solid var(--ba-gold-30) !important;
+            border-radius: var(--ba-radius-xl) !important;
+            background: linear-gradient(180deg, var(--ba-white-08), transparent 44%), var(--ba-panel) !important;
+            box-shadow: 0 28px 80px rgba(0, 0, 0, 0.42), 0 0 0 1px rgba(200, 164, 93, 0.08) inset !important;
+        }
+
+        body .ba-live-booking-widget > .elementor-widget-container::before,
+        body .ba-live-booking-shell::before {
+            content: "" !important;
+            display: block !important;
+            height: 4px !important;
+            background: linear-gradient(90deg, var(--ba-gold), var(--ba-rust), var(--ba-green)) !important;
+        }
+
+        body #sln-salon #sln-salon__content,
+        body .sln-bootstrap #sln-salon__content,
+        body .sln-salon--m__content {
+            background: transparent !important;
+        }
+
+        body #sln-salon .sln-salon-title,
+        body #sln-salon .salon-step-title {
+            text-align: left !important;
+        }
+
+        body #sln-salon .sln-salon-title {
+            color: var(--ba-white) !important;
+            font-size: clamp(21px, 2.4vw, 30px) !important;
+            letter-spacing: 0 !important;
+        }
+
+        body #sln-salon .salon-step-title {
+            color: var(--ba-muted) !important;
+            font-size: 14px !important;
+        }
+
+        body #sln-salon .sln-progbar {
+            overflow: hidden !important;
+            background: var(--ba-white-08) !important;
+        }
+
+        body #sln-salon .sln-progbar span,
+        body #sln-salon .sln-progbar__bar {
+            background: var(--ba-gold) !important;
+        }
+
+        body #sln-salon .sln-list__item,
+        body #sln-salon .sln-panel {
+            border-color: var(--ba-white-13) !important;
+            background: var(--ba-white-06) !important;
+        }
+
+        body #sln-salon .sln-list__item:hover {
+            border-color: var(--ba-gold-65) !important;
+            background: var(--ba-gold-10) !important;
+        }
+
+        body #sln-salon .sln-list__item__name {
+            color: var(--ba-white) !important;
+        }
+
+        body #sln-salon .sln-box__bottombar,
+        body #sln-salon .sln-cart-footer,
+        body #sln-salon .sln-form-actions,
+        body #sln-salon .sln-step-actions,
+        body #sln-salon .sln-summary-bar {
+            border-top-color: var(--ba-white-13) !important;
+            background: rgba(14, 15, 15, 0.78) !important;
+        }
+
+        body #sln-salon .sln-btn--emphasis,
+        body #sln-salon .sln-btn--emphasis button,
+        body #sln-salon button#sln-step-submit {
+            border-radius: var(--ba-radius-lg) !important;
+            box-shadow: 0 10px 24px rgba(200, 164, 93, 0.22) !important;
+        }
+
+        @media (max-width: 767px) {
+            body .ba-live-booking-widget > .elementor-widget-container {
+                overflow: visible !important;
+                border: 0 !important;
+                background: transparent !important;
+                box-shadow: none !important;
+            }
+
+            body .ba-live-booking-widget > .elementor-widget-container::before {
+                display: none !important;
+            }
+
+            body #sln-salon #sln-salon__content,
+            body .sln-salon--m__content {
+                overflow: hidden !important;
+                border: 2px solid var(--ba-gold-30) !important;
+                box-shadow: var(--ba-shadow-sm) !important;
+            }
+
+            body.home.page-id-223 .ba-live-booking-widget > .elementor-widget-container {
+                overflow: hidden !important;
+                border: 1px solid var(--ba-gold-20) !important;
+                border-radius: var(--ba-radius-md) !important;
+                background: var(--ba-panel) !important;
+                box-shadow: var(--ba-shadow-sm) !important;
+            }
+
+            body.home.page-id-223 #sln-salon,
+            body.home.page-id-223 #sln-salon #sln-salon__content,
+            body.home.page-id-223 .sln-salon--m__content {
+                position: static !important;
+                left: auto !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                margin-right: 0 !important;
+                margin-left: 0 !important;
+                overflow: visible !important;
+                border: 0 !important;
+                border-radius: 0 !important;
+                background: transparent !important;
+                box-shadow: none !important;
+            }
+
+            body.home.page-id-223 #sln-salon #sln-salon__content,
+            body.home.page-id-223 .sln-salon--m__content {
+                padding: 10px !important;
+            }
+        }
+    </style>
+    <?php
+}
+add_action('wp_head', 'ba_v201_live_booking_overrides', 999);
+
+function ba_v201_mark_live_booking_widget(): void
+{
+    ?>
+    <script>
+    (function () {
+        function markBookingWidget() {
+            var salon = document.getElementById('sln-salon') || document.querySelector('.sln-bootstrap');
+            if (!salon) return false;
+
+            salon.classList.add('ba-live-booking-shell');
+
+            var widget = salon.closest('.elementor-widget') || salon.closest('.elementor-element') || salon.parentElement;
+            if (widget) {
+                widget.classList.add('ba-live-booking-widget');
+            }
+
+            return true;
+        }
+
+        function init() {
+            if (markBookingWidget()) return;
+            var attempts = 0;
+            var timer = setInterval(function () {
+                attempts++;
+                if (markBookingWidget() || attempts > 40) {
+                    clearInterval(timer);
+                }
+            }, 250);
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+        window.addEventListener('load', markBookingWidget);
+    })();
+    </script>
+    <?php
+}
+add_action('wp_footer', 'ba_v201_mark_live_booking_widget', 5);
+
+/**
  * Auto-create required pages on theme activation.
  * Skips creation if a page with the same slug already exists.
  */

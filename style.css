@@ -3,7 +3,7 @@ Theme Name: Barber Architecte V201
 Theme URI: https://barberlarchitecte.com/
 Author: Idriss
 Description: Theme sur mesure pour un salon de coiffure/barber avec accueil, services, equipe et reservation.
-Version: 1.5.6
+Version: 1.5.7
 Requires at least: 6.0
 Tested up to: 6.8
 Requires PHP: 8.1
@@ -839,9 +839,11 @@ body .elementor-223 .elementor-element.elementor-element-a5c19d3 > .elementor-el
 
 .hero-booking {
   padding: 0;
-  border: none;
-  background: transparent;
-  box-shadow: none;
+  overflow: hidden;
+  border: 1px solid var(--ba-gold-20);
+  border-radius: var(--ba-radius-xl);
+  background: linear-gradient(180deg, var(--ba-white-08), transparent 44%), var(--ba-panel);
+  box-shadow: var(--ba-shadow-lg);
 }
 
 .hero-booking,
@@ -852,6 +854,28 @@ body .elementor-223 .elementor-element.elementor-element-a5c19d3 > .elementor-el
 
 .hero-booking .btn {
   width: 100%;
+}
+
+.ba-accueil-page .hero-booking::before,
+.ba-accueil-page .ba-el-booking-widget::before,
+.ba-accueil-page .elementor-widget:has(#sln-salon) > .elementor-widget-container::before {
+  content: "";
+  display: block;
+  height: 4px;
+  background: linear-gradient(90deg, var(--ba-gold), var(--ba-rust), var(--ba-green));
+}
+
+.ba-accueil-page .hero-booking #sln-salon,
+.ba-accueil-page .hero-booking .sln-bootstrap,
+.ba-accueil-page .ba-el-booking-widget #sln-salon,
+.ba-accueil-page .elementor-widget:has(#sln-salon) #sln-salon {
+  border-radius: var(--ba-radius-xl) !important;
+}
+
+.ba-accueil-page .hero-booking #sln-salon #sln-salon__content,
+.ba-accueil-page .ba-el-booking-widget #sln-salon #sln-salon__content,
+.ba-accueil-page .elementor-widget:has(#sln-salon) #sln-salon #sln-salon__content {
+  padding: 24px 22px 20px !important;
 }
 
 .section {
@@ -1070,6 +1094,158 @@ body .elementor-223 .elementor-element.elementor-element-a5c19d3 > .elementor-el
 .content-area h2,
 .content-area h3 {
   color: var(--ba-text);
+}
+
+/* ========== LIVE BOOKING PAGE (/booking/) ========== */
+
+body.page-id-7 .content-page {
+  padding: 0 0 88px;
+}
+
+body.page-id-7 .content-area {
+  max-width: none;
+  width: var(--ba-container);
+  color: var(--ba-muted);
+}
+
+body.page-id-7 .content-area > article {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  align-items: start;
+  gap: 28px;
+}
+
+body.page-id-7 .content-area > article > .page-title {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: none;
+  margin: 0 calc((100vw - var(--ba-container)) / -2) 56px;
+  padding: 72px max(24px, calc((100vw - var(--ba-container)) / 2)) 56px;
+  border-bottom: var(--ba-border);
+  color: var(--ba-text);
+  text-align: center;
+  font-size: clamp(32px, 5vw, 56px);
+  line-height: 1.05;
+}
+
+body.page-id-7 .content-area > article > .page-title::before {
+  content: "Réservation";
+  margin-bottom: 16px;
+  color: var(--ba-gold);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+body.page-id-7 .content-area > article > .page-title::after {
+  content: "Choisissez votre prestation, votre barber et le créneau qui vous convient.";
+  max-width: 560px;
+  margin-top: 20px;
+  color: var(--ba-muted);
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.6;
+}
+
+body.page-id-7 .content-area > article::after {
+  content: "01  Prestation\A 02  Barber\A 03  Créneau";
+  position: sticky;
+  top: calc(var(--ba-header-height-scrolled) + 24px);
+  grid-column: 1;
+  grid-row: 2;
+  display: block;
+  padding: 18px;
+  white-space: pre-line;
+  color: var(--ba-text);
+  background: var(--ba-panel);
+  border: var(--ba-border);
+  border-radius: var(--ba-radius-xl);
+  box-shadow: var(--ba-shadow-sm);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  line-height: 3.5;
+  text-transform: uppercase;
+}
+
+body.page-id-7 #sln-salon {
+  grid-column: 2;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--ba-white-08), transparent 44%), var(--ba-panel) !important;
+  border: 1px solid var(--ba-gold-20) !important;
+  border-radius: var(--ba-radius-xl) !important;
+  box-shadow: var(--ba-shadow-lg) !important;
+}
+
+body.page-id-7 #sln-salon::before {
+  content: "";
+  display: block;
+  height: 4px;
+  background: linear-gradient(90deg, var(--ba-gold), var(--ba-rust), var(--ba-green));
+}
+
+body.page-id-7 #sln-salon #sln-salon__content {
+  padding: 24px !important;
+}
+
+body.page-id-7 #sln-salon .sln-service-list,
+body.page-id-7 #sln-salon .sln-service-list.sln-list {
+  max-height: min(62vh, 640px) !important;
+}
+
+@media (max-width: 860px) {
+  body.page-id-7 .content-area > article {
+    grid-template-columns: 1fr;
+  }
+
+  body.page-id-7 .content-area > article::after {
+    position: static;
+    grid-column: 1;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+    white-space: normal;
+    line-height: 1.4;
+    text-align: center;
+  }
+
+  body.page-id-7 #sln-salon {
+    grid-column: 1;
+  }
+}
+
+@media (max-width: 520px) {
+  body.page-id-7 .content-page {
+    padding-bottom: 64px;
+  }
+
+  body.page-id-7 .content-area > article {
+    gap: 18px;
+  }
+
+  body.page-id-7 .content-area > article > .page-title {
+    margin-bottom: 40px;
+    padding-top: 48px;
+    padding-bottom: 40px;
+  }
+
+  body.page-id-7 .content-area > article::after {
+    display: block;
+    text-align: left;
+    white-space: pre-line;
+  }
+
+  body.page-id-7 #sln-salon #sln-salon__content {
+    padding: 14px 10px 10px !important;
+  }
 }
 
 .elementor-page main,
@@ -1548,6 +1724,176 @@ body .elementor-223 .elementor-element.elementor-element-a5c19d3 > .elementor-el
   .ba-services-page__hero {
     padding: 48px 0 40px;
     margin-bottom: 40px;
+  }
+}
+
+/* ========== BOOKING FULL PAGE ========== */
+
+.ba-booking-page {
+  padding-bottom: 80px;
+}
+
+.ba-booking-page__hero {
+  padding: 72px 0 56px;
+  text-align: center;
+  border-bottom: var(--ba-border);
+  margin-bottom: 56px;
+}
+
+.ba-booking-page__eyebrow {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--ba-gold);
+  margin-bottom: 16px;
+}
+
+.ba-booking-page__title {
+  font-size: clamp(32px, 5vw, 56px);
+  line-height: 1.05;
+  margin: 0 0 20px;
+  color: var(--ba-text);
+}
+
+.ba-booking-page__subtitle {
+  max-width: 560px;
+  margin: 0 auto;
+  color: var(--ba-muted);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.ba-booking-page__content {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  align-items: start;
+  gap: 28px;
+}
+
+.ba-booking-page__side {
+  position: sticky;
+  top: calc(var(--ba-header-height-scrolled) + 24px);
+  display: grid;
+  gap: 10px;
+}
+
+.ba-booking-page__step {
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+  min-height: 58px;
+  padding: 10px 12px;
+  background: var(--ba-panel);
+  border: var(--ba-border);
+  border-radius: var(--ba-radius-lg);
+}
+
+.ba-booking-page__step span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  color: var(--ba-gold);
+  background: var(--ba-gold-08);
+  border: 1px solid var(--ba-gold-30);
+  border-radius: var(--ba-radius-md);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.ba-booking-page__step strong {
+  overflow: hidden;
+  color: var(--ba-text);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.ba-booking-page__widget {
+  min-width: 0;
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--ba-white-08), transparent 44%), var(--ba-panel);
+  border: 1px solid var(--ba-gold-20);
+  border-radius: var(--ba-radius-xl);
+  box-shadow: var(--ba-shadow-lg);
+}
+
+.ba-booking-page__widget::before {
+  content: "";
+  display: block;
+  height: 4px;
+  background: linear-gradient(90deg, var(--ba-gold), var(--ba-rust), var(--ba-green));
+}
+
+.ba-booking-page__widget #sln-salon,
+.ba-booking-page__widget .sln-bootstrap {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  border-radius: var(--ba-radius-xl) !important;
+}
+
+.ba-booking-page__widget #sln-salon #sln-salon__content,
+.ba-booking-page__widget .sln-bootstrap #sln-salon__content {
+  padding: 24px !important;
+}
+
+.ba-booking-page__widget #sln-salon .sln-service-list,
+.ba-booking-page__widget #sln-salon .sln-service-list.sln-list {
+  max-height: min(62vh, 640px) !important;
+}
+
+@media (max-width: 860px) {
+  .ba-booking-page__content {
+    grid-template-columns: 1fr;
+  }
+
+  .ba-booking-page__side {
+    position: static;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .ba-booking-page__step {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+  }
+}
+
+@media (max-width: 520px) {
+  .ba-booking-page {
+    padding-bottom: 64px;
+  }
+
+  .ba-booking-page__hero {
+    padding: 48px 0 40px;
+    margin-bottom: 40px;
+  }
+
+  .ba-booking-page__content {
+    gap: 18px;
+  }
+
+  .ba-booking-page__side {
+    grid-template-columns: 1fr;
+  }
+
+  .ba-booking-page__step {
+    grid-template-columns: 38px minmax(0, 1fr);
+    justify-items: stretch;
+    text-align: left;
+  }
+
+  .ba-booking-page__widget #sln-salon #sln-salon__content,
+  .ba-booking-page__widget .sln-bootstrap #sln-salon__content {
+    padding: 14px 10px 10px !important;
   }
 }
 
@@ -5234,6 +5580,228 @@ body .elementor-223 .elementor-element.elementor-element-ca331d7 .sln-bootstrap 
   body .elementor-223 .elementor-element.elementor-element-ca331d7 .sln-salon--m__content {
     left: 14px !important;
     width: calc(100% - 28px) !important;
+  }
+}
+
+/* ========== LIVE BOOKING WIDGET POLISH ========== */
+
+body .elementor .elementor-element.elementor-element-ca331d7 > .elementor-widget-container,
+body .elementor-widget:has(#sln-salon) > .elementor-widget-container,
+.ba-el-booking-widget {
+  position: relative;
+  overflow: hidden !important;
+  border: 1px solid var(--ba-gold-20) !important;
+  border-radius: var(--ba-radius-xl) !important;
+  background:
+    linear-gradient(180deg, var(--ba-white-06), transparent 42%),
+    var(--ba-panel) !important;
+  box-shadow: var(--ba-shadow-lg) !important;
+}
+
+body .elementor .elementor-element.elementor-element-ca331d7 > .elementor-widget-container::before,
+body .elementor-widget:has(#sln-salon) > .elementor-widget-container::before,
+.ba-el-booking-widget::before {
+  content: "";
+  display: block;
+  height: 3px;
+  background: linear-gradient(90deg, var(--ba-gold), var(--ba-rust), var(--ba-green));
+}
+
+body #sln-salon {
+  border-radius: var(--ba-radius-xl) !important;
+}
+
+body .elementor-223 .elementor-element.elementor-element-ca331d7 #sln-salon,
+body .elementor .elementor-element.elementor-element-ca331d7 #sln-salon,
+body .elementor-widget:has(#sln-salon) #sln-salon,
+body .elementor-223 .elementor-element.elementor-element-ca331d7 .sln-bootstrap {
+  border-radius: var(--ba-radius-xl) !important;
+}
+
+body .elementor-223 .elementor-element.elementor-element-ca331d7 #sln-salon #sln-salon__content,
+body .elementor .elementor-element.elementor-element-ca331d7 #sln-salon #sln-salon__content,
+body .elementor-widget:has(#sln-salon) #sln-salon #sln-salon__content,
+body .elementor-223 .elementor-element.elementor-element-ca331d7 .sln-bootstrap #sln-salon__content,
+body .elementor-223 .elementor-element.elementor-element-ca331d7 .sln-salon--m__content,
+body #sln-salon #sln-salon__content {
+  background: transparent !important;
+}
+
+body .elementor-223 .elementor-element.elementor-element-ca331d7 #sln-salon .sln-salon-title,
+body .elementor .elementor-element.elementor-element-ca331d7 #sln-salon .sln-salon-title,
+body .elementor-widget:has(#sln-salon) #sln-salon .sln-salon-title,
+body #sln-salon .sln-salon-title {
+  color: var(--ba-white) !important;
+  font-size: clamp(20px, 2.2vw, 28px) !important;
+  letter-spacing: 0 !important;
+}
+
+body .elementor-223 .elementor-element.elementor-element-ca331d7 #sln-salon .salon-step-title,
+body .elementor .elementor-element.elementor-element-ca331d7 #sln-salon .salon-step-title,
+body .elementor-widget:has(#sln-salon) #sln-salon .salon-step-title,
+body #sln-salon .salon-step-title {
+  color: var(--ba-muted) !important;
+  font-size: 14px !important;
+}
+
+body .elementor-223 .elementor-element.elementor-element-ca331d7 #sln-salon .sln-progbar,
+body .elementor .elementor-element.elementor-element-ca331d7 #sln-salon .sln-progbar,
+body .elementor-widget:has(#sln-salon) #sln-salon .sln-progbar,
+body #sln-salon .sln-progbar {
+  overflow: hidden !important;
+  background: var(--ba-white-08) !important;
+}
+
+body .elementor-223 .elementor-element.elementor-element-ca331d7 #sln-salon .sln-progbar__bar,
+body .elementor .elementor-element.elementor-element-ca331d7 #sln-salon .sln-progbar__bar,
+body .elementor-widget:has(#sln-salon) #sln-salon .sln-progbar__bar,
+body .elementor-223 .elementor-element.elementor-element-ca331d7 #sln-salon .sln-progbar span,
+body .elementor .elementor-element.elementor-element-ca331d7 #sln-salon .sln-progbar span,
+body .elementor-widget:has(#sln-salon) #sln-salon .sln-progbar span,
+body #sln-salon .sln-progbar span {
+  background: var(--ba-gold) !important;
+}
+
+body .elementor-223 .elementor-element.elementor-element-ca331d7 #sln-salon .sln-list__item,
+body .elementor .elementor-element.elementor-element-ca331d7 #sln-salon .sln-list__item,
+body .elementor-widget:has(#sln-salon) #sln-salon .sln-list__item,
+body .elementor-223 .elementor-element.elementor-element-ca331d7 #sln-salon .sln-panel,
+body .elementor .elementor-element.elementor-element-ca331d7 #sln-salon .sln-panel,
+body .elementor-widget:has(#sln-salon) #sln-salon .sln-panel {
+  border-color: var(--ba-white-13) !important;
+  background: var(--ba-white-06) !important;
+}
+
+body .elementor-223 .elementor-element.elementor-element-ca331d7 #sln-salon .sln-list__item:hover,
+body .elementor .elementor-element.elementor-element-ca331d7 #sln-salon .sln-list__item:hover,
+body .elementor-widget:has(#sln-salon) #sln-salon .sln-list__item:hover {
+  border-color: var(--ba-gold-65) !important;
+  background: var(--ba-gold-10) !important;
+}
+
+body .elementor-223 .elementor-element.elementor-element-ca331d7 #sln-salon .sln-list__item__name,
+body .elementor .elementor-element.elementor-element-ca331d7 #sln-salon .sln-list__item__name,
+body .elementor-widget:has(#sln-salon) #sln-salon .sln-list__item__name {
+  color: var(--ba-white) !important;
+}
+
+body .elementor-223 .elementor-element.elementor-element-ca331d7 #sln-salon .sln-box__bottombar,
+body .elementor .elementor-element.elementor-element-ca331d7 #sln-salon .sln-box__bottombar,
+body .elementor-widget:has(#sln-salon) #sln-salon .sln-box__bottombar,
+body .elementor-223 .elementor-element.elementor-element-ca331d7 #sln-salon .sln-cart-footer,
+body .elementor .elementor-element.elementor-element-ca331d7 #sln-salon .sln-cart-footer,
+body .elementor-widget:has(#sln-salon) #sln-salon .sln-cart-footer,
+body .elementor-223 .elementor-element.elementor-element-ca331d7 #sln-salon .sln-form-actions,
+body .elementor .elementor-element.elementor-element-ca331d7 #sln-salon .sln-form-actions,
+body .elementor-widget:has(#sln-salon) #sln-salon .sln-form-actions,
+body .elementor-223 .elementor-element.elementor-element-ca331d7 #sln-salon .sln-step-actions,
+body .elementor .elementor-element.elementor-element-ca331d7 #sln-salon .sln-step-actions,
+body .elementor-widget:has(#sln-salon) #sln-salon .sln-step-actions,
+body .elementor-223 .elementor-element.elementor-element-ca331d7 #sln-salon .sln-summary-bar,
+body .elementor .elementor-element.elementor-element-ca331d7 #sln-salon .sln-summary-bar,
+body .elementor-widget:has(#sln-salon) #sln-salon .sln-summary-bar {
+  border-top-color: var(--ba-white-13) !important;
+  background: rgba(14, 15, 15, 0.72) !important;
+}
+
+body .elementor-223 .elementor-element.elementor-element-ca331d7 #sln-salon .sln-btn--emphasis,
+body .elementor .elementor-element.elementor-element-ca331d7 #sln-salon .sln-btn--emphasis,
+body .elementor-widget:has(#sln-salon) #sln-salon .sln-btn--emphasis,
+body .elementor-223 .elementor-element.elementor-element-ca331d7 #sln-salon .sln-btn--emphasis button,
+body .elementor .elementor-element.elementor-element-ca331d7 #sln-salon .sln-btn--emphasis button,
+body .elementor-widget:has(#sln-salon) #sln-salon .sln-btn--emphasis button,
+body .elementor-223 .elementor-element.elementor-element-ca331d7 #sln-salon button#sln-step-submit,
+body .elementor .elementor-element.elementor-element-ca331d7 #sln-salon button#sln-step-submit,
+body .elementor-widget:has(#sln-salon) #sln-salon button#sln-step-submit {
+  border-radius: var(--ba-radius-lg) !important;
+  box-shadow: 0 10px 24px rgba(200, 164, 93, 0.18) !important;
+}
+
+@media (max-width: 767px) {
+  body .elementor-223 .elementor-element.elementor-element-ca331d7 > .elementor-widget-container,
+  body .elementor .elementor-element.elementor-element-ca331d7 > .elementor-widget-container,
+  body .elementor-widget:has(#sln-salon) > .elementor-widget-container,
+  body .elementor-223 .elementor-element.elementor-element-ca331d7 #sln-salon {
+    overflow: visible !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  body .elementor-223 .elementor-element.elementor-element-ca331d7 > .elementor-widget-container::before,
+  body .elementor .elementor-element.elementor-element-ca331d7 > .elementor-widget-container::before,
+  body .elementor-widget:has(#sln-salon) > .elementor-widget-container::before {
+    display: none;
+  }
+
+  body .elementor-223 .elementor-element.elementor-element-ca331d7 #sln-salon #sln-salon__content,
+  body .elementor .elementor-element.elementor-element-ca331d7 #sln-salon #sln-salon__content,
+  body .elementor-widget:has(#sln-salon) #sln-salon #sln-salon__content,
+  body .elementor-223 .elementor-element.elementor-element-ca331d7 .sln-salon--m__content {
+    overflow: hidden !important;
+    border: 1px solid var(--ba-gold-20) !important;
+    box-shadow: var(--ba-shadow-sm) !important;
+  }
+}
+
+/* Homepage mobile booking: keep one tight outer frame around the live widget. */
+@media (max-width: 767px) {
+  body.home.page-id-223 .elementor-223 .elementor-element.elementor-element-8ab9075,
+  body.home.page-id-223 .elementor-223 .elementor-element.elementor-element-8ab9075.elementor-section {
+    padding-right: 12px !important;
+    padding-left: 12px !important;
+    overflow-x: hidden !important;
+  }
+
+  body.home.page-id-223 .elementor-223 .elementor-element.elementor-element-8ab9075 > .elementor-container,
+  body.home.page-id-223 .elementor-223 .elementor-element.elementor-element-ca331d7,
+  body.home.page-id-223 .elementor-223 .elementor-element.elementor-element-ca331d7.elementor-widget,
+  body.home.page-id-223 .elementor-223 .elementor-element.elementor-element-ca331d7 > .elementor-widget-container,
+  body.home.page-id-223 .elementor-223 .elementor-element.elementor-element-ca331d7 #sln-salon,
+  body.home.page-id-223 .elementor-223 .elementor-element.elementor-element-ca331d7 #sln-salon #sln-salon__content,
+  body.home.page-id-223 .elementor-223 .elementor-element.elementor-element-ca331d7 .sln-salon--m__content {
+    position: static !important;
+    left: auto !important;
+    right: auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+    transform: none !important;
+    box-sizing: border-box !important;
+  }
+
+  body.home.page-id-223 .elementor-223 .elementor-element.elementor-element-ca331d7 > .elementor-widget-container {
+    overflow: hidden !important;
+    border: 1px solid var(--ba-gold-20) !important;
+    border-radius: var(--ba-radius-md) !important;
+    background: var(--ba-panel) !important;
+    box-shadow: var(--ba-shadow-sm) !important;
+    padding: 0 !important;
+  }
+
+  body.home.page-id-223 .elementor-223 .elementor-element.elementor-element-ca331d7 #sln-salon,
+  body.home.page-id-223 .elementor-223 .elementor-element.elementor-element-ca331d7 #sln-salon #sln-salon__content,
+  body.home.page-id-223 .elementor-223 .elementor-element.elementor-element-ca331d7 .sln-salon--m__content {
+    overflow: visible !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  body.home.page-id-223 .elementor-223 .elementor-element.elementor-element-ca331d7 #sln-salon #sln-salon__content,
+  body.home.page-id-223 .elementor-223 .elementor-element.elementor-element-ca331d7 .sln-salon--m__content {
+    padding: 10px !important;
+  }
+
+  body.home.page-id-223 .elementor-223 .elementor-element.elementor-element-ca331d7 #sln-salon .sln-box__bottombar,
+  body.home.page-id-223 .elementor-223 .elementor-element.elementor-element-ca331d7 #sln-salon .sln-box__bottombar--services,
+  body.home.page-id-223 .elementor-223 .elementor-element.elementor-element-ca331d7 #sln-salon .sln-cart-footer,
+  body.home.page-id-223 .elementor-223 .elementor-element.elementor-element-ca331d7 #sln-salon .sln-form-actions,
+  body.home.page-id-223 .elementor-223 .elementor-element.elementor-element-ca331d7 #sln-salon .sln-step-actions,
+  body.home.page-id-223 .elementor-223 .elementor-element.elementor-element-ca331d7 #sln-salon .sln-summary-bar {
+    margin-right: -10px !important;
+    margin-left: -10px !important;
   }
 }
 

@@ -1,10 +1,12 @@
 <?php
 if (is_page() && get_post_meta(get_queried_object_id(), '_elementor_edit_mode', true)) {
     get_header();
+    echo '<div class="ba-accueil-page ba-accueil-page--elementor" id="accueil">';
     while (have_posts()) {
         the_post();
         the_content();
     }
+    echo '</div>';
     get_footer();
     return;
 }
@@ -18,6 +20,7 @@ $_sln        = SLN_Plugin::getInstance();
 $booking_url = get_permalink($_sln->getSettings()->getPayPageId());
 ?>
 
+<div class="ba-accueil-page ba-accueil-page--theme" id="accueil">
 <section class="hero" style="background-image: linear-gradient(90deg, rgba(14, 15, 15, 0.94) 0%, rgba(14, 15, 15, 0.62) 48%, rgba(14, 15, 15, 0.22) 100%), url('<?php echo esc_url($hero); ?>');">
     <div class="hero__content">
         <div class="hero__copy">
@@ -112,5 +115,7 @@ $booking_url = get_permalink($_sln->getSettings()->getPayPageId());
         </div>
     </div>
 </section>
+
+</div>
 
 <?php get_footer(); ?>
