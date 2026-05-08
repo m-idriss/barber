@@ -926,6 +926,50 @@ body .elementor-223 .elementor-element.elementor-element-a5c19d3 > .elementor-el
   font-weight: 800;
 }
 
+.service-card__cta {
+  display: inline-block;
+  padding: 9px 20px;
+  background: var(--ba-gold);
+  color: var(--ba-ink);
+  border: 1.5px solid var(--ba-gold);
+  border-radius: var(--ba-radius-lg);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+  align-self: flex-start;
+}
+
+.service-card__cta:hover {
+  background: transparent;
+  color: var(--ba-gold);
+  text-decoration: none;
+}
+
+.team-card__cta {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 9px 20px;
+  background: transparent;
+  color: var(--ba-gold);
+  border: 1.5px solid var(--ba-gold);
+  border-radius: var(--ba-radius-lg);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+
+.team-card__cta:hover {
+  background: var(--ba-gold);
+  color: var(--ba-ink);
+  text-decoration: none;
+}
+
 .team-card {
   overflow: hidden;
   padding: 0;

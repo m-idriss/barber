@@ -561,24 +561,27 @@ add_action('wp_loaded', function () {
 /**
  * When the attendant step is rendered, auto-select the preferred attendant
  * and submit the form so the user doesn't have to click manually.
+ * Reads the cookie in JS so it works whether set by PHP redirect or by JS.
  */
 add_action('wp_footer', function () {
-    if (empty($_COOKIE['sln_pref_att']) || !is_numeric($_COOKIE['sln_pref_att'])) {
-        return;
-    }
-    $att_id   = intval($_COOKIE['sln_pref_att']);
     $cookie_path = COOKIEPATH ?: '/';
     ?>
     <script>
     (function () {
-        var attId = <?php echo $att_id; ?>;
         var cookiePath = '<?php echo esc_js($cookie_path); ?>';
+
+        function getPref() {
+            var m = document.cookie.match(/(?:^|; )sln_pref_att=(\d+)/);
+            return m ? m[1] : null;
+        }
 
         function clearPref() {
             document.cookie = 'sln_pref_att=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=' + cookiePath;
         }
 
         function tryAutoSelect() {
+            var attId = getPref();
+            if (!attId) return false;
             var form = document.getElementById('salon-step-attendant');
             if (!form) return false;
             var radio = form.querySelector('input[name="sln[attendant]"][value="' + attId + '"]');
