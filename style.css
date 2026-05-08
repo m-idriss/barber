@@ -1347,6 +1347,30 @@ body .elementor-223 .elementor-element.elementor-element-a5c19d3 > .elementor-el
   padding: 0 !important;
 }
 
+/* Neutralise plugin's fixed-height scroll box (breaks grid on mobile) */
+.ba-services-page .sln-box--fixed_height,
+.ba-services-page .sln-box--main.sln-box--fixed_height {
+  overflow: visible !important;
+  max-height: none !important;
+  overflow-y: visible !important;
+  overflow-x: visible !important;
+}
+
+/* Remove Bootstrap column gutters that break the grid */
+.ba-services-page .sln-box--main {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  padding: 0 !important;
+}
+
+.ba-services-page .sln-box--main > .col-xs-12,
+.ba-services-page .sln-box--main > [class*="col-"] {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  width: 100% !important;
+  float: none !important;
+}
+
 /* Category headings */
 .ba-services-page .sln-panel {
   background: transparent !important;
