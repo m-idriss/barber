@@ -1,16 +1,4 @@
 <?php
-if (is_page() && get_post_meta(get_queried_object_id(), '_elementor_edit_mode', true)) {
-    get_header();
-    echo '<div class="ba-accueil-page ba-accueil-page--elementor" id="accueil">';
-    while (have_posts()) {
-        the_post();
-        the_content();
-    }
-    echo '</div>';
-    get_footer();
-    return;
-}
-
 get_header();
 
 $hero        = ba_v201_upload_url('2026/05/barber-hero-v2-flipped.png');
