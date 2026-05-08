@@ -13,10 +13,11 @@ get_header();
 $attendants  = ba_v201_salon_posts('sln_attendant');
 $_sln        = SLN_Plugin::getInstance();
 $booking_url = get_permalink($_sln->getSettings()->getPayPageId());
+$hero        = ba_v201_upload_url('2026/05/barber-hero-v2-flipped.png');
 ?>
 
 <section class="ba-assistants-page">
-    <div class="ba-assistants-page__hero">
+    <div class="ba-assistants-page__hero" style="background-image: url('<?php echo esc_url($hero); ?>')">
         <div class="section-inner">
             <div class="ba-assistants-page__eyebrow"><?php esc_html_e('Notre équipe', 'barber-architecte-v201'); ?></div>
             <h1 class="ba-assistants-page__title"><?php the_title(); ?></h1>

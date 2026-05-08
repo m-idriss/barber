@@ -13,10 +13,11 @@ get_header();
 $services    = ba_v201_salon_posts('sln_service');
 $_sln        = SLN_Plugin::getInstance();
 $booking_url = get_permalink($_sln->getSettings()->getPayPageId());
+$hero        = ba_v201_upload_url('2026/05/barber-hero-v2-flipped.png');
 ?>
 
 <div class="ba-services-page">
-    <div class="ba-services-page__hero">
+    <div class="ba-services-page__hero" style="background-image: url('<?php echo esc_url($hero); ?>')">
         <div class="section-inner">
             <div class="ba-services-page__eyebrow"><?php esc_html_e('Nos prestations', 'barber-architecte-v201'); ?></div>
             <h1 class="ba-services-page__title"><?php the_title(); ?></h1>
