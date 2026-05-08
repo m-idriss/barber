@@ -29,7 +29,7 @@ $hero        = ba_v201_upload_url('2026/05/barber-hero-v2-flipped.png');
         </div>
     </div>
 
-    <section id="equipe" class="section section--soft">
+    <section id="equipe" class="section">
         <div class="section-inner">
             <div class="section-head">
                 <h2><?php esc_html_e('Choisis ton barber.', 'barber-architecte-v201'); ?></h2>

@@ -1429,7 +1429,7 @@ body.page-id-7 #sln-salon .sln-service-list.sln-list {
 /* ========== ASSISTANTS FULL PAGE ========== */
 
 .ba-assistants-page {
-  padding-bottom: 80px;
+  padding-bottom: 0;
 }
 
 .ba-assistants-page__eyebrow {
@@ -1626,14 +1626,27 @@ body.page-id-7 #sln-salon .sln-service-list.sln-list {
   }
 
   .ba-assistants-page__hero {
-    padding: 48px 0 40px;
-    margin-bottom: 40px;
+    min-height: 50vh;
+    padding: 64px 0 56px;
   }
 }
 
 /* ========== SERVICES FULL PAGE ========== */
 
 /* ========== SHARED PAGE HERO ========== */
+
+.ba-services-page__hero,
+.ba-assistants-page__hero {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+}
+
+.ba-booking-page__hero {
+  min-height: 36vh;
+  display: flex;
+  align-items: center;
+}
 
 .ba-services-page__hero,
 .ba-assistants-page__hero,
@@ -1860,8 +1873,8 @@ body.page-id-7 #sln-salon .sln-service-list.sln-list {
   }
 
   .ba-services-page__hero {
-    padding: 48px 0 40px;
-    margin-bottom: 40px;
+    min-height: 50vh;
+    padding: 64px 0 56px;
   }
 }
 
@@ -1870,8 +1883,8 @@ body.page-id-7 #sln-salon .sln-service-list.sln-list {
 .ba-page-cta {
   padding: 80px 0;
   text-align: center;
-  border-top: var(--ba-border);
-  background: var(--ba-panel-soft);
+  border-top: 1px solid var(--ba-gold-20);
+  background: var(--ba-bg);
 }
 
 .ba-page-cta__eyebrow {
@@ -1979,8 +1992,8 @@ body.page-id-7 #sln-salon .sln-service-list.sln-list {
   }
 
   .ba-booking-page__hero {
+    min-height: 28vh;
     padding: 48px 0 40px;
-    margin-bottom: 40px;
   }
 
   .ba-booking-page__widget #sln-salon #sln-salon__content,
