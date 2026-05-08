@@ -473,7 +473,7 @@ img {
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 100;
+  z-index: 1000000;
   pointer-events: none;
   visibility: hidden;
   transition: visibility 0s linear 0.4s;
