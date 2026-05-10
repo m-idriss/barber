@@ -13,7 +13,10 @@ if (!defined('ABSPATH')) {
 <?php wp_body_open(); ?>
 
 <!-- Top Bar Premium -->
-<?php $ba_status = ba_v201_current_status(); ?>
+<?php
+$ba_status  = ba_v201_current_status();
+$ba_contact = ba_v201_contact_settings();
+?>
 <div class="topbar">
     <div class="topbar__inner">
         <div class="topbar__left">
@@ -23,25 +26,19 @@ if (!defined('ABSPATH')) {
             </span>
         </div>
         <div class="topbar__right">
-            <?php
-            $ba_phone         = get_theme_mod('ba_phone', '+33123456789');
-            $ba_phone_display = get_theme_mod('ba_phone_display', '+33 1 23 45 67 89');
-            $ba_maps_url      = get_theme_mod('ba_maps_url', 'https://maps.google.com');
-            $ba_maps_label    = get_theme_mod('ba_maps_label', 'Paris');
-            ?>
-            <a href="tel:<?php echo esc_attr($ba_phone); ?>" class="topbar__link">
+            <a href="tel:<?php echo esc_attr($ba_contact['phone']); ?>" class="topbar__link">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
                 </svg>
-                <?php echo esc_html($ba_phone_display); ?>
+                <?php echo esc_html($ba_contact['phone_display']); ?>
             </a>
             <span class="topbar__separator">·</span>
-            <a href="<?php echo esc_url($ba_maps_url); ?>" target="_blank" rel="noopener noreferrer" class="topbar__link">
+            <a href="<?php echo esc_url($ba_contact['maps_url']); ?>" target="_blank" rel="noopener noreferrer" class="topbar__link">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
                     <circle cx="12" cy="10" r="3"/>
                 </svg>
-                <?php echo esc_html($ba_maps_label); ?>
+                <?php echo esc_html($ba_contact['maps_label']); ?>
             </a>
         </div>
     </div>
@@ -50,12 +47,7 @@ if (!defined('ABSPATH')) {
 <header class="site-header" id="siteHeader">
     <div class="site-header__inner">
         <a class="brand" href="<?php echo esc_url(home_url('/')); ?>">
-            <?php
-            $logo_id = get_theme_mod('custom_logo') ?: ba_v201_attachment_by_file('2026/05/LOGO-DEFINITIF.jpg');
-            if ($logo_id) {
-                echo wp_get_attachment_image($logo_id, 'full', false, ['alt' => get_bloginfo('name')]);
-            }
-            ?>
+            <?php ba_v201_render_logo(); ?>
             <div class="brand__text">
                 <span class="brand__name"><?php bloginfo('name'); ?></span>
                 <span class="brand__tagline"><?php esc_html_e('Barbering Excellence', 'barber-architecte-v201'); ?></span>
@@ -63,15 +55,7 @@ if (!defined('ABSPATH')) {
         </a>
 
         <nav class="site-nav" aria-label="<?php esc_attr_e('Navigation principale', 'barber-architecte-v201'); ?>">
-            <?php
-            wp_nav_menu([
-                'theme_location' => 'primary',
-                'container' => false,
-                'fallback_cb' => false,
-                'items_wrap' => '%3$s',
-                'depth' => 1,
-            ]);
-            ?>
+            <?php ba_v201_render_primary_menu(); ?>
         </nav>
 
         <div class="site-header__actions">
@@ -86,15 +70,9 @@ if (!defined('ABSPATH')) {
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
             </button>
 
-            <?php if (is_user_logged_in()): ?>
-            <a href="<?php echo esc_url(home_url('/booking-my-account/')); ?>" class="header-login" aria-label="<?php esc_attr_e('Mon compte', 'barber-architecte-v201'); ?>">
+            <a href="<?php echo esc_url(ba_v201_account_url()); ?>" class="header-login" aria-label="<?php echo esc_attr(ba_v201_account_label()); ?>">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
             </a>
-            <?php else: ?>
-            <a href="<?php echo esc_url(home_url('/login/')); ?>" class="header-login" aria-label="<?php esc_attr_e('Connexion', 'barber-architecte-v201'); ?>">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-            </a>
-            <?php endif; ?>
 
             <button class="nav-burger" id="navBurger" aria-label="<?php esc_attr_e('Ouvrir le menu', 'barber-architecte-v201'); ?>" aria-expanded="false" aria-controls="mobileNav">
                 <span class="nav-burger__line"></span>
@@ -140,24 +118,12 @@ if (!defined('ABSPATH')) {
         </div>
 
         <nav class="mobile-nav__menu" aria-label="<?php esc_attr_e('Navigation mobile', 'barber-architecte-v201'); ?>">
-            <?php
-            wp_nav_menu([
-                'theme_location' => 'primary',
-                'container' => false,
-                'fallback_cb' => false,
-                'items_wrap' => '%3$s',
-                'depth' => 1,
-            ]);
-            ?>
+            <?php ba_v201_render_primary_menu(); ?>
         </nav>
 
         <div class="mobile-nav__footer">
             <a class="mobile-nav__cta" href="#reservation"><?php esc_html_e('Réserver maintenant', 'barber-architecte-v201'); ?></a>
-            <?php if (is_user_logged_in()): ?>
-            <a href="<?php echo esc_url(home_url('/booking-my-account/')); ?>" class="mobile-nav__login"><?php esc_html_e('Mon compte', 'barber-architecte-v201'); ?></a>
-            <?php else: ?>
-            <a href="<?php echo esc_url(home_url('/login/')); ?>" class="mobile-nav__login"><?php esc_html_e('Connexion', 'barber-architecte-v201'); ?></a>
-            <?php endif; ?>
+            <a href="<?php echo esc_url(ba_v201_account_url()); ?>" class="mobile-nav__login"><?php echo esc_html(ba_v201_account_label()); ?></a>
             <?php get_template_part('template-parts/social-links', null, ['wrapper_class' => 'mobile-nav__socials']); ?>
         </div>
     </aside>

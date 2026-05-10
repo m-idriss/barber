@@ -3,7 +3,7 @@ Theme Name: Barber Architecte V201
 Theme URI: https://barberlarchitecte.com/
 Author: Idriss
 Description: Theme sur mesure pour un salon de coiffure/barber avec accueil, services, equipe et reservation.
-Version: 1.9.9
+Version: 1.9.10
 Requires at least: 6.0
 Tested up to: 6.8
 Requires PHP: 8.1
@@ -6735,4 +6735,37 @@ body #sln-salon button#sln-step-submit {
   html {
     scroll-behavior: auto;
   }
+}
+
+/* Homepage booking: keep one visual frame, clear the Salon inner shell. */
+.ba-accueil-page .hero-booking .ba-live-booking-shell,
+.ba-accueil-page .hero-booking #sln-salon,
+.ba-accueil-page .hero-booking .sln-bootstrap,
+body.home .hero-booking .ba-live-booking-shell,
+body.home .hero-booking #sln-salon,
+body.home .hero-booking .sln-bootstrap {
+  overflow: visible !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+.ba-accueil-page .hero-booking .ba-live-booking-shell::before,
+.ba-accueil-page .hero-booking #sln-salon::before,
+body.home .hero-booking .ba-live-booking-shell::before,
+body.home .hero-booking #sln-salon::before {
+  display: none !important;
+  content: none !important;
+}
+
+.ba-accueil-page .hero-booking #sln-salon #sln-salon__content,
+.ba-accueil-page .hero-booking .sln-salon--m__content,
+body.home .hero-booking #sln-salon #sln-salon__content,
+body.home .hero-booking .sln-salon--m__content {
+  border: 0 !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
 }

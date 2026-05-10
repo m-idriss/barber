@@ -70,10 +70,10 @@ function ba_v201_business_hours(): array
 ```
 
 ### Contact details and address
-Update the phone number, email address, and postal address directly in `header.php` (top bar) and `footer.php` (contact column).
+Go to **Appearance → Customize → Contact & Réseaux sociaux** to update the phone number, email address, postal address, map link, and social URLs. Defaults live in `ba_v201_contact_defaults()` in `functions.php`.
 
 ### Hero image
-The hero background image is loaded via `ba_v201_upload_url()` in `front-page.php`. Upload the image through the WordPress Media Library and update the path passed to the function if needed.
+The hero background image is loaded via `ba_v201_hero_image_url()` in `functions.php`. Upload the image through the WordPress Media Library and update that helper if the path changes.
 
 ### Theme updates
 Administrators can review GitHub-powered theme releases from **Appearance → Theme updates**. The page includes the latest release notes, a manual **Check for updates** action, and direct links to install or inspect the current GitHub release.

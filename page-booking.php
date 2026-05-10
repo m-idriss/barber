@@ -9,12 +9,10 @@ if (!defined('ABSPATH')) {
 }
 
 get_header();
-
-$hero = ba_v201_upload_url('2026/05/barber-hero-v2-flipped.png');
 ?>
 
 <div class="ba-booking-page">
-    <div class="ba-booking-page__hero" style="background-image: url('<?php echo esc_url($hero); ?>')">
+    <div class="ba-booking-page__hero" style="<?php echo esc_attr(ba_v201_hero_background_style()); ?>">
         <div class="section-inner">
             <div class="ba-booking-page__eyebrow"><?php esc_html_e('Réservation', 'barber-architecte-v201'); ?></div>
             <h1 class="ba-booking-page__title"><?php the_title(); ?></h1>
@@ -30,8 +28,8 @@ $hero = ba_v201_upload_url('2026/05/barber-hero-v2-flipped.png');
 
                 if ('' !== $content) {
                     the_content();
-                } elseif (shortcode_exists('salon')) {
-                    echo do_shortcode('[salon]');
+                } else {
+                    ba_v201_render_salon_shortcode();
                 }
                 ?>
             <?php endwhile; endif; ?>

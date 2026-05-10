@@ -3,9 +3,10 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-$ba_fb = esc_url(get_theme_mod('ba_social_facebook', 'https://facebook.com'));
-$ba_ig = esc_url(get_theme_mod('ba_social_instagram', 'https://instagram.com'));
-$ba_tt = esc_url(get_theme_mod('ba_social_tiktok', 'https://tiktok.com'));
+$ba_contact = ba_v201_contact_settings();
+$ba_fb      = esc_url($ba_contact['social_facebook']);
+$ba_ig      = esc_url($ba_contact['social_instagram']);
+$ba_tt      = esc_url($ba_contact['social_tiktok']);
 
 $wrapper_class = !empty($args['wrapper_class']) ? ' ' . esc_attr($args['wrapper_class']) : '';
 $link_class    = !empty($args['link_class'])    ? ' class="' . esc_attr($args['link_class']) . '"' : '';

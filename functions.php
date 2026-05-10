@@ -33,7 +33,7 @@ function ba_v201_assets(): void
 
     wp_enqueue_style('ba-v201-style', get_stylesheet_uri(), [], $version);
     wp_enqueue_script('ba-v201-header', $dir . '/assets/js/header.js', [], $version, true);
-    wp_enqueue_script('ba-v201-booking-widget', $dir . '/assets/js/booking-widget.js', [], $version, true);
+    wp_enqueue_script('ba-v201-booking-widget', $dir . '/assets/js/booking-widget.js', ['ba-v201-header'], $version, true);
     wp_enqueue_script('ba-v201-booking-attendant', $dir . '/assets/js/booking-attendant.js', [], $version, true);
     wp_localize_script('ba-v201-booking-attendant', 'baAttendant', [
         'cookiePath' => COOKIEPATH ?: '/',
@@ -69,6 +69,93 @@ function ba_v201_upload_url(string $file): string
     return trailingslashit($uploads['baseurl']) . ltrim($file, '/');
 }
 
+function ba_v201_hero_image_url(): string
+{
+    return ba_v201_upload_url('2026/05/barber-hero-v2-flipped.png');
+}
+
+function ba_v201_contact_defaults(): array
+{
+    return [
+        'phone' => '+33123456789',
+        'phone_display' => '+33 1 23 45 67 89',
+        'email' => 'contact@barberlarchitecte.com',
+        'address_line1' => '123 Rue de la Coupe',
+        'address_line2' => '75000 Paris',
+        'maps_url' => 'https://maps.google.com',
+        'maps_label' => 'Paris',
+        'social_facebook' => 'https://facebook.com',
+        'social_instagram' => 'https://instagram.com',
+        'social_tiktok' => 'https://tiktok.com',
+    ];
+}
+
+function ba_v201_contact_setting(string $key): string
+{
+    $defaults = ba_v201_contact_defaults();
+    $theme_mod_key = 'ba_' . $key;
+
+    return (string) get_theme_mod($theme_mod_key, $defaults[$key] ?? '');
+}
+
+function ba_v201_contact_settings(): array
+{
+    $settings = [];
+    foreach (array_keys(ba_v201_contact_defaults()) as $key) {
+        $settings[$key] = ba_v201_contact_setting($key);
+    }
+
+    return $settings;
+}
+
+function ba_v201_hero_background_style(?string $image_url = null): string
+{
+    $image_url = $image_url ?: ba_v201_hero_image_url();
+
+    return sprintf('background-image: url(%s)', esc_url($image_url));
+}
+
+function ba_v201_account_url(): string
+{
+    return is_user_logged_in()
+        ? home_url('/booking-my-account/')
+        : home_url('/login/');
+}
+
+function ba_v201_account_label(): string
+{
+    return is_user_logged_in()
+        ? __('Mon compte', 'barber-architecte-v201')
+        : __('Connexion', 'barber-architecte-v201');
+}
+
+function ba_v201_render_primary_menu(): void
+{
+    wp_nav_menu([
+        'theme_location' => 'primary',
+        'container' => false,
+        'fallback_cb' => false,
+        'items_wrap' => '%3$s',
+        'depth' => 1,
+    ]);
+}
+
+function ba_v201_logo_id(): int
+{
+    return (int) (get_theme_mod('custom_logo') ?: ba_v201_attachment_by_file('2026/05/LOGO-DEFINITIF.jpg'));
+}
+
+function ba_v201_render_logo(array $attributes = []): void
+{
+    $logo_id = ba_v201_logo_id();
+    if (!$logo_id) {
+        return;
+    }
+
+    $attributes = array_merge(['alt' => get_bloginfo('name')], $attributes);
+    echo wp_get_attachment_image($logo_id, 'full', false, $attributes);
+}
+
 function ba_v201_attachment_by_file(string $file): int
 {
     $query = new WP_Query([
@@ -89,6 +176,10 @@ function ba_v201_attachment_by_file(string $file): int
 
 function ba_v201_salon_posts(string $post_type): array
 {
+    if (!post_type_exists($post_type)) {
+        return [];
+    }
+
     return get_posts([
         'post_type' => $post_type,
         'post_status' => 'publish',
@@ -96,6 +187,115 @@ function ba_v201_salon_posts(string $post_type): array
         'orderby' => 'menu_order title',
         'order' => 'ASC',
     ]);
+}
+
+function ba_v201_salon_booking_url(): string
+{
+    if (!class_exists('SLN_Plugin')) {
+        return home_url('/booking/');
+    }
+
+    try {
+        $plugin = SLN_Plugin::getInstance();
+        $page_id = $plugin->getSettings()->getPayPageId();
+    } catch (Throwable $e) {
+        return home_url('/booking/');
+    }
+
+    $url = $page_id ? get_permalink($page_id) : false;
+    return $url ? $url : home_url('/booking/');
+}
+
+function ba_v201_render_salon_shortcode(): void
+{
+    if (shortcode_exists('salon')) {
+        echo do_shortcode('[salon]');
+        return;
+    }
+
+    printf(
+        '<a class="btn" href="%s">%s</a>',
+        esc_url(admin_url('admin.php?page=salon')),
+        esc_html__('Ouvrir Salon Booking', 'barber-architecte-v201')
+    );
+}
+
+function ba_v201_service_booking_url(WP_Post $service, string $booking_url = ''): string
+{
+    return add_query_arg(
+        [
+            'action'                 => 'salon-booking-services-book-now',
+            'service'                => $service->ID,
+            'skip_service_selection' => 1,
+            'secondary'              => 0,
+        ],
+        '' !== $booking_url ? $booking_url : ba_v201_salon_booking_url()
+    );
+}
+
+function ba_v201_attendant_booking_url(WP_Post $attendant, string $booking_url = ''): string
+{
+    return add_query_arg(
+        ['sln_book_attendant' => $attendant->ID],
+        '' !== $booking_url ? $booking_url : ba_v201_salon_booking_url()
+    );
+}
+
+function ba_v201_render_attendant_picker(array $attendants, string $booking_url = '', int $limit = 0): void
+{
+    $items = $limit > 0 ? array_slice($attendants, 0, $limit) : $attendants;
+    ?>
+    <div class="hero-team" aria-label="<?php esc_attr_e('Choisir un barber', 'barber-architecte-v201'); ?>">
+        <?php foreach ($items as $attendant) :
+            if (!$attendant instanceof WP_Post) {
+                continue;
+            }
+
+            $excerpt = $attendant->post_excerpt ?: '';
+            ?>
+            <a class="hero-barber" href="<?php echo esc_url(ba_v201_attendant_booking_url($attendant, $booking_url)); ?>">
+                <?php echo get_the_post_thumbnail($attendant, 'thumbnail', ['loading' => 'eager', 'decoding' => 'async']); ?>
+                <span>
+                    <?php echo esc_html(get_the_title($attendant)); ?>
+                    <?php if ($excerpt) : ?>
+                        <small><?php echo esc_html($excerpt); ?></small>
+                    <?php endif; ?>
+                </span>
+                <strong><?php esc_html_e('Choisir', 'barber-architecte-v201'); ?></strong>
+            </a>
+        <?php endforeach; ?>
+    </div>
+    <?php
+}
+
+function ba_v201_render_service_card(WP_Post $service, string $booking_url = ''): void
+{
+    $price    = get_post_meta($service->ID, '_sln_service_price', true);
+    $duration = get_post_meta($service->ID, '_sln_service_duration', true);
+    ?>
+    <article class="service-card">
+        <?php if (has_post_thumbnail($service->ID)) : ?>
+            <div class="service-card__image">
+                <?php echo get_the_post_thumbnail($service->ID, 'medium', ['loading' => 'lazy', 'decoding' => 'async']); ?>
+            </div>
+        <?php endif; ?>
+        <div>
+            <h3><?php echo esc_html(get_the_title($service)); ?></h3>
+            <?php if ($service->post_excerpt) : ?>
+                <p><?php echo esc_html($service->post_excerpt); ?></p>
+            <?php endif; ?>
+        </div>
+        <div class="service-card__meta">
+            <span><?php echo esc_html($duration ?: ''); ?></span>
+            <?php if ($price !== '') : ?>
+                <strong><?php echo esc_html($price . ' EUR'); ?></strong>
+            <?php endif; ?>
+        </div>
+        <a href="<?php echo esc_url(ba_v201_service_booking_url($service, $booking_url)); ?>" class="service-card__cta">
+            <?php esc_html_e('Réserver', 'barber-architecte-v201'); ?>
+        </a>
+    </article>
+    <?php
 }
 
 /**
@@ -402,17 +602,18 @@ function ba_v201_customizer(WP_Customize_Manager $wp_customize): void
         'priority' => 30,
     ]);
 
+    $defaults = ba_v201_contact_defaults();
     $fields = [
-        'ba_phone'            => [__('Téléphone (lien tel:)', 'barber-architecte-v201'), '+33123456789', 'sanitize_text_field'],
-        'ba_phone_display'    => [__('Téléphone (affiché)', 'barber-architecte-v201'), '+33 1 23 45 67 89', 'sanitize_text_field'],
-        'ba_email'            => [__('Email', 'barber-architecte-v201'), 'contact@barberlarchitecte.com', 'sanitize_email'],
-        'ba_address_line1'    => [__('Adresse (ligne 1)', 'barber-architecte-v201'), '123 Rue de la Coupe', 'sanitize_text_field'],
-        'ba_address_line2'    => [__('Adresse (ligne 2)', 'barber-architecte-v201'), '75000 Paris', 'sanitize_text_field'],
-        'ba_maps_url'         => [__('Lien Google Maps', 'barber-architecte-v201'), 'https://maps.google.com', 'esc_url_raw'],
-        'ba_maps_label'       => [__('Ville (topbar)', 'barber-architecte-v201'), 'Paris', 'sanitize_text_field'],
-        'ba_social_facebook'  => [__('URL Facebook', 'barber-architecte-v201'), 'https://facebook.com', 'esc_url_raw'],
-        'ba_social_instagram' => [__('URL Instagram', 'barber-architecte-v201'), 'https://instagram.com', 'esc_url_raw'],
-        'ba_social_tiktok'    => [__('URL TikTok', 'barber-architecte-v201'), 'https://tiktok.com', 'esc_url_raw'],
+        'ba_phone'            => [__('Téléphone (lien tel:)', 'barber-architecte-v201'), $defaults['phone'], 'sanitize_text_field'],
+        'ba_phone_display'    => [__('Téléphone (affiché)', 'barber-architecte-v201'), $defaults['phone_display'], 'sanitize_text_field'],
+        'ba_email'            => [__('Email', 'barber-architecte-v201'), $defaults['email'], 'sanitize_email'],
+        'ba_address_line1'    => [__('Adresse (ligne 1)', 'barber-architecte-v201'), $defaults['address_line1'], 'sanitize_text_field'],
+        'ba_address_line2'    => [__('Adresse (ligne 2)', 'barber-architecte-v201'), $defaults['address_line2'], 'sanitize_text_field'],
+        'ba_maps_url'         => [__('Lien Google Maps', 'barber-architecte-v201'), $defaults['maps_url'], 'esc_url_raw'],
+        'ba_maps_label'       => [__('Ville (topbar)', 'barber-architecte-v201'), $defaults['maps_label'], 'sanitize_text_field'],
+        'ba_social_facebook'  => [__('URL Facebook', 'barber-architecte-v201'), $defaults['social_facebook'], 'esc_url_raw'],
+        'ba_social_instagram' => [__('URL Instagram', 'barber-architecte-v201'), $defaults['social_instagram'], 'esc_url_raw'],
+        'ba_social_tiktok'    => [__('URL TikTok', 'barber-architecte-v201'), $defaults['social_tiktok'], 'esc_url_raw'],
     ];
 
     foreach ($fields as $id => [$label, $default, $sanitize]) {
@@ -494,6 +695,11 @@ function ba_v201_attendant_redirect(): void
         return;
     }
 
+    if (!class_exists('SLN_Plugin')) {
+        wp_safe_redirect(home_url('/booking/'));
+        exit;
+    }
+
     $plugin = SLN_Plugin::getInstance();
     $bb     = $plugin->getBookingBuilder();
     $bb->clear();
@@ -509,4 +715,3 @@ function ba_v201_attendant_redirect(): void
     exit;
 }
 add_action('wp_loaded', 'ba_v201_attendant_redirect');
-

@@ -2,6 +2,8 @@
 if (!defined('ABSPATH')) {
     exit;
 }
+
+$ba_contact = ba_v201_contact_settings();
 ?>
 </main>
 <footer class="site-footer premium">
@@ -36,17 +38,8 @@ if (!defined('ABSPATH')) {
                     <div class="footer-brand-box">
                         <a class="footer-brand premium" href="<?php echo esc_url(home_url('/')); ?>">
                             <?php
-                            $footer_logo_id = get_theme_mod('custom_logo');
-                            if ($footer_logo_id) {
-                                echo wp_get_attachment_image(
-                                    $footer_logo_id,
-                                    'full',
-                                    false,
-                                    array(
-                                        'class' => 'footer-brand-logo',
-                                        'alt'   => get_bloginfo('name'),
-                                    )
-                                );
+                            if (ba_v201_logo_id()) {
+                                ba_v201_render_logo(['class' => 'footer-brand-logo']);
                             } else {
                                 ?>
                                 <span class="footer-brand-mark" aria-hidden="true">⊙</span>
@@ -101,22 +94,13 @@ if (!defined('ABSPATH')) {
                         <span class="title-accent">✉</span>
                         <?php esc_html_e('Nous Rencontrer', 'barber-architecte-v201'); ?>
                     </h3>
-
-                    <?php
-                    $ba_phone         = get_theme_mod('ba_phone', '+33123456789');
-                    $ba_phone_display = get_theme_mod('ba_phone_display', '+33 1 23 45 67 89');
-                    $ba_email         = get_theme_mod('ba_email', 'contact@barberlarchitecte.com');
-                    $ba_addr1         = get_theme_mod('ba_address_line1', '123 Rue de la Coupe');
-                    $ba_addr2         = get_theme_mod('ba_address_line2', '75000 Paris');
-                    $ba_maps_url      = get_theme_mod('ba_maps_url', 'https://maps.google.com');
-                    ?>
                     <div class="contact-item premium">
                         <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
                         </svg>
                         <div>
                             <span class="contact-label"><?php esc_html_e('Téléphone', 'barber-architecte-v201'); ?></span>
-                            <a href="tel:<?php echo esc_attr($ba_phone); ?>"><?php echo esc_html($ba_phone_display); ?></a>
+                            <a href="tel:<?php echo esc_attr($ba_contact['phone']); ?>"><?php echo esc_html($ba_contact['phone_display']); ?></a>
                         </div>
                     </div>
 
@@ -127,7 +111,7 @@ if (!defined('ABSPATH')) {
                         </svg>
                         <div>
                             <span class="contact-label"><?php esc_html_e('Email', 'barber-architecte-v201'); ?></span>
-                            <a href="mailto:<?php echo esc_attr($ba_email); ?>"><?php echo esc_html($ba_email); ?></a>
+                            <a href="mailto:<?php echo esc_attr($ba_contact['email']); ?>"><?php echo esc_html($ba_contact['email']); ?></a>
                         </div>
                     </div>
 
@@ -138,8 +122,8 @@ if (!defined('ABSPATH')) {
                         </svg>
                         <div>
                             <span class="contact-label"><?php esc_html_e('Adresse', 'barber-architecte-v201'); ?></span>
-                            <a href="<?php echo esc_url($ba_maps_url); ?>" target="_blank" rel="noopener noreferrer">
-                                <address><?php echo esc_html($ba_addr1); ?><br><?php echo esc_html($ba_addr2); ?></address>
+                            <a href="<?php echo esc_url($ba_contact['maps_url']); ?>" target="_blank" rel="noopener noreferrer">
+                                <address><?php echo esc_html($ba_contact['address_line1']); ?><br><?php echo esc_html($ba_contact['address_line2']); ?></address>
                             </a>
                         </div>
                     </div>
@@ -156,7 +140,7 @@ if (!defined('ABSPATH')) {
         <div class="section-inner">
             <div class="footer-bottom-grid">
                 <p class="footer-copyright">
-                    &copy; <?php echo esc_html(date('Y')); ?> <span class="highlight"><?php bloginfo('name'); ?></span>
+                    &copy; <?php echo esc_html(wp_date('Y')); ?> <span class="highlight"><?php bloginfo('name'); ?></span>
                     <span class="separator">•</span>
                     <span><?php esc_html_e('Barbering Excellence Depuis 2024', 'barber-architecte-v201'); ?></span>
                 </p>

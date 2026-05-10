@@ -1,6 +1,6 @@
 // Wait for a CSS selector to appear in the DOM, then call callback.
 // Uses MutationObserver instead of polling; disconnects after timeout.
-function waitForElement(selector, callback, timeout) {
+window.baWaitForElement = window.baWaitForElement || function(selector, callback, timeout) {
     timeout = timeout !== undefined ? timeout : 4000;
     var el = document.querySelector(selector);
     if (el) { callback(el); return; }
@@ -11,7 +11,7 @@ function waitForElement(selector, callback, timeout) {
     });
     observer.observe(document.body, { childList: true, subtree: true });
     setTimeout(function() { if (!done) observer.disconnect(); }, timeout);
-}
+};
 
 // Mobile nav toggle
 (function() {
@@ -115,7 +115,7 @@ function waitForElement(selector, callback, timeout) {
     // Only run on Elementor pages
     if (!document.querySelector('.elementor')) return;
 
-    waitForElement(
+    window.baWaitForElement(
         '.elementor-heading-title, .ba-el-hero-attendants',
         function() { moveSignatureSection(); }
     );
@@ -134,7 +134,7 @@ function waitForElement(selector, callback, timeout) {
         }
     }
 
-    waitForElement('#sln-salon', function(salon) {
+    window.baWaitForElement('#sln-salon', function(salon) {
         fixSalonInlineStyles(salon);
 
         // Keep watching for the plugin re-injecting inline styles
