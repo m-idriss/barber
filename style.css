@@ -6769,3 +6769,52 @@ body.home .hero-booking .sln-salon--m__content {
   background-color: transparent !important;
   box-shadow: none !important;
 }
+
+/* Homepage booking: reduce vertical dead space inside the Salon widget. */
+.ba-accueil-page .hero-booking #sln-salon #sln-salon__content,
+.ba-accueil-page .hero-booking .sln-salon--m__content,
+body.home .hero-booking #sln-salon #sln-salon__content,
+body.home .hero-booking .sln-salon--m__content {
+  padding: 14px 18px 12px !important;
+}
+
+.ba-accueil-page .hero-booking #sln-salon .sln-salon-title,
+.ba-accueil-page .hero-booking #sln-salon .salon-step-title,
+body.home .hero-booking #sln-salon .sln-salon-title,
+body.home .hero-booking #sln-salon .salon-step-title {
+  margin-top: 0 !important;
+  margin-bottom: 8px !important;
+  line-height: 1.15 !important;
+}
+
+.ba-accueil-page .hero-booking #sln-salon .sln-progbar__wrapper,
+.ba-accueil-page .hero-booking #sln-salon .sln-progbar,
+body.home .hero-booking #sln-salon .sln-progbar__wrapper,
+body.home .hero-booking #sln-salon .sln-progbar {
+  margin-top: 6px !important;
+  margin-bottom: 12px !important;
+}
+
+.ba-accueil-page .hero-booking #sln-salon .sln-box__bottombar,
+.ba-accueil-page .hero-booking #sln-salon .sln-cart-footer,
+.ba-accueil-page .hero-booking #sln-salon .sln-form-actions,
+.ba-accueil-page .hero-booking #sln-salon .sln-step-actions,
+.ba-accueil-page .hero-booking #sln-salon .sln-summary-bar,
+body.home .hero-booking #sln-salon .sln-box__bottombar,
+body.home .hero-booking #sln-salon .sln-cart-footer,
+body.home .hero-booking #sln-salon .sln-form-actions,
+body.home .hero-booking #sln-salon .sln-step-actions,
+body.home .hero-booking #sln-salon .sln-summary-bar {
+  margin-top: 12px !important;
+  padding-top: 12px !important;
+  padding-bottom: 12px !important;
+}
+
+@media (max-width: 767px) {
+  .ba-accueil-page .hero-booking #sln-salon #sln-salon__content,
+  .ba-accueil-page .hero-booking .sln-salon--m__content,
+  body.home .hero-booking #sln-salon #sln-salon__content,
+  body.home .hero-booking .sln-salon--m__content {
+    padding: 10px 12px 8px !important;
+  }
+}
