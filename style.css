@@ -3,7 +3,7 @@ Theme Name: Barber Architecte V201
 Theme URI: https://barberlarchitecte.com/
 Author: Idriss
 Description: Theme sur mesure pour un salon de coiffure/barber avec accueil, services, equipe et reservation.
-Version: 1.9.25
+Version: 1.9.26
 Requires at least: 6.0
 Tested up to: 6.8
 Requires PHP: 8.1
@@ -941,6 +941,11 @@ body .elementor-223 .elementor-element.elementor-element-a5c19d3 > .elementor-el
 
 .section {
   padding: var(--ba-section-y) 0;
+}
+
+#services.section {
+  padding-top: 44px;
+  padding-bottom: 52px;
 }
 
 .section--soft {
@@ -3665,6 +3670,11 @@ body .elementor-223 .elementor-element.elementor-element-cd7f074:not(.elementor-
     margin-left: auto;
     margin-top: 0;
     order: -1;
+  }
+
+  #services.section {
+    padding-top: 28px;
+    padding-bottom: 34px;
   }
 
   /* Version Elementor : centrer description, barbers, boutons */
