@@ -3,7 +3,7 @@ Theme Name: Barber Architecte V201
 Theme URI: https://barberlarchitecte.com/
 Author: Idriss
 Description: Theme sur mesure pour un salon de coiffure/barber avec accueil, services, equipe et reservation.
-Version: 1.9.19
+Version: 1.9.20
 Requires at least: 6.0
 Tested up to: 6.8
 Requires PHP: 8.1
@@ -7050,7 +7050,7 @@ body.home .hero-booking #sln-salon .sln-progbar__wrapper {
 .ba-accueil-page .hero-booking #sln-salon .sln-service-list.sln-list,
 body.home .hero-booking #sln-salon .sln-service-list,
 body.home .hero-booking #sln-salon .sln-service-list.sln-list {
-  max-height: 230px !important;
+  max-height: 306px !important;
 }
 
 .ba-accueil-page .hero-booking #sln-salon .sln-service-list .sln-list__item,
