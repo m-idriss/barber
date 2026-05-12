@@ -7387,4 +7387,48 @@ body.home .hero-booking #sln-salon .sln-box__bottombar button#sln-step-submit {
     width: 100%;
     max-width: none;
   }
+
+  .ba-accueil-page .hero-booking #sln-salon .sln-box__bottombar,
+  .ba-accueil-page .hero-booking #sln-salon .sln-cart-footer,
+  .ba-accueil-page .hero-booking #sln-salon .sln-form-actions,
+  .ba-accueil-page .hero-booking #sln-salon .sln-step-actions,
+  .ba-accueil-page .hero-booking #sln-salon .sln-summary-bar,
+  body.home .hero-booking #sln-salon .sln-box__bottombar,
+  body.home .hero-booking #sln-salon .sln-cart-footer,
+  body.home .hero-booking #sln-salon .sln-form-actions,
+  body.home .hero-booking #sln-salon .sln-step-actions,
+  body.home .hero-booking #sln-salon .sln-summary-bar {
+    position: static !important;
+    margin-top: 10px !important;
+    padding: 12px !important;
+  }
+
+  .ba-accueil-page .hero-booking #sln-salon .sln-box__bottombar > .col-xs-12,
+  body.home .hero-booking #sln-salon .sln-box__bottombar > .col-xs-12 {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+    align-items: stretch !important;
+  }
+
+  .ba-accueil-page .hero-booking #sln-salon .sln-total,
+  body.home .hero-booking #sln-salon .sln-total {
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+    justify-self: start !important;
+    width: 100% !important;
+  }
+
+  .ba-accueil-page .hero-booking #sln-salon .sln-box__bottombar .sln-btn--nextstep,
+  .ba-accueil-page .hero-booking #sln-salon .sln-box__bottombar button#sln-step-submit,
+  body.home .hero-booking #sln-salon .sln-box__bottombar .sln-btn--nextstep,
+  body.home .hero-booking #sln-salon .sln-box__bottombar button#sln-step-submit {
+    position: static !important;
+    grid-column: 1 !important;
+    grid-row: 2 !important;
+    justify-self: stretch !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: none !important;
+  }
 }
