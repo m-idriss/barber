@@ -3,7 +3,7 @@ Theme Name: Barber Architecte V201
 Theme URI: https://barberlarchitecte.com/
 Author: Idriss
 Description: Theme sur mesure pour un salon de coiffure/barber avec accueil, services, equipe et reservation.
-Version: 1.9.23
+Version: 1.9.24
 Requires at least: 6.0
 Tested up to: 6.8
 Requires PHP: 8.1
@@ -7302,6 +7302,13 @@ body.home .hero-booking #sln-salon .sln-box__bottombar button#sln-step-submit {
 }
 
 @media (max-width: 820px) {
+  .ba-accueil-page .hero__content,
+  body.home .hero__content {
+    padding-top: 28px !important;
+    padding-bottom: 34px !important;
+    gap: 18px !important;
+  }
+
   .ba-accueil-page .hero-booking,
   body.home .hero-booking {
     display: block !important;
@@ -7338,5 +7345,31 @@ body.home .hero-booking #sln-salon .sln-box__bottombar button#sln-step-submit {
     opacity: 1 !important;
     visibility: visible !important;
     transform: none !important;
+  }
+
+  .ba-accueil-page .hero__actions,
+  body.home .hero__actions {
+    width: 100%;
+    gap: 10px;
+    margin-top: 22px;
+  }
+
+  .ba-accueil-page .hero__actions .btn:first-child,
+  body.home .hero__actions .btn:first-child,
+  .footer-cta-btn {
+    width: 100%;
+  }
+
+  .ba-accueil-page .hero__actions .btn,
+  body.home .hero__actions .btn,
+  .footer-cta-btn,
+  .footer-cta-btn span {
+    white-space: nowrap;
+  }
+
+  .footer-cta-btn span {
+    display: block;
+    width: 100%;
+    text-align: center;
   }
 }
