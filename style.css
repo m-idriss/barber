@@ -7196,3 +7196,51 @@ body.home .hero-booking #sln-salon .sln-box__bottombar button#sln-step-submit {
   min-width: 132px !important;
   white-space: nowrap !important;
 }
+
+/* Desktop homepage: use the wide viewport instead of clustering the hero in the center. */
+@media (min-width: 1200px) {
+  .ba-accueil-page .hero__content,
+  body.home .hero__content {
+    width: min(1540px, calc(100% - 96px));
+    grid-template-columns: minmax(560px, 1fr) minmax(500px, 560px);
+    gap: clamp(52px, 5.4vw, 104px);
+    align-items: end;
+  }
+
+  .ba-accueil-page .hero__copy,
+  body.home .hero__copy {
+    max-width: 710px;
+  }
+
+  .ba-accueil-page .hero h1,
+  body.home .hero h1 {
+    max-width: 720px;
+  }
+
+  .ba-accueil-page .hero p,
+  .ba-accueil-page .hero-team,
+  body.home .hero p,
+  body.home .hero-team {
+    max-width: 660px;
+  }
+
+  .ba-accueil-page .hero-booking,
+  body.home .hero-booking {
+    width: 100%;
+    max-width: 560px;
+    justify-self: end;
+  }
+}
+
+@media (min-width: 1680px) {
+  .ba-accueil-page .hero__content,
+  body.home .hero__content {
+    width: min(1640px, calc(100% - 112px));
+    grid-template-columns: minmax(640px, 1fr) minmax(540px, 600px);
+  }
+
+  .ba-accueil-page .hero-booking,
+  body.home .hero-booking {
+    max-width: 600px;
+  }
+}
