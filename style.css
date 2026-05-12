@@ -3,7 +3,7 @@ Theme Name: Barber Architecte V201
 Theme URI: https://barberlarchitecte.com/
 Author: Idriss
 Description: Theme sur mesure pour un salon de coiffure/barber avec accueil, services, equipe et reservation.
-Version: 1.9.12
+Version: 1.9.15
 Requires at least: 6.0
 Tested up to: 6.8
 Requires PHP: 8.1
@@ -6817,4 +6817,382 @@ body.home .hero-booking #sln-salon .sln-summary-bar {
   body.home .hero-booking .sln-salon--m__content {
     padding: 10px 12px 8px !important;
   }
+}
+
+/* Homepage booking: compact the plugin's own nested layout. */
+.ba-accueil-page .hero-booking #sln-salon #sln-salon__content,
+body.home .hero-booking #sln-salon #sln-salon__content {
+  padding: 0 !important;
+}
+
+.ba-accueil-page .hero-booking #sln-salon-booking,
+body.home .hero-booking #sln-salon-booking {
+  position: relative !important;
+}
+
+.ba-accueil-page .hero-booking #sln-salon-booking__content,
+body.home .hero-booking #sln-salon-booking__content {
+  padding: 16px 24px 14px !important;
+}
+
+.ba-accueil-page .hero-booking #sln-salon .sln-topbar,
+body.home .hero-booking #sln-salon .sln-topbar {
+  display: none !important;
+}
+
+.ba-accueil-page .hero-booking #sln-salon .sln-salon-title,
+body.home .hero-booking #sln-salon .sln-salon-title {
+  display: block !important;
+  overflow: visible !important;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 0 4px !important;
+  font-size: clamp(24px, 1.9vw, 30px) !important;
+  line-height: 1.02 !important;
+  white-space: normal !important;
+}
+
+.ba-accueil-page .hero-booking #sln-salon .salon-step-title,
+body.home .hero-booking #sln-salon .salon-step-title {
+  margin: 0 0 10px !important;
+  font-size: clamp(17px, 1.25vw, 20px) !important;
+  line-height: 1.1 !important;
+}
+
+.ba-accueil-page .hero-booking #sln-salon .sln-progbar__wrapper,
+body.home .hero-booking #sln-salon .sln-progbar__wrapper {
+  margin: 0 0 12px !important;
+  padding: 0 !important;
+}
+
+.ba-accueil-page .hero-booking #sln-salon .sln-box--main,
+.ba-accueil-page .hero-booking #sln-salon .sln-box--fixed_height,
+body.home .hero-booking #sln-salon .sln-box--main,
+body.home .hero-booking #sln-salon .sln-box--fixed_height {
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.ba-accueil-page .hero-booking #sln-salon .sln-service-list,
+.ba-accueil-page .hero-booking #sln-salon .sln-service-list.sln-list,
+body.home .hero-booking #sln-salon .sln-service-list,
+body.home .hero-booking #sln-salon .sln-service-list.sln-list {
+  max-height: 254px !important;
+  margin: 0 !important;
+  padding: 0 6px 0 0 !important;
+  gap: 8px !important;
+}
+
+.ba-accueil-page .hero-booking #sln-salon .sln-service-list .sln-list__item,
+.ba-accueil-page .hero-booking #sln-salon .sln-service-list.sln-list .sln-list__item,
+body.home .hero-booking #sln-salon .sln-service-list .sln-list__item,
+body.home .hero-booking #sln-salon .sln-service-list.sln-list .sln-list__item {
+  grid-template-columns: 68px minmax(0, 1fr) 30px !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 9px 10px !important;
+  gap: 10px !important;
+}
+
+.ba-accueil-page .hero-booking #sln-salon .sln-list__item__thumb,
+body.home .hero-booking #sln-salon .sln-list__item__thumb {
+  width: 62px !important;
+  height: 62px !important;
+  min-width: 62px !important;
+}
+
+.ba-accueil-page .hero-booking #sln-salon .sln-list__item__thumb img,
+body.home .hero-booking #sln-salon .sln-list__item__thumb img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+}
+
+.ba-accueil-page .hero-booking #sln-salon .sln-list__item__content,
+body.home .hero-booking #sln-salon .sln-list__item__content {
+  min-width: 0 !important;
+}
+
+.ba-accueil-page .hero-booking #sln-salon .sln-list__item__name,
+body.home .hero-booking #sln-salon .sln-list__item__name {
+  margin: 0 0 3px !important;
+  font-size: 15px !important;
+  line-height: 1.08 !important;
+}
+
+.ba-accueil-page .hero-booking #sln-salon .sln-list__item__description,
+body.home .hero-booking #sln-salon .sln-list__item__description {
+  display: block !important;
+  overflow: hidden !important;
+  margin: 0 0 5px !important;
+  font-size: 11.5px !important;
+  line-height: 1.2 !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+.ba-accueil-page .hero-booking #sln-salon .sln-list__item__info,
+body.home .hero-booking #sln-salon .sln-list__item__info {
+  display: flex !important;
+  gap: 12px !important;
+  align-items: center !important;
+  margin: 0 !important;
+}
+
+.ba-accueil-page .hero-booking #sln-salon .sln-list__item__info h3,
+.ba-accueil-page .hero-booking #sln-salon .sln-steps-price,
+.ba-accueil-page .hero-booking #sln-salon .sln-steps-duration,
+body.home .hero-booking #sln-salon .sln-list__item__info h3,
+body.home .hero-booking #sln-salon .sln-steps-price,
+body.home .hero-booking #sln-salon .sln-steps-duration {
+  margin: 0 !important;
+  font-size: 12px !important;
+  line-height: 1 !important;
+}
+
+.ba-accueil-page .hero-booking #sln-salon .sln-checkbox label,
+body.home .hero-booking #sln-salon .sln-checkbox label {
+  width: 24px !important;
+  height: 24px !important;
+}
+
+.ba-accueil-page .hero-booking #sln-salon .sln-box__bottombar,
+.ba-accueil-page .hero-booking #sln-salon .sln-cart-footer,
+.ba-accueil-page .hero-booking #sln-salon .sln-form-actions,
+.ba-accueil-page .hero-booking #sln-salon .sln-step-actions,
+.ba-accueil-page .hero-booking #sln-salon .sln-summary-bar,
+body.home .hero-booking #sln-salon .sln-box__bottombar,
+body.home .hero-booking #sln-salon .sln-cart-footer,
+body.home .hero-booking #sln-salon .sln-form-actions,
+body.home .hero-booking #sln-salon .sln-step-actions,
+body.home .hero-booking #sln-salon .sln-summary-bar {
+  margin-top: 8px !important;
+  padding-top: 8px !important;
+  padding-bottom: 6px !important;
+}
+
+.ba-accueil-page .hero-booking #sln-salon .sln-btn,
+.ba-accueil-page .hero-booking #sln-salon button,
+body.home .hero-booking #sln-salon .sln-btn,
+body.home .hero-booking #sln-salon button {
+  min-height: 42px !important;
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+}
+
+@media (max-width: 767px) {
+  .ba-accueil-page .hero-booking #sln-salon-booking__content,
+  body.home .hero-booking #sln-salon-booking__content {
+    padding: 14px 14px 12px !important;
+  }
+
+  .ba-accueil-page .hero-booking #sln-salon .sln-service-list,
+  .ba-accueil-page .hero-booking #sln-salon .sln-service-list.sln-list,
+  body.home .hero-booking #sln-salon .sln-service-list,
+  body.home .hero-booking #sln-salon .sln-service-list.sln-list {
+    max-height: 360px !important;
+  }
+}
+
+/* Homepage booking: final density pass, remove the plugin's outer padding too. */
+.ba-accueil-page .hero-booking,
+body.home .hero-booking {
+  height: auto !important;
+  min-height: 0 !important;
+}
+
+.ba-accueil-page .hero-booking .ba-live-booking-shell,
+.ba-accueil-page .hero-booking #sln-salon,
+.ba-accueil-page .hero-booking #sln-salon.sln-salon--m,
+.ba-accueil-page .hero-booking #sln-salon.sln-salon--s,
+.ba-accueil-page .hero-booking #sln-salon-booking,
+.ba-accueil-page .hero-booking #sln-salon #sln-salon__content,
+.ba-accueil-page .hero-booking #sln-salon-booking__content,
+body.home .hero-booking .ba-live-booking-shell,
+body.home .hero-booking #sln-salon,
+body.home .hero-booking #sln-salon.sln-salon--m,
+body.home .hero-booking #sln-salon.sln-salon--s,
+body.home .hero-booking #sln-salon-booking,
+body.home .hero-booking #sln-salon #sln-salon__content,
+body.home .hero-booking #sln-salon-booking__content {
+  height: auto !important;
+  min-height: 0 !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.ba-accueil-page .hero-booking #sln-salon-booking__content,
+body.home .hero-booking #sln-salon-booking__content {
+  padding: 12px 18px 10px !important;
+}
+
+.ba-accueil-page .hero-booking #sln-salon .sln-salon-title,
+body.home .hero-booking #sln-salon .sln-salon-title {
+  margin-bottom: 2px !important;
+  font-size: clamp(21px, 1.65vw, 26px) !important;
+}
+
+.ba-accueil-page .hero-booking #sln-salon .salon-step-title,
+body.home .hero-booking #sln-salon .salon-step-title {
+  margin-bottom: 8px !important;
+  font-size: clamp(15px, 1.05vw, 18px) !important;
+}
+
+.ba-accueil-page .hero-booking #sln-salon .sln-progbar__wrapper,
+body.home .hero-booking #sln-salon .sln-progbar__wrapper {
+  margin-bottom: 8px !important;
+}
+
+.ba-accueil-page .hero-booking #sln-salon .sln-service-list,
+.ba-accueil-page .hero-booking #sln-salon .sln-service-list.sln-list,
+body.home .hero-booking #sln-salon .sln-service-list,
+body.home .hero-booking #sln-salon .sln-service-list.sln-list {
+  max-height: 230px !important;
+}
+
+.ba-accueil-page .hero-booking #sln-salon .sln-service-list .sln-list__item,
+.ba-accueil-page .hero-booking #sln-salon .sln-service-list.sln-list .sln-list__item,
+body.home .hero-booking #sln-salon .sln-service-list .sln-list__item,
+body.home .hero-booking #sln-salon .sln-service-list.sln-list .sln-list__item {
+  grid-template-columns: 58px minmax(0, 1fr) 28px !important;
+  padding: 7px 9px !important;
+}
+
+.ba-accueil-page .hero-booking #sln-salon .sln-list__item__thumb,
+.ba-accueil-page .hero-booking #sln-salon .sln-list__item__thumb img,
+body.home .hero-booking #sln-salon .sln-list__item__thumb,
+body.home .hero-booking #sln-salon .sln-list__item__thumb img {
+  width: 54px !important;
+  height: 54px !important;
+  min-width: 54px !important;
+}
+
+.ba-accueil-page .hero-booking #sln-salon .sln-box__bottombar,
+.ba-accueil-page .hero-booking #sln-salon .sln-cart-footer,
+.ba-accueil-page .hero-booking #sln-salon .sln-form-actions,
+.ba-accueil-page .hero-booking #sln-salon .sln-step-actions,
+.ba-accueil-page .hero-booking #sln-salon .sln-summary-bar,
+body.home .hero-booking #sln-salon .sln-box__bottombar,
+body.home .hero-booking #sln-salon .sln-cart-footer,
+body.home .hero-booking #sln-salon .sln-form-actions,
+body.home .hero-booking #sln-salon .sln-step-actions,
+body.home .hero-booking #sln-salon .sln-summary-bar {
+  margin-top: 6px !important;
+  margin-bottom: 0 !important;
+  padding-top: 7px !important;
+  padding-bottom: 7px !important;
+}
+
+/* Homepage booking: align every row on the same vertical and horizontal rhythm. */
+.ba-accueil-page .hero-booking #sln-salon-booking__content,
+body.home .hero-booking #sln-salon-booking__content {
+  --ba-booking-gutter: 18px;
+  --ba-booking-gap: 10px;
+  display: grid !important;
+  align-content: start !important;
+  gap: var(--ba-booking-gap) !important;
+  padding: var(--ba-booking-gutter) !important;
+}
+
+.ba-accueil-page .hero-booking #sln-salon .row,
+.ba-accueil-page .hero-booking #sln-salon [class*="col-"],
+body.home .hero-booking #sln-salon .row,
+body.home .hero-booking #sln-salon [class*="col-"] {
+  width: 100% !important;
+  margin-right: 0 !important;
+  margin-left: 0 !important;
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+}
+
+.ba-accueil-page .hero-booking #sln-salon .sln-salon-title,
+.ba-accueil-page .hero-booking #sln-salon .salon-step-title,
+.ba-accueil-page .hero-booking #sln-salon .sln-progbar__wrapper,
+.ba-accueil-page .hero-booking #sln-salon form,
+.ba-accueil-page .hero-booking #sln-salon .sln-box--main,
+.ba-accueil-page .hero-booking #sln-salon .sln-box--fixed_height,
+body.home .hero-booking #sln-salon .sln-salon-title,
+body.home .hero-booking #sln-salon .salon-step-title,
+body.home .hero-booking #sln-salon .sln-progbar__wrapper,
+body.home .hero-booking #sln-salon form,
+body.home .hero-booking #sln-salon .sln-box--main,
+body.home .hero-booking #sln-salon .sln-box--fixed_height {
+  width: 100% !important;
+  margin: 0 !important;
+}
+
+.ba-accueil-page .hero-booking #sln-salon .sln-progbar__wrapper,
+body.home .hero-booking #sln-salon .sln-progbar__wrapper {
+  margin-top: 2px !important;
+  margin-bottom: 0 !important;
+}
+
+.ba-accueil-page .hero-booking #sln-salon .sln-service-list,
+.ba-accueil-page .hero-booking #sln-salon .sln-service-list.sln-list,
+body.home .hero-booking #sln-salon .sln-service-list,
+body.home .hero-booking #sln-salon .sln-service-list.sln-list {
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 8px 0 0 !important;
+}
+
+.ba-accueil-page .hero-booking #sln-salon .sln-service-list .sln-list__item,
+.ba-accueil-page .hero-booking #sln-salon .sln-service-list.sln-list .sln-list__item,
+body.home .hero-booking #sln-salon .sln-service-list .sln-list__item,
+body.home .hero-booking #sln-salon .sln-service-list.sln-list .sln-list__item {
+  margin: 0 0 8px !important;
+}
+
+.ba-accueil-page .hero-booking #sln-salon .sln-service-list .sln-list__item:last-child,
+.ba-accueil-page .hero-booking #sln-salon .sln-service-list.sln-list .sln-list__item:last-child,
+body.home .hero-booking #sln-salon .sln-service-list .sln-list__item:last-child,
+body.home .hero-booking #sln-salon .sln-service-list.sln-list .sln-list__item:last-child {
+  margin-bottom: 0 !important;
+}
+
+.ba-accueil-page .hero-booking #sln-salon .sln-box__bottombar,
+.ba-accueil-page .hero-booking #sln-salon .sln-cart-footer,
+.ba-accueil-page .hero-booking #sln-salon .sln-form-actions,
+.ba-accueil-page .hero-booking #sln-salon .sln-step-actions,
+.ba-accueil-page .hero-booking #sln-salon .sln-summary-bar,
+body.home .hero-booking #sln-salon .sln-box__bottombar,
+body.home .hero-booking #sln-salon .sln-cart-footer,
+body.home .hero-booking #sln-salon .sln-form-actions,
+body.home .hero-booking #sln-salon .sln-step-actions,
+body.home .hero-booking #sln-salon .sln-summary-bar {
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 10px 12px !important;
+}
+
+.ba-accueil-page .hero-booking #sln-salon .sln-box__bottombar > .col-xs-12,
+body.home .hero-booking #sln-salon .sln-box__bottombar > .col-xs-12 {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) 132px !important;
+  align-items: center !important;
+  gap: var(--ba-booking-gap) !important;
+}
+
+.ba-accueil-page .hero-booking #sln-salon .sln-total,
+body.home .hero-booking #sln-salon .sln-total {
+  grid-column: 1 !important;
+  grid-row: 1 !important;
+  justify-self: start !important;
+  margin: 0 !important;
+  text-align: left !important;
+}
+
+.ba-accueil-page .hero-booking #sln-salon .sln-box__bottombar .sln-btn--nextstep,
+.ba-accueil-page .hero-booking #sln-salon .sln-box__bottombar button#sln-step-submit,
+body.home .hero-booking #sln-salon .sln-box__bottombar .sln-btn--nextstep,
+body.home .hero-booking #sln-salon .sln-box__bottombar button#sln-step-submit {
+  grid-column: 2 !important;
+  grid-row: 1 !important;
+  justify-self: end !important;
+  width: 132px !important;
+  min-width: 132px !important;
+  white-space: nowrap !important;
 }

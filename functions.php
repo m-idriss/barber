@@ -534,10 +534,40 @@ function ba_v201_create_starter_pages(): void
 {
     $pages = [
         [
+            'title'    => 'Accueil',
+            'slug'     => 'accueil',
+            'template' => 'default',
+            'content'  => '',
+        ],
+        [
+            'title'    => 'Services',
+            'slug'     => 'services',
+            'template' => 'default',
+            'content'  => '',
+        ],
+        [
+            'title'    => 'Réservation',
+            'slug'     => 'booking',
+            'template' => 'default',
+            'content'  => '',
+        ],
+        [
+            'title'    => 'Assistants',
+            'slug'     => 'assistants',
+            'template' => 'default',
+            'content'  => '',
+        ],
+        [
             'title'    => 'Connexion',
             'slug'     => 'login',
             'template' => 'page-login.php',
             'content'  => '',
+        ],
+        [
+            'title'    => 'Mon compte réservation',
+            'slug'     => 'booking-my-account',
+            'template' => 'default',
+            'content'  => '[salon_booking_my_account]',
         ],
         [
             'title'    => 'Actualités',
@@ -572,8 +602,14 @@ function ba_v201_create_starter_pages(): void
     ];
 
     foreach ($pages as $page) {
-        $existing = get_page_by_path($page['slug']);
-        if ($existing) {
+        $existing = get_posts([
+            'name'        => $page['slug'],
+            'post_type'   => 'page',
+            'post_status' => ['publish', 'future', 'draft', 'pending', 'private'],
+            'numberposts' => 1,
+            'fields'      => 'ids',
+        ]);
+        if (!empty($existing)) {
             continue;
         }
 
@@ -591,6 +627,88 @@ function ba_v201_create_starter_pages(): void
     }
 }
 add_action('after_switch_theme', 'ba_v201_create_starter_pages');
+add_action('init', 'ba_v201_create_starter_pages');
+
+/**
+ * Keep the primary navigation aligned with the starter pages.
+ */
+function ba_v201_sync_primary_menu(): void
+{
+    $menu_version = '20260510-2';
+    if (get_option('ba_v201_primary_menu_version') === $menu_version) {
+        return;
+    }
+
+    $menu = wp_get_nav_menu_object('primary');
+    if (!$menu) {
+        $menu_id = wp_create_nav_menu('primary');
+    } else {
+        $menu_id = (int) $menu->term_id;
+    }
+
+    if (!$menu_id || is_wp_error($menu_id)) {
+        return;
+    }
+
+    $locations = (array) get_theme_mod('nav_menu_locations', []);
+    if (($locations['primary'] ?? 0) !== $menu_id) {
+        $locations['primary'] = $menu_id;
+        set_theme_mod('nav_menu_locations', $locations);
+    }
+
+    $existing_items = wp_get_nav_menu_items($menu_id, ['post_status' => 'any']);
+    if ($existing_items) {
+        foreach ($existing_items as $item) {
+            wp_delete_post((int) $item->ID, true);
+        }
+    }
+
+    $items = [
+        ['label' => 'Accueil', 'url' => home_url('/')],
+        ['label' => 'Services', 'slug' => 'services'],
+        ['label' => 'Coiffeurs', 'slug' => 'assistants'],
+        ['label' => 'Réservation', 'slug' => 'booking'],
+        ['label' => 'Contact', 'slug' => 'contact'],
+    ];
+
+    foreach ($items as $position => $item) {
+        if (!empty($item['url'])) {
+            wp_update_nav_menu_item($menu_id, 0, [
+                'menu-item-title'    => $item['label'],
+                'menu-item-url'      => $item['url'],
+                'menu-item-type'     => 'custom',
+                'menu-item-status'   => 'publish',
+                'menu-item-position' => $position + 1,
+            ]);
+            continue;
+        }
+
+        $pages = get_posts([
+            'name'        => $item['slug'],
+            'post_type'   => 'page',
+            'post_status' => 'publish',
+            'numberposts' => 1,
+            'fields'      => 'ids',
+        ]);
+
+        if (empty($pages)) {
+            continue;
+        }
+
+        wp_update_nav_menu_item($menu_id, 0, [
+            'menu-item-title'     => $item['label'],
+            'menu-item-object-id' => (int) $pages[0],
+            'menu-item-object'    => 'page',
+            'menu-item-type'      => 'post_type',
+            'menu-item-status'    => 'publish',
+            'menu-item-position'  => $position + 1,
+        ]);
+    }
+
+    update_option('ba_v201_primary_menu_version', $menu_version, false);
+}
+add_action('after_switch_theme', 'ba_v201_sync_primary_menu', 20);
+add_action('init', 'ba_v201_sync_primary_menu', 20);
 
 /**
  * Register Customizer settings for contact info and social URLs.

@@ -3,6 +3,12 @@
         salon.classList.add('ba-live-booking-shell');
         var widget = salon.closest('.elementor-widget') || salon.closest('.elementor-element') || salon.parentElement;
         if (widget) widget.classList.add('ba-live-booking-widget');
+
+        var hero = salon.closest('.hero-booking');
+        var title = hero ? hero.querySelector('.sln-salon-title') : null;
+        if (title && title.textContent.trim().toLowerCase() === 'book') {
+            title.textContent = 'Book an appointment';
+        }
     }
 
     if (window.baWaitForElement) {
