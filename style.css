@@ -7372,4 +7372,9 @@ body.home .hero-booking #sln-salon .sln-box__bottombar button#sln-step-submit {
     width: 100%;
     text-align: center;
   }
+
+  .footer-cta-title {
+    width: 100%;
+    max-width: none;
+  }
 }
