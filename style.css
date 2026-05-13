@@ -7400,15 +7400,16 @@ body.home .hero-booking #sln-salon .sln-box__bottombar button#sln-step-submit {
   body.home .hero-booking #sln-salon .sln-summary-bar {
     position: static !important;
     margin-top: 8px !important;
-    padding: 10px 12px !important;
+    padding: 12px !important;
   }
 
   .ba-accueil-page .hero-booking #sln-salon .sln-box__bottombar > .col-xs-12,
   body.home .hero-booking #sln-salon .sln-box__bottombar > .col-xs-12 {
     display: grid !important;
-    grid-template-columns: minmax(0, 1fr) minmax(118px, 132px) !important;
-    column-gap: 10px !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    row-gap: 10px !important;
     align-items: center !important;
+    justify-items: center !important;
     width: 100% !important;
     padding: 0 !important;
   }
@@ -7422,11 +7423,28 @@ body.home .hero-booking #sln-salon .sln-box__bottombar button#sln-step-submit {
   .ba-accueil-page .hero-booking #sln-salon .sln-total,
   body.home .hero-booking #sln-salon .sln-total {
     grid-column: 1 !important;
-    width: auto !important;
+    justify-self: center !important;
+    display: inline-flex !important;
+    align-items: baseline !important;
+    justify-content: center !important;
+    gap: 6px !important;
+    width: max-content !important;
+    max-width: 100% !important;
     min-width: 0 !important;
     font-size: clamp(17px, 4.4vw, 24px) !important;
     line-height: 1.1 !important;
-    text-align: left !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+  }
+
+  .ba-accueil-page .hero-booking #sln-salon .sln-total-label,
+  .ba-accueil-page .hero-booking #sln-salon .sln-total-price,
+  body.home .hero-booking #sln-salon .sln-total-label,
+  body.home .hero-booking #sln-salon .sln-total-price {
+    display: inline !important;
+    position: static !important;
+    float: none !important;
+    margin: 0 !important;
     white-space: nowrap !important;
   }
 
@@ -7450,18 +7468,18 @@ body.home .hero-booking #sln-salon .sln-box__bottombar button#sln-step-submit {
   body.home .hero-booking #sln-salon .sln-box__bottombar button.sln-btn--nextstep,
   body.home .hero-booking #sln-salon .sln-box__bottombar a.sln-btn--nextstep,
   body.home .hero-booking #sln-salon .sln-box__bottombar input.sln-btn--nextstep {
-    grid-column: 2 !important;
-    justify-self: end !important;
+    grid-column: 1 !important;
+    justify-self: center !important;
     position: static !important;
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
-    width: min(132px, 100%) !important;
-    min-height: 42px !important;
-    min-width: 118px !important;
-    max-width: 132px !important;
-    padding-right: 8px !important;
-    padding-left: 8px !important;
+    width: min(190px, 100%) !important;
+    min-height: 44px !important;
+    min-width: 150px !important;
+    max-width: 190px !important;
+    padding-right: 16px !important;
+    padding-left: 16px !important;
     font-size: 14px !important;
     line-height: 1.1 !important;
     text-align: center !important;
