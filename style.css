@@ -3,7 +3,7 @@ Theme Name: Barber Architecte V201
 Theme URI: https://barberlarchitecte.com/
 Author: Idriss
 Description: Theme sur mesure pour un salon de coiffure/barber avec accueil, services, equipe et reservation.
-Version: 1.9.32
+Version: 1.9.33
 Requires at least: 6.0
 Tested up to: 6.8
 Requires PHP: 8.1
@@ -7405,11 +7405,9 @@ body.home .hero-booking #sln-salon .sln-box__bottombar button#sln-step-submit {
 
   .ba-accueil-page .hero-booking #sln-salon .sln-box__bottombar > .col-xs-12,
   body.home .hero-booking #sln-salon .sln-box__bottombar > .col-xs-12 {
-    display: grid !important;
-    grid-template-columns: minmax(0, 1fr) !important;
-    row-gap: 10px !important;
-    align-items: center !important;
-    justify-items: center !important;
+    position: relative !important;
+    display: block !important;
+    min-height: 48px !important;
     width: 100% !important;
     padding: 0 !important;
   }
@@ -7422,14 +7420,16 @@ body.home .hero-booking #sln-salon .sln-box__bottombar button#sln-step-submit {
 
   .ba-accueil-page .hero-booking #sln-salon .sln-total,
   body.home .hero-booking #sln-salon .sln-total {
-    grid-column: 1 !important;
-    justify-self: center !important;
+    position: absolute !important;
+    top: 50% !important;
+    right: 162px !important;
+    transform: translateY(-50%) !important;
     display: inline-flex !important;
     align-items: baseline !important;
     justify-content: center !important;
     gap: 6px !important;
     width: max-content !important;
-    max-width: 100% !important;
+    max-width: calc(100% - 170px) !important;
     min-width: 0 !important;
     font-size: clamp(17px, 4.4vw, 24px) !important;
     line-height: 1.1 !important;
@@ -7460,6 +7460,22 @@ body.home .hero-booking #sln-salon .sln-box__bottombar button#sln-step-submit {
     box-shadow: none !important;
   }
 
+  .ba-accueil-page .hero-booking #sln-salon .sln-box__bottombar .sln-box--formactions,
+  .ba-accueil-page .hero-booking #sln-salon .sln-box__bottombar .form-actions,
+  body.home .hero-booking #sln-salon .sln-box__bottombar .sln-box--formactions,
+  body.home .hero-booking #sln-salon .sln-box__bottombar .form-actions {
+    position: absolute !important;
+    top: 50% !important;
+    right: 0 !important;
+    transform: translateY(-50%) !important;
+    display: block !important;
+    width: 150px !important;
+    max-width: 150px !important;
+    min-width: 150px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
   .ba-accueil-page .hero-booking #sln-salon .sln-box__bottombar button#sln-step-submit,
   .ba-accueil-page .hero-booking #sln-salon .sln-box__bottombar button.sln-btn--nextstep,
   .ba-accueil-page .hero-booking #sln-salon .sln-box__bottombar a.sln-btn--nextstep,
@@ -7468,16 +7484,14 @@ body.home .hero-booking #sln-salon .sln-box__bottombar button#sln-step-submit {
   body.home .hero-booking #sln-salon .sln-box__bottombar button.sln-btn--nextstep,
   body.home .hero-booking #sln-salon .sln-box__bottombar a.sln-btn--nextstep,
   body.home .hero-booking #sln-salon .sln-box__bottombar input.sln-btn--nextstep {
-    grid-column: 1 !important;
-    justify-self: center !important;
     position: static !important;
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
-    width: min(190px, 100%) !important;
+    width: 150px !important;
     min-height: 44px !important;
     min-width: 150px !important;
-    max-width: 190px !important;
+    max-width: 150px !important;
     padding-right: 16px !important;
     padding-left: 16px !important;
     font-size: 14px !important;
