@@ -3,7 +3,7 @@ Theme Name: Barber Architecte V201
 Theme URI: https://barberlarchitecte.com/
 Author: Idriss
 Description: Theme sur mesure pour un salon de coiffure/barber avec accueil, services, equipe et reservation.
-Version: 1.9.44
+Version: 1.9.45
 Requires at least: 6.0
 Tested up to: 6.8
 Requires PHP: 8.1
@@ -1098,6 +1098,49 @@ body .elementor-223 .elementor-element.elementor-element-a5c19d3 > .elementor-el
 
 .services-toggle {
   display: none;
+}
+
+.ba-accueil-page #services .service-grid:not(.is-expanded) .service-card:nth-child(n+7),
+body.home #services .service-grid:not(.is-expanded) .service-card:nth-child(n+7) {
+  display: none;
+}
+
+.ba-accueil-page #services .services-toggle,
+body.home #services .services-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: min(220px, 100%);
+  margin: 24px auto 0;
+  padding: 12px 18px;
+  background: transparent;
+  border: 1px solid var(--ba-line);
+  border-radius: var(--ba-radius-xl);
+  color: var(--ba-muted);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  cursor: pointer;
+  transition: color var(--ba-ease), border-color var(--ba-ease), background var(--ba-ease);
+}
+
+.ba-accueil-page #services .services-toggle:hover,
+body.home #services .services-toggle:hover {
+  background: var(--ba-gold-08);
+  color: var(--ba-gold);
+  border-color: var(--ba-gold);
+}
+
+.ba-accueil-page #services .services-toggle svg,
+body.home #services .services-toggle svg {
+  flex-shrink: 0;
+  transition: transform var(--ba-ease);
+}
+
+.ba-accueil-page #services .services-toggle[aria-expanded="true"] svg,
+body.home #services .services-toggle[aria-expanded="true"] svg {
+  transform: rotate(180deg);
 }
 
 .team-card__cta {
@@ -3180,6 +3223,23 @@ body .elementor-223 .elementor-element.elementor-element-cd7f074:not(.elementor-
   transform: translateX(4px);
 }
 
+body.home .footer-premium-cta {
+  padding: 28px 0;
+}
+
+body.home .footer-cta-btn {
+  background: transparent;
+  color: var(--ba-gold);
+  border-color: rgba(209, 170, 91, 0.48);
+  box-shadow: none;
+}
+
+body.home .footer-cta-btn:hover {
+  background: var(--ba-gold);
+  color: var(--ba-bg);
+  border-color: var(--ba-gold);
+}
+
 /* Main Content */
 .site-footer__content.premium {
   padding: 48px 0;
@@ -4053,7 +4113,7 @@ body .elementor-223 .elementor-element.elementor-element-cd7f074:not(.elementor-
   overflow-x: hidden;
   padding-right: 8px;
   scrollbar-width: thin;
-  scrollbar-color: var(--ba-gold) transparent;
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
   mask-image: linear-gradient(to bottom, black 0%, black 92%, transparent 100%);
@@ -4062,7 +4122,7 @@ body .elementor-223 .elementor-element.elementor-element-cd7f074:not(.elementor-
 
 .sln-service-list::-webkit-scrollbar,
 .sln-service-list.sln-list::-webkit-scrollbar {
-  width: 5px;
+  width: 3px;
 }
 
 .sln-service-list::-webkit-scrollbar-track,
@@ -4073,15 +4133,18 @@ body .elementor-223 .elementor-element.elementor-element-cd7f074:not(.elementor-
 
 .sln-service-list::-webkit-scrollbar-thumb,
 .sln-service-list.sln-list::-webkit-scrollbar-thumb {
-  background: var(--ba-gold);
+  background: rgba(255, 255, 255, 0.2);
   border-radius: var(--ba-radius-xs);
-  opacity: 0.6;
 }
 
 .sln-service-list::-webkit-scrollbar-thumb:hover,
 .sln-service-list.sln-list::-webkit-scrollbar-thumb:hover {
-  background: var(--ba-gold);
-  opacity: 1;
+  background: rgba(209, 170, 91, 0.6);
+}
+
+.ba-accueil-page .hero-booking .sln-list__item--icons,
+body.home .hero-booking .sln-list__item--icons {
+  display: none !important;
 }
 
 /* Style hover sur les items de service */
