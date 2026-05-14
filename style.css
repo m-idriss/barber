@@ -3,7 +3,7 @@ Theme Name: Barber Architecte V201
 Theme URI: https://barberlarchitecte.com/
 Author: Idriss
 Description: Theme sur mesure pour un salon de coiffure/barber avec accueil, services, equipe et reservation.
-Version: 1.9.45
+Version: 1.9.47
 Requires at least: 6.0
 Tested up to: 6.8
 Requires PHP: 8.1
@@ -770,6 +770,362 @@ img {
   .hero__content {
     grid-template-columns: minmax(0, 1fr) minmax(0, 380px);
     gap: 24px;
+  }
+}
+
+/* ========== BOOKING PAGE REFINEMENT ========== */
+.ba-booking-page {
+  padding-bottom: 56px;
+  overflow-x: hidden;
+}
+
+.ba-booking-page .ba-booking-page__hero {
+  min-height: auto;
+  margin-bottom: 0;
+  padding: clamp(42px, 6vw, 70px) 0 clamp(54px, 7vw, 82px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.ba-booking-page .ba-booking-page__title {
+  max-width: 720px;
+  font-size: clamp(44px, 6vw, 86px);
+}
+
+.ba-booking-page .ba-booking-page__subtitle {
+  max-width: 580px;
+  margin-top: 18px;
+}
+
+.ba-booking-page__content {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: minmax(260px, 360px) minmax(0, 920px);
+  align-items: start;
+  gap: clamp(22px, 3vw, 40px);
+  margin-top: -34px;
+}
+
+.ba-booking-page__guide,
+.ba-booking-page__widget {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.07), transparent 42%), var(--ba-panel);
+  border: 1px solid rgba(209, 170, 91, 0.24);
+  border-radius: var(--ba-radius-xl);
+  box-shadow: var(--ba-shadow-lg);
+}
+
+.ba-booking-page__guide {
+  position: sticky;
+  top: calc(var(--ba-header-height-scrolled) + 22px);
+  display: grid;
+  gap: 24px;
+  padding: 24px;
+}
+
+.ba-booking-page__guide-label {
+  margin: 0 0 10px;
+  color: var(--ba-gold);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.7px;
+  text-transform: uppercase;
+}
+
+.ba-booking-page__guide-title {
+  margin: 0;
+  color: var(--ba-text);
+  font-size: clamp(24px, 2.2vw, 34px);
+  line-height: 1.05;
+}
+
+.ba-booking-page__steps {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ba-booking-page__steps li {
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr);
+  column-gap: 12px;
+  row-gap: 4px;
+  align-items: start;
+  padding: 14px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+.ba-booking-page__steps span {
+  grid-row: span 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgba(209, 170, 91, 0.36);
+  border-radius: var(--ba-radius-pill);
+  color: var(--ba-gold);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.ba-booking-page__steps strong {
+  color: var(--ba-text);
+  font-size: 15px;
+  line-height: 1.2;
+}
+
+.ba-booking-page__steps small {
+  color: var(--ba-muted);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.ba-booking-page__contact {
+  display: grid;
+  gap: 10px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+.ba-booking-page__status {
+  color: var(--ba-muted);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.ba-booking-page__status::before {
+  content: "";
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-right: 8px;
+  border-radius: 50%;
+  background: var(--ba-rust);
+}
+
+.ba-booking-page__status.is-open::before {
+  background: #37c978;
+}
+
+.ba-booking-page__contact a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 18px;
+  border: 1px solid rgba(209, 170, 91, 0.45);
+  border-radius: var(--ba-radius-lg);
+  color: var(--ba-gold);
+  font-size: 14px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.ba-booking-page__widget {
+  min-width: 0;
+  overflow: hidden;
+}
+
+.ba-booking-page__widget::before {
+  content: "";
+  display: block;
+  height: 4px;
+  background: linear-gradient(90deg, var(--ba-gold), var(--ba-rust), var(--ba-green));
+}
+
+.ba-booking-page__widget #sln-salon,
+.ba-booking-page__widget .sln-bootstrap {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.ba-booking-page__widget #sln-salon::before {
+  display: none !important;
+}
+
+.ba-booking-page__widget #sln-salon #sln-salon__content,
+.ba-booking-page__widget .sln-bootstrap #sln-salon__content {
+  padding: 28px !important;
+}
+
+.ba-booking-page__widget #sln-salon .sln-service-list,
+.ba-booking-page__widget #sln-salon .sln-service-list.sln-list,
+.ba-booking-page__widget #sln-salon .sln-attendant-list,
+.ba-booking-page__widget #sln-salon .sln-attendant-list.sln-list {
+  max-height: min(58vh, 560px) !important;
+  padding-right: 8px !important;
+}
+
+.ba-booking-page__widget #sln-salon .sln-list__item.sln-service {
+  grid-template-columns: 76px minmax(0, 1fr) 38px !important;
+  min-height: 104px !important;
+  gap: 16px !important;
+  padding: 12px !important;
+}
+
+.ba-booking-page__widget #sln-salon .sln-list__item__thumb,
+.ba-booking-page__widget #sln-salon .sln-list__item__thumb img {
+  width: 72px !important;
+  height: 72px !important;
+}
+
+.ba-booking-page__widget #sln-salon .sln-list__item__name {
+  font-size: clamp(17px, 1.55vw, 22px) !important;
+}
+
+.ba-booking-page__widget #sln-salon .sln-list__item__description {
+  font-size: 14px !important;
+}
+
+.ba-booking-page__widget #sln-salon .sln-box__bottombar,
+.ba-booking-page__widget #sln-salon .sln-cart-footer,
+.ba-booking-page__widget #sln-salon .sln-form-actions,
+.ba-booking-page__widget #sln-salon .sln-step-actions,
+.ba-booking-page__widget #sln-salon .sln-summary-bar {
+  margin: 14px 0 0 !important;
+  padding: 16px !important;
+  border-radius: var(--ba-radius-md) !important;
+}
+
+.ba-booking-page__widget #sln-salon .sln-box__bottombar > .col-xs-12 {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  padding: 0 !important;
+}
+
+.ba-booking-page__widget #sln-salon .sln-total {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  width: max-content !important;
+  min-height: 46px !important;
+  margin: 0 !important;
+  padding: 0 18px !important;
+  border: 1px solid rgba(209, 170, 91, 0.24) !important;
+  border-radius: var(--ba-radius-pill) !important;
+  background: rgba(255, 255, 255, 0.035) !important;
+}
+
+.ba-booking-page__widget #sln-salon .sln-box--formactions,
+.ba-booking-page__widget #sln-salon .form-actions {
+  justify-self: end !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  gap: 10px !important;
+  width: auto !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.ba-booking-page__widget #sln-salon button#sln-step-submit,
+.ba-booking-page__widget #sln-salon .sln-btn--nextstep button,
+.ba-booking-page__widget #sln-salon .sln-btn--nextstep a {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-width: 168px !important;
+  min-height: 46px !important;
+  padding: 0 24px !important;
+  text-align: center !important;
+  white-space: nowrap !important;
+}
+
+.ba-booking-page__widget #sln-salon .sln-btn--prevstep a {
+  min-width: 104px !important;
+  min-height: 46px !important;
+}
+
+.ba-booking-page__widget #sln-salon .sln-list__item--icons {
+  display: none !important;
+}
+
+@media (max-width: 980px) {
+  .ba-booking-page__content {
+    grid-template-columns: 1fr;
+    width: min(calc(100vw - 32px), 760px);
+    margin-top: -24px;
+  }
+
+  .ba-booking-page__widget {
+    order: 1;
+  }
+
+  .ba-booking-page__guide {
+    position: static;
+    order: 2;
+  }
+}
+
+@media (max-width: 620px) {
+  .ba-booking-page .ba-booking-page__hero {
+    padding: 32px 0 46px;
+  }
+
+  .ba-booking-page__content {
+    width: min(calc(100vw - 24px), 520px);
+    gap: 18px;
+  }
+
+  .ba-booking-page__widget #sln-salon #sln-salon__content,
+  .ba-booking-page__widget .sln-bootstrap #sln-salon__content {
+    padding: 16px 12px 12px !important;
+  }
+
+  .ba-booking-page__widget #sln-salon .sln-service-list,
+  .ba-booking-page__widget #sln-salon .sln-service-list.sln-list {
+    max-height: min(50vh, 430px) !important;
+  }
+
+  .ba-booking-page__widget #sln-salon .sln-list__item.sln-service {
+    grid-template-columns: 56px minmax(0, 1fr) 30px !important;
+    min-height: 82px !important;
+    gap: 10px !important;
+    padding: 8px !important;
+  }
+
+  .ba-booking-page__widget #sln-salon .sln-list__item__thumb,
+  .ba-booking-page__widget #sln-salon .sln-list__item__thumb img {
+    width: 54px !important;
+    height: 54px !important;
+  }
+
+  .ba-booking-page__widget #sln-salon .sln-list__item__name {
+    font-size: 14px !important;
+  }
+
+  .ba-booking-page__widget #sln-salon .sln-list__item__description {
+    font-size: 12px !important;
+  }
+
+  .ba-booking-page__widget #sln-salon .sln-box__bottombar > .col-xs-12 {
+    gap: 10px;
+  }
+
+  .ba-booking-page__widget #sln-salon .sln-total {
+    min-height: 44px !important;
+    padding: 0 12px !important;
+  }
+
+  .ba-booking-page__widget #sln-salon button#sln-step-submit,
+  .ba-booking-page__widget #sln-salon .sln-btn--nextstep button,
+  .ba-booking-page__widget #sln-salon .sln-btn--nextstep a {
+    min-width: 132px !important;
+    padding: 0 16px !important;
+  }
+
+  .ba-booking-page__guide {
+    padding: 20px;
   }
 }
 
@@ -7782,5 +8138,434 @@ body.home .hero-booking #sln-salon .sln-box__bottombar .sln-btn--prevstep {
     margin: 0 !important;
     padding: 0 !important;
     overflow: hidden !important;
+  }
+}
+
+/* Booking page final pass: keep the standalone reservation widget visible on mobile plugin markup. */
+.ba-booking-page__widget .ba-live-booking-shell,
+.ba-booking-page__widget #sln-salon,
+.ba-booking-page__widget #sln-salon.sln-salon--m,
+.ba-booking-page__widget #sln-salon.sln-salon--s,
+.ba-booking-page__widget #sln-salon-booking,
+.ba-booking-page__widget .sln-bootstrap {
+  box-sizing: border-box !important;
+  position: static !important;
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  margin: 0 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+}
+
+.ba-booking-page__widget #sln-salon #sln-salon__content,
+.ba-booking-page__widget #sln-salon-booking__content,
+.ba-booking-page__widget .sln-salon--m__content,
+.ba-booking-page__widget .sln-salon--s__content,
+.ba-booking-page__widget .sln-bootstrap #sln-salon__content {
+  box-sizing: border-box !important;
+  position: static !important;
+  display: grid !important;
+  align-content: start !important;
+  gap: 12px !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  margin: 0 !important;
+  padding: 28px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+  background: transparent !important;
+}
+
+.ba-booking-page__widget #sln-salon .row,
+.ba-booking-page__widget #sln-salon [class*="col-"] {
+  width: 100% !important;
+  margin-right: 0 !important;
+  margin-left: 0 !important;
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+}
+
+.ba-booking-page__widget #sln-salon .sln-list__item--icons {
+  display: none !important;
+}
+
+@media (max-width: 620px) {
+  .ba-booking-page__widget #sln-salon #sln-salon__content,
+  .ba-booking-page__widget #sln-salon-booking__content,
+  .ba-booking-page__widget .sln-salon--m__content,
+  .ba-booking-page__widget .sln-salon--s__content,
+  .ba-booking-page__widget .sln-bootstrap #sln-salon__content {
+    padding: 16px 12px 12px !important;
+  }
+}
+
+/* Booking page: align the reservation widget with the homepage hero widget. */
+.ba-booking-page__content {
+  grid-template-columns: minmax(260px, 360px) minmax(460px, 600px);
+  justify-content: center;
+}
+
+.ba-booking-page__widget.hero-booking {
+  width: 100%;
+  max-width: 600px;
+  justify-self: end;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--ba-gold-20);
+  border-radius: var(--ba-radius-xl);
+  background: linear-gradient(180deg, var(--ba-white-08), transparent 44%), var(--ba-panel);
+  box-shadow: var(--ba-shadow-lg);
+}
+
+.ba-booking-page__widget.hero-booking::before {
+  content: "";
+  display: block;
+  height: 4px;
+  background: linear-gradient(90deg, var(--ba-gold), var(--ba-rust), var(--ba-green));
+}
+
+.ba-booking-page__widget.hero-booking .ba-live-booking-shell,
+.ba-booking-page__widget.hero-booking #sln-salon,
+.ba-booking-page__widget.hero-booking #sln-salon.sln-salon--m,
+.ba-booking-page__widget.hero-booking #sln-salon.sln-salon--s,
+.ba-booking-page__widget.hero-booking #sln-salon-booking,
+.ba-booking-page__widget.hero-booking .sln-bootstrap,
+.ba-booking-page__widget.hero-booking #sln-salon #sln-salon__content,
+.ba-booking-page__widget.hero-booking #sln-salon-booking__content,
+.ba-booking-page__widget.hero-booking .sln-salon--m__content,
+.ba-booking-page__widget.hero-booking .sln-salon--s__content {
+  box-sizing: border-box !important;
+  position: static !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  margin: 0 !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+.ba-booking-page__widget.hero-booking .ba-live-booking-shell::before,
+.ba-booking-page__widget.hero-booking #sln-salon::before {
+  display: none !important;
+  content: none !important;
+}
+
+.ba-booking-page__widget.hero-booking #sln-salon #sln-salon__content {
+  padding: 0 !important;
+}
+
+.ba-booking-page__widget.hero-booking #sln-salon-booking__content,
+.ba-booking-page__widget.hero-booking .sln-salon--m__content,
+.ba-booking-page__widget.hero-booking .sln-salon--s__content {
+  --ba-booking-gutter: 18px;
+  --ba-booking-gap: 10px;
+  display: grid !important;
+  align-content: start !important;
+  gap: var(--ba-booking-gap) !important;
+  padding: var(--ba-booking-gutter) !important;
+}
+
+.ba-booking-page__widget.hero-booking #sln-salon .row,
+.ba-booking-page__widget.hero-booking #sln-salon [class*="col-"] {
+  width: 100% !important;
+  margin-right: 0 !important;
+  margin-left: 0 !important;
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+}
+
+.ba-booking-page__widget.hero-booking #sln-salon .sln-topbar,
+.ba-booking-page__widget.hero-booking #sln-salon .sln-list__item--icons {
+  display: none !important;
+}
+
+.ba-booking-page__widget.hero-booking #sln-salon .sln-salon-title {
+  display: block !important;
+  overflow: visible !important;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 0 2px !important;
+  color: var(--ba-white) !important;
+  font-size: clamp(21px, 1.65vw, 26px) !important;
+  line-height: 1.02 !important;
+  white-space: normal !important;
+}
+
+.ba-booking-page__widget.hero-booking #sln-salon .salon-step-title {
+  margin: 0 0 8px !important;
+  color: var(--ba-muted) !important;
+  font-size: clamp(15px, 1.05vw, 18px) !important;
+  line-height: 1.1 !important;
+}
+
+.ba-booking-page__widget.hero-booking #sln-salon .sln-progbar__wrapper {
+  width: 100% !important;
+  margin: 2px 0 0 !important;
+  padding: 0 !important;
+}
+
+.ba-booking-page__widget.hero-booking #sln-salon .sln-box--main,
+.ba-booking-page__widget.hero-booking #sln-salon .sln-box--fixed_height,
+.ba-booking-page__widget.hero-booking #sln-salon form {
+  width: 100% !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.ba-booking-page__widget.hero-booking #sln-salon .sln-service-list,
+.ba-booking-page__widget.hero-booking #sln-salon .sln-service-list.sln-list,
+.ba-booking-page__widget.hero-booking #sln-salon .sln-attendant-list,
+.ba-booking-page__widget.hero-booking #sln-salon .sln-attendant-list.sln-list {
+  width: 100% !important;
+  max-height: 306px !important;
+  margin: 0 !important;
+  padding: 0 8px 0 0 !important;
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+}
+
+.ba-booking-page__widget.hero-booking #sln-salon .sln-service-list .sln-list__item,
+.ba-booking-page__widget.hero-booking #sln-salon .sln-service-list.sln-list .sln-list__item {
+  display: grid !important;
+  grid-template-columns: 58px minmax(0, 1fr) 28px !important;
+  align-items: center !important;
+  gap: 10px !important;
+  min-height: 0 !important;
+  margin: 0 0 8px !important;
+  padding: 7px 9px !important;
+  border-radius: var(--ba-radius-sm) !important;
+}
+
+.ba-booking-page__widget.hero-booking #sln-salon .sln-list__item__thumb,
+.ba-booking-page__widget.hero-booking #sln-salon .sln-list__item__thumb img {
+  width: 54px !important;
+  height: 54px !important;
+  min-width: 54px !important;
+  object-fit: cover !important;
+}
+
+.ba-booking-page__widget.hero-booking #sln-salon .sln-list__item__content {
+  min-width: 0 !important;
+}
+
+.ba-booking-page__widget.hero-booking #sln-salon .sln-list__item__name {
+  margin: 0 0 3px !important;
+  color: var(--ba-white) !important;
+  font-size: 15px !important;
+  line-height: 1.08 !important;
+}
+
+.ba-booking-page__widget.hero-booking #sln-salon .sln-list__item__description {
+  display: block !important;
+  overflow: hidden !important;
+  margin: 0 0 5px !important;
+  color: var(--ba-muted) !important;
+  font-size: 11.5px !important;
+  line-height: 1.2 !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+.ba-booking-page__widget.hero-booking #sln-salon .sln-list__item__info {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  margin: 0 !important;
+}
+
+.ba-booking-page__widget.hero-booking #sln-salon .sln-list__item__info h3,
+.ba-booking-page__widget.hero-booking #sln-salon .sln-steps-price,
+.ba-booking-page__widget.hero-booking #sln-salon .sln-steps-duration {
+  margin: 0 !important;
+  font-size: 12px !important;
+  line-height: 1 !important;
+}
+
+.ba-booking-page__widget.hero-booking #sln-salon .sln-checkbox label {
+  width: 24px !important;
+  height: 24px !important;
+}
+
+.ba-booking-page__widget.hero-booking #sln-salon .sln-box__bottombar,
+.ba-booking-page__widget.hero-booking #sln-salon .sln-cart-footer,
+.ba-booking-page__widget.hero-booking #sln-salon .sln-form-actions,
+.ba-booking-page__widget.hero-booking #sln-salon .sln-step-actions,
+.ba-booking-page__widget.hero-booking #sln-salon .sln-summary-bar {
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 10px 12px !important;
+  border-radius: var(--ba-radius-md) !important;
+  background: rgba(14, 15, 15, 0.78) !important;
+}
+
+.ba-booking-page__widget.hero-booking #sln-salon .sln-box__bottombar > .col-xs-12 {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) auto !important;
+  align-items: center !important;
+  gap: var(--ba-booking-gap) !important;
+  width: 100% !important;
+  padding: 0 !important;
+}
+
+.ba-booking-page__widget.hero-booking #sln-salon .sln-total {
+  grid-column: 1 !important;
+  grid-row: 1 !important;
+  justify-self: start !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 7px !important;
+  margin: 0 !important;
+  padding: 0 16px !important;
+  min-height: 44px !important;
+  border: 1px solid rgba(209, 170, 91, 0.22) !important;
+  border-radius: 999px !important;
+  background: rgba(255, 255, 255, 0.035) !important;
+  white-space: nowrap !important;
+}
+
+.ba-booking-page__widget.hero-booking #sln-salon .sln-box--formactions,
+.ba-booking-page__widget.hero-booking #sln-salon .form-actions {
+  grid-column: 2 !important;
+  grid-row: 1 !important;
+  justify-self: end !important;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  gap: 10px !important;
+  width: auto !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.ba-booking-page__widget.hero-booking #sln-salon .sln-box__bottombar button#sln-step-submit,
+.ba-booking-page__widget.hero-booking #sln-salon .sln-box__bottombar button.sln-btn--nextstep,
+.ba-booking-page__widget.hero-booking #sln-salon .sln-box__bottombar a.sln-btn--nextstep,
+.ba-booking-page__widget.hero-booking #sln-salon .sln-box__bottombar input.sln-btn--nextstep {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 142px !important;
+  min-width: 142px !important;
+  max-width: 142px !important;
+  min-height: 44px !important;
+  padding-right: 16px !important;
+  padding-left: 16px !important;
+  font-size: 14px !important;
+  line-height: 1.1 !important;
+  text-align: center !important;
+  white-space: nowrap !important;
+}
+
+.ba-booking-page__widget.hero-booking #sln-salon .sln-box__bottombar .sln-btn--prevstep {
+  flex: 0 0 104px !important;
+  max-width: 112px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.ba-booking-page__widget.hero-booking #sln-salon .sln-box__bottombar .sln-btn--prevstep a {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-width: 104px !important;
+  max-width: 112px !important;
+  min-height: 44px !important;
+  padding-right: 12px !important;
+  padding-left: 12px !important;
+  border: 1px solid rgba(209, 170, 91, 0.56) !important;
+  border-radius: var(--ba-radius-lg) !important;
+  background: rgba(209, 170, 91, 0.10) !important;
+  color: var(--ba-gold) !important;
+  font-size: 13px !important;
+  font-weight: 800 !important;
+  text-align: center !important;
+  text-transform: none !important;
+  white-space: nowrap !important;
+}
+
+.ba-booking-page__widget.hero-booking #sln-salon .sln-box__bottombar .glyphicon {
+  display: none !important;
+}
+
+@media (max-width: 980px) {
+  .ba-booking-page__content {
+    grid-template-columns: 1fr;
+    width: min(calc(100vw - 32px), 720px);
+  }
+
+  .ba-booking-page__widget.hero-booking {
+    order: 1;
+    justify-self: center;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 620px) {
+  .ba-booking-page__content {
+    width: min(calc(100vw - 24px), 520px);
+  }
+
+  .ba-booking-page__widget.hero-booking #sln-salon-booking__content,
+  .ba-booking-page__widget.hero-booking .sln-salon--m__content,
+  .ba-booking-page__widget.hero-booking .sln-salon--s__content {
+    --ba-booking-gutter: 12px;
+    --ba-booking-gap: 8px;
+    padding: var(--ba-booking-gutter) !important;
+  }
+
+  .ba-booking-page__widget.hero-booking #sln-salon .sln-service-list,
+  .ba-booking-page__widget.hero-booking #sln-salon .sln-service-list.sln-list {
+    max-height: 360px !important;
+  }
+
+  .ba-booking-page__widget.hero-booking #sln-salon .sln-box__bottombar > .col-xs-12 {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 10px !important;
+    min-height: 56px !important;
+  }
+
+  .ba-booking-page__widget.hero-booking #sln-salon .sln-total {
+    flex: 0 0 auto !important;
+    width: 128px !important;
+    max-width: 128px !important;
+    min-height: 44px !important;
+    padding: 0 8px !important;
+    overflow: hidden !important;
+  }
+
+  .ba-booking-page__widget.hero-booking #sln-salon .sln-box--formactions,
+  .ba-booking-page__widget.hero-booking #sln-salon .form-actions {
+    display: flex !important;
+    width: auto !important;
+    gap: 8px !important;
+  }
+
+  .ba-booking-page__widget.hero-booking #sln-salon .sln-box__bottombar button#sln-step-submit,
+  .ba-booking-page__widget.hero-booking #sln-salon .sln-box__bottombar button.sln-btn--nextstep,
+  .ba-booking-page__widget.hero-booking #sln-salon .sln-box__bottombar a.sln-btn--nextstep,
+  .ba-booking-page__widget.hero-booking #sln-salon .sln-box__bottombar input.sln-btn--nextstep {
+    width: 142px !important;
+    min-width: 142px !important;
+    max-width: 142px !important;
   }
 }
