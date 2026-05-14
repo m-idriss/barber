@@ -3,7 +3,7 @@ Theme Name: Barber Architecte V201
 Theme URI: https://barberlarchitecte.com/
 Author: Idriss
 Description: Theme sur mesure pour un salon de coiffure/barber avec accueil, services, equipe et reservation.
-Version: 1.9.43
+Version: 1.9.44
 Requires at least: 6.0
 Tested up to: 6.8
 Requires PHP: 8.1
@@ -7184,7 +7184,7 @@ body.home .hero-booking #sln-salon .sln-summary-bar {
 .ba-accueil-page .hero-booking #sln-salon .sln-box__bottombar > .col-xs-12,
 body.home .hero-booking #sln-salon .sln-box__bottombar > .col-xs-12 {
   display: grid !important;
-  grid-template-columns: minmax(0, 1fr) 132px !important;
+  grid-template-columns: minmax(0, 1fr) auto !important;
   align-items: center !important;
   gap: var(--ba-booking-gap) !important;
 }
@@ -7208,6 +7208,56 @@ body.home .hero-booking #sln-salon .sln-box__bottombar button#sln-step-submit {
   width: 132px !important;
   min-width: 132px !important;
   white-space: nowrap !important;
+}
+
+.ba-accueil-page .hero-booking #sln-salon .sln-box__bottombar .sln-box--formactions,
+.ba-accueil-page .hero-booking #sln-salon .sln-box__bottombar .form-actions,
+body.home .hero-booking #sln-salon .sln-box__bottombar .sln-box--formactions,
+body.home .hero-booking #sln-salon .sln-box__bottombar .form-actions {
+  grid-column: 2 !important;
+  grid-row: 1 !important;
+  justify-self: end !important;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  gap: 10px !important;
+  width: auto !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.ba-accueil-page .hero-booking #sln-salon .sln-box__bottombar .sln-box--formactions:has(.sln-btn--prevstep) .sln-btn--nextstep:not(button):not(a):not(input),
+.ba-accueil-page .hero-booking #sln-salon .sln-box__bottombar .form-actions:has(.sln-btn--prevstep) .sln-btn--nextstep:not(button):not(a):not(input),
+body.home .hero-booking #sln-salon .sln-box__bottombar .sln-box--formactions:has(.sln-btn--prevstep) .sln-btn--nextstep:not(button):not(a):not(input),
+body.home .hero-booking #sln-salon .sln-box__bottombar .form-actions:has(.sln-btn--prevstep) .sln-btn--nextstep:not(button):not(a):not(input) {
+  order: 2 !important;
+  display: inline-flex !important;
+  flex: 0 0 142px !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 142px !important;
+  min-width: 142px !important;
+  max-width: 142px !important;
+  min-height: 44px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+.ba-accueil-page .hero-booking #sln-salon .sln-box__bottombar .sln-btn--prevstep,
+body.home .hero-booking #sln-salon .sln-box__bottombar .sln-btn--prevstep {
+  order: 1 !important;
+  flex: 0 0 104px !important;
+  width: auto !important;
+  min-width: 104px !important;
+  max-width: 112px !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 /* Desktop homepage: use the wide viewport instead of clustering the hero in the center. */
@@ -7527,15 +7577,35 @@ body.home .hero-booking #sln-salon .sln-box__bottombar button#sln-step-submit {
     position: static !important;
     transform: none !important;
     display: flex !important;
-    flex-direction: row-reverse !important;
+    flex-direction: row !important;
     align-items: center !important;
-    justify-content: flex-start !important;
+    justify-content: flex-end !important;
     gap: 8px !important;
     width: auto !important;
     max-width: 100% !important;
     min-width: 0 !important;
     margin: 0 !important;
     padding: 0 !important;
+  }
+
+  .ba-accueil-page .hero-booking #sln-salon .sln-box__bottombar .sln-box--formactions:has(.sln-btn--prevstep) .sln-btn--nextstep:not(button):not(a):not(input),
+  .ba-accueil-page .hero-booking #sln-salon .sln-box__bottombar .form-actions:has(.sln-btn--prevstep) .sln-btn--nextstep:not(button):not(a):not(input),
+  body.home .hero-booking #sln-salon .sln-box__bottombar .sln-box--formactions:has(.sln-btn--prevstep) .sln-btn--nextstep:not(button):not(a):not(input),
+  body.home .hero-booking #sln-salon .sln-box__bottombar .form-actions:has(.sln-btn--prevstep) .sln-btn--nextstep:not(button):not(a):not(input) {
+    order: 2 !important;
+    display: inline-flex !important;
+    flex: 0 0 142px !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 142px !important;
+    min-width: 142px !important;
+    max-width: 142px !important;
+    min-height: 44px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
   }
 
   .ba-accueil-page .hero-booking #sln-salon .sln-box__bottombar > .col-xs-12:has(.sln-btn--prevstep) .sln-total,
@@ -7574,7 +7644,9 @@ body.home .hero-booking #sln-salon .sln-box__bottombar button#sln-step-submit {
 
   .ba-accueil-page .hero-booking #sln-salon .sln-box__bottombar .sln-btn--prevstep,
   body.home .hero-booking #sln-salon .sln-box__bottombar .sln-btn--prevstep {
+    order: 1 !important;
     display: block !important;
+    flex: 0 0 104px !important;
     width: auto !important;
     min-width: 104px !important;
     max-width: 112px !important;
