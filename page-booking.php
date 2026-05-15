@@ -14,7 +14,7 @@ $ba_status  = ba_v201_current_status();
 $ba_contact = ba_v201_contact_settings();
 ?>
 
-<div class="ba-booking-page">
+<div class="ba-booking-page ba-accueil-page">
     <div class="ba-booking-page__hero" style="<?php echo esc_attr(ba_v201_hero_background_style()); ?>">
         <div class="ba-booking-page__hero-inner">
             <div class="ba-booking-page__copy">
@@ -50,19 +50,28 @@ $ba_contact = ba_v201_contact_settings();
                 </aside>
             </div>
 
-            <main class="ba-booking-page__widget hero-booking" id="reservation">
-                <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
-                    <?php
-                    $content = trim((string) get_the_content());
+            <?php
+            get_template_part(
+                'template-parts/hero-booking',
+                null,
+                array(
+                    'render_callback' => static function () {
+                        if (have_posts()) :
+                            while (have_posts()) :
+                                the_post();
+                                $content = trim((string) get_the_content());
 
-                    if ('' !== $content) {
-                        the_content();
-                    } else {
-                        ba_v201_render_salon_shortcode();
-                    }
-                    ?>
-                <?php endwhile; endif; ?>
-            </main>
+                                if ('' !== $content) {
+                                    the_content();
+                                } else {
+                                    ba_v201_render_salon_shortcode();
+                                }
+                            endwhile;
+                        endif;
+                    },
+                )
+            );
+            ?>
         </div>
     </div>
 </div>

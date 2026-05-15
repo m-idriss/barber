@@ -15,9 +15,7 @@ $booking_url = ba_v201_salon_booking_url();
             <p><?php esc_html_e("Votre lieu dédié à l'homme de tout âge. Expertise, précision et raffinement — par des coiffeurs-barbiers passionnés.", 'barber-architecte-v201'); ?></p>
             <?php ba_v201_render_attendant_picker($attendants, $booking_url, 4); ?>
         </div>
-        <div id="reservation" class="hero-booking">
-            <?php ba_v201_render_salon_shortcode(); ?>
-        </div>
+        <?php get_template_part('template-parts/hero-booking'); ?>
     </div>
 </section>
 
