@@ -241,29 +241,43 @@ function ba_v201_attendant_booking_url(WP_Post $attendant, string $booking_url =
     );
 }
 
-function ba_v201_render_attendant_picker(array $attendants, string $booking_url = '', int $limit = 0): void
+function ba_v201_render_attendant_picker(array $attendants, string $booking_url = '', int $limit = 0, bool $show_status = false): void
 {
     $items = $limit > 0 ? array_slice($attendants, 0, $limit) : $attendants;
+    $status = $show_status ? ba_v201_current_status() : null;
+    $contact = $show_status ? ba_v201_contact_settings() : null;
     ?>
-    <div class="hero-team" aria-label="<?php esc_attr_e('Choisir un barber', 'barber-architecte-v201'); ?>">
-        <?php foreach ($items as $attendant) :
-            if (!$attendant instanceof WP_Post) {
-                continue;
-            }
+    <div class="hero-attendant-guide<?php echo $show_status ? ' hero-attendant-guide--booking-style' : ''; ?>">
+        <div class="hero-team" aria-label="<?php esc_attr_e('Choisir un barber', 'barber-architecte-v201'); ?>">
+            <?php foreach ($items as $attendant) :
+                if (!$attendant instanceof WP_Post) {
+                    continue;
+                }
 
-            $excerpt = $attendant->post_excerpt ?: '';
-            ?>
-            <a class="hero-barber" href="<?php echo esc_url(ba_v201_attendant_booking_url($attendant, $booking_url)); ?>">
-                <?php echo get_the_post_thumbnail($attendant, 'thumbnail', ['loading' => 'eager', 'decoding' => 'async']); ?>
-                <span>
-                    <?php echo esc_html(get_the_title($attendant)); ?>
-                    <?php if ($excerpt) : ?>
-                        <small><?php echo esc_html($excerpt); ?></small>
-                    <?php endif; ?>
+                $excerpt = $attendant->post_excerpt ?: '';
+                ?>
+                <a class="hero-barber" href="<?php echo esc_url(ba_v201_attendant_booking_url($attendant, $booking_url)); ?>">
+                    <?php echo get_the_post_thumbnail($attendant, 'thumbnail', ['loading' => 'eager', 'decoding' => 'async']); ?>
+                    <span>
+                        <?php echo esc_html(get_the_title($attendant)); ?>
+                        <?php if ($excerpt) : ?>
+                            <small><?php echo esc_html($excerpt); ?></small>
+                        <?php endif; ?>
+                    </span>
+                    <strong><?php esc_html_e('Choisir', 'barber-architecte-v201'); ?></strong>
+                </a>
+            <?php endforeach; ?>
+        </div>
+        <?php if ($status) : ?>
+            <div class="ba-booking-page__contact hero-availability">
+                <span class="ba-booking-page__status <?php echo $status['is_open'] ? 'is-open' : 'is-closed'; ?>">
+                    <?php echo esc_html($status['label']); ?>
                 </span>
-                <strong><?php esc_html_e('Choisir', 'barber-architecte-v201'); ?></strong>
-            </a>
-        <?php endforeach; ?>
+                <?php if ($contact) : ?>
+                    <a href="tel:<?php echo esc_attr($contact['phone']); ?>"><?php echo esc_html($contact['phone_display']); ?></a>
+                <?php endif; ?>
+            </div>
+        <?php endif; ?>
     </div>
     <?php
 }

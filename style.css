@@ -3,7 +3,7 @@ Theme Name: Barber Architecte V201
 Theme URI: https://barberlarchitecte.com/
 Author: Idriss
 Description: Theme sur mesure pour un salon de coiffure/barber avec accueil, services, equipe et reservation.
-Version: 1.9.70
+Version: 1.9.82
 Requires at least: 6.0
 Tested up to: 6.8
 Requires PHP: 8.1
@@ -1175,12 +1175,17 @@ body .elementor-223 .elementor-element.elementor-element-a5c19d3 > .elementor-el
   font-size: 18px;
 }
 
+.hero-attendant-guide {
+  max-width: 580px;
+  margin-top: 26px;
+}
+
 .hero-team {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 10px;
-  max-width: 580px;
-  margin-top: 26px;
+  max-width: 100%;
+  margin-top: 0;
 }
 
 .hero-barber {
@@ -1235,6 +1240,99 @@ body .elementor-223 .elementor-element.elementor-element-a5c19d3 > .elementor-el
   color: var(--ba-gold);
   font-size: 12px;
   text-transform: uppercase;
+}
+
+.hero-attendant-guide--booking-style .hero-team {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.ba-accueil-page .hero-attendant-guide--booking-style .hero-team,
+body.home .hero-attendant-guide--booking-style .hero-team {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.hero-attendant-guide--booking-style .hero-barber {
+  grid-template-columns: 34px minmax(0, 1fr);
+  grid-template-rows: auto;
+  column-gap: 12px;
+  row-gap: 0;
+  align-items: center;
+  min-height: 0;
+  padding: 10px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.055);
+  box-shadow: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+.hero-attendant-guide--booking-style .hero-barber:hover {
+  border-color: rgba(209, 170, 91, 0.36);
+  background: rgba(255, 255, 255, 0.075);
+  box-shadow: none;
+}
+
+.hero-attendant-guide--booking-style .hero-barber img {
+  grid-row: auto;
+  align-self: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgba(209, 170, 91, 0.36);
+  border-radius: var(--ba-radius-pill);
+}
+
+.hero-attendant-guide--booking-style .hero-barber span {
+  display: block;
+  color: var(--ba-text);
+  font-size: 14px;
+  line-height: 1.12;
+  white-space: normal;
+}
+
+.hero-attendant-guide--booking-style .hero-barber small {
+  margin-top: 2px;
+  color: var(--ba-muted);
+  font-size: 12px;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.hero-attendant-guide--booking-style .hero-barber strong {
+  display: none;
+}
+
+@media (min-width: 821px) and (max-width: 1199px) {
+  .hero-attendant-guide--booking-style .hero-team,
+  .ba-accueil-page .hero-attendant-guide--booking-style .hero-team,
+  body.home .hero-attendant-guide--booking-style .hero-team {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 820px) {
+  .hero-attendant-guide--booking-style .hero-team,
+  .ba-accueil-page .hero-attendant-guide--booking-style .hero-team,
+  body.home .hero-attendant-guide--booking-style .hero-team {
+    grid-template-columns: 1fr;
+  }
+}
+
+.hero-availability {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-top: 14px;
+  padding-top: 0;
+  border-top: 0;
+}
+
+.hero-attendant-guide--booking-style .ba-booking-page__contact a {
+  min-height: 40px;
+  padding: 0 16px;
+  background: rgba(14, 15, 15, 0.48);
 }
 
 .hero__actions {
@@ -8419,5 +8517,216 @@ body.home .hero-booking #sln-salon .sln-box__bottombar .sln-btn--prevstep {
     box-sizing: border-box;
     width: min(calc(100vw - 32px), 720px);
     max-width: calc(100vw - 32px);
+  }
+}
+
+/* Shared hero layout: homepage and booking use the same left/right contract. */
+.ba-hero-shell {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: minmax(0, 760px) minmax(460px, 580px);
+  align-items: start;
+  justify-content: center;
+  gap: clamp(24px, 2.4vw, 44px);
+  width: min(1540px, calc(100% - 96px));
+  margin-right: auto;
+  margin-left: auto;
+  padding: clamp(34px, 5vh, 56px) 0 clamp(34px, 4vh, 56px);
+}
+
+.ba-accueil-page .ba-hero-shell,
+body.home .ba-hero-shell,
+.ba-booking-page .ba-hero-shell {
+  grid-template-columns: minmax(0, 760px) minmax(460px, 580px);
+  align-items: start;
+  justify-content: center;
+  gap: clamp(24px, 2.4vw, 44px);
+  width: min(1540px, calc(100% - 96px));
+  padding: clamp(34px, 5vh, 56px) 0 clamp(34px, 4vh, 56px);
+}
+
+.ba-hero-copy {
+  width: 100%;
+  max-width: 760px;
+  min-width: 0;
+  align-self: start;
+}
+
+.ba-accueil-page .ba-hero-copy,
+body.home .ba-hero-copy,
+.ba-booking-page .ba-hero-copy {
+  max-width: 760px;
+}
+
+.ba-hero-copy h1,
+.ba-booking-page .ba-hero-copy .ba-booking-page__title {
+  max-width: 760px;
+  margin: 0;
+  font-size: clamp(64px, 7vw, 112px);
+  line-height: 0.94;
+}
+
+.ba-accueil-page .ba-hero-copy h1,
+body.home .ba-hero-copy h1,
+.ba-booking-page .ba-hero-copy .ba-booking-page__title {
+  max-width: 760px;
+}
+
+.ba-hero-copy > p,
+.ba-booking-page .ba-hero-copy .ba-booking-page__subtitle {
+  max-width: 760px;
+  margin-top: 24px;
+  font-size: clamp(18px, 1.5vw, 23px);
+  line-height: 1.45;
+}
+
+.ba-accueil-page .ba-hero-copy > p,
+body.home .ba-hero-copy > p,
+.ba-booking-page .ba-hero-copy .ba-booking-page__subtitle {
+  max-width: 760px;
+}
+
+.ba-hero-shell > .hero-booking {
+  width: 100%;
+  max-width: 560px;
+  justify-self: end;
+}
+
+.ba-hero-copy .hero-attendant-guide,
+.ba-hero-copy .ba-booking-page__guide {
+  max-width: 760px;
+  margin-top: 28px;
+}
+
+.ba-accueil-page .ba-hero-copy .hero-attendant-guide,
+.ba-accueil-page .ba-hero-copy .hero-team,
+body.home .ba-hero-copy .hero-attendant-guide,
+body.home .ba-hero-copy .hero-team,
+.ba-booking-page .ba-hero-copy .ba-booking-page__guide {
+  max-width: 760px;
+}
+
+@media (min-width: 1680px) {
+  .ba-hero-shell {
+    width: min(1640px, calc(100% - 112px));
+    grid-template-columns: minmax(660px, 780px) minmax(560px, 620px);
+  }
+
+  .ba-accueil-page .ba-hero-shell,
+  body.home .ba-hero-shell,
+  .ba-booking-page .ba-hero-shell {
+    width: min(1640px, calc(100% - 112px));
+    grid-template-columns: minmax(660px, 780px) minmax(560px, 620px);
+  }
+
+  .ba-hero-shell > .hero-booking {
+    max-width: 600px;
+  }
+}
+
+@media (min-width: 821px) and (max-width: 1199px) {
+  .ba-hero-shell {
+    width: min(100% - 56px, 1040px);
+    grid-template-columns: minmax(0, 1fr) minmax(400px, 480px);
+    align-items: start;
+    gap: 28px;
+    padding: 44px 0 58px;
+  }
+
+  .ba-accueil-page .ba-hero-shell,
+  body.home .ba-hero-shell,
+  .ba-booking-page .ba-hero-shell {
+    width: min(100% - 56px, 1040px);
+    grid-template-columns: minmax(0, 1fr) minmax(400px, 480px);
+    align-items: start;
+    gap: 28px;
+    padding: 44px 0 58px;
+  }
+
+  .ba-hero-copy h1,
+  .ba-booking-page .ba-hero-copy .ba-booking-page__title {
+    font-size: clamp(58px, 8vw, 82px);
+  }
+
+  .ba-hero-copy > p,
+  .ba-booking-page .ba-hero-copy .ba-booking-page__subtitle {
+    font-size: 16px;
+  }
+
+  .ba-hero-shell > .hero-booking {
+    max-width: 480px;
+  }
+}
+
+@media (max-width: 820px) {
+  .ba-hero-shell {
+    box-sizing: border-box;
+    width: min(calc(100vw - 32px), 720px);
+    max-width: calc(100vw - 32px);
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding: 28px 0 34px;
+    overflow-x: hidden;
+  }
+
+  .ba-accueil-page .ba-hero-shell,
+  body.home .ba-hero-shell,
+  .ba-booking-page .ba-hero-shell {
+    box-sizing: border-box;
+    width: min(calc(100vw - 32px), 720px);
+    max-width: calc(100vw - 32px);
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding: 28px 0 34px;
+    overflow-x: hidden;
+  }
+
+  .ba-hero-copy {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .ba-hero-copy h1,
+  .ba-booking-page .ba-hero-copy .ba-booking-page__title {
+    font-size: clamp(54px, 14vw, 80px);
+  }
+
+  .ba-hero-copy > p,
+  .ba-booking-page .ba-hero-copy .ba-booking-page__subtitle {
+    font-size: 18px;
+  }
+
+  .ba-hero-shell > .hero-booking {
+    order: -1;
+    width: 100%;
+    max-width: 100%;
+    justify-self: center;
+  }
+}
+
+@media (max-width: 520px) {
+  .ba-hero-shell {
+    width: min(calc(100vw - 24px), 520px);
+    max-width: calc(100vw - 24px);
+    padding-top: 22px;
+  }
+
+  .ba-accueil-page .ba-hero-shell,
+  body.home .ba-hero-shell,
+  .ba-booking-page .ba-hero-shell {
+    width: min(calc(100vw - 24px), 520px);
+    max-width: calc(100vw - 24px);
+    padding-top: 22px;
+  }
+
+  .ba-hero-copy h1,
+  .ba-booking-page .ba-hero-copy .ba-booking-page__title {
+    font-size: clamp(46px, 13vw, 64px);
+  }
+
+  .ba-hero-copy > p,
+  .ba-booking-page .ba-hero-copy .ba-booking-page__subtitle {
+    font-size: 16px;
   }
 }

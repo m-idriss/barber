@@ -16,8 +16,8 @@ $ba_contact = ba_v201_contact_settings();
 
 <div class="ba-booking-page ba-accueil-page">
     <div class="ba-booking-page__hero" style="<?php echo esc_attr(ba_v201_hero_background_style()); ?>">
-        <div class="ba-booking-page__hero-inner">
-            <div class="ba-booking-page__copy">
+        <div class="ba-booking-page__hero-inner ba-hero-shell">
+            <div class="ba-booking-page__copy ba-hero-copy">
                 <div class="ba-booking-page__eyebrow"><?php esc_html_e('Réservation', 'barber-architecte-v201'); ?></div>
                 <h1 class="ba-booking-page__title"><?php the_title(); ?></h1>
                 <p class="ba-booking-page__subtitle"><?php esc_html_e('Choisissez votre prestation, votre barber et le créneau qui vous convient.', 'barber-architecte-v201'); ?></p>

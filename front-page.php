@@ -8,12 +8,12 @@ $booking_url = ba_v201_salon_booking_url();
 
 <div class="ba-accueil-page ba-accueil-page--theme" id="accueil">
 <section class="hero" style="<?php echo esc_attr(ba_v201_hero_background_style()); ?>">
-    <div class="hero__content">
-        <div class="hero__copy">
+    <div class="hero__content ba-hero-shell">
+        <div class="hero__copy ba-hero-copy">
             <span class="eyebrow"><?php esc_html_e("Barbershop L'Architecte — Marseille", 'barber-architecte-v201'); ?></span>
             <h1><?php bloginfo('name'); ?></h1>
             <p><?php esc_html_e("Votre lieu dédié à l'homme de tout âge. Expertise, précision et raffinement — par des coiffeurs-barbiers passionnés.", 'barber-architecte-v201'); ?></p>
-            <?php ba_v201_render_attendant_picker($attendants, $booking_url, 4); ?>
+            <?php ba_v201_render_attendant_picker($attendants, $booking_url, 0, true); ?>
         </div>
         <?php get_template_part('template-parts/hero-booking'); ?>
     </div>
