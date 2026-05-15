@@ -3,7 +3,7 @@ Theme Name: Barber Architecte V201
 Theme URI: https://barberlarchitecte.com/
 Author: Idriss
 Description: Theme sur mesure pour un salon de coiffure/barber avec accueil, services, equipe et reservation.
-Version: 1.9.59
+Version: 1.9.61
 Requires at least: 6.0
 Tested up to: 6.8
 Requires PHP: 8.1
@@ -7696,13 +7696,14 @@ body.home .hero-booking #sln-salon .sln-box__bottombar .sln-btn--prevstep {
   .ba-accueil-page .hero,
   body.home .hero {
     align-items: start;
+    min-height: auto;
   }
 
   .ba-accueil-page .hero__content,
   body.home .hero__content {
     width: min(1540px, calc(100% - 96px));
     padding-top: clamp(34px, 5vh, 56px);
-    padding-bottom: clamp(56px, 7vh, 86px);
+    padding-bottom: clamp(34px, 4vh, 56px);
     grid-template-columns: minmax(0, 760px) minmax(460px, 580px);
     justify-content: center;
     gap: clamp(24px, 2.4vw, 44px);
@@ -8615,7 +8616,7 @@ body.home .hero-booking #sln-salon .sln-box__bottombar .sln-btn--prevstep {
   z-index: 2;
   display: grid;
   grid-template-columns: minmax(0, 760px) minmax(460px, 580px);
-  align-items: end;
+  align-items: start;
   justify-content: center;
   gap: clamp(24px, 2.4vw, 44px);
   width: min(1540px, calc(100% - 96px));
@@ -8806,5 +8807,46 @@ body.home .hero-booking #sln-salon .sln-box__bottombar .sln-btn--prevstep {
 
   .ba-booking-page .ba-booking-page__subtitle {
     font-size: 16px;
+  }
+}
+
+/* Page hero rhythm: keep the left hero zones aligned across key pages. */
+@media (min-width: 1200px) {
+  .ba-assistants-page__hero {
+    min-height: auto;
+    align-items: start;
+    padding: clamp(34px, 5vh, 56px) 0 clamp(34px, 4vh, 56px);
+  }
+
+  .ba-assistants-page__hero > .section-inner {
+    width: min(1540px, calc(100% - 96px));
+    max-width: none;
+  }
+}
+
+@media (min-width: 821px) and (max-width: 1199px) {
+  .ba-assistants-page__hero {
+    min-height: auto;
+    align-items: start;
+    padding: 44px 0 58px;
+  }
+
+  .ba-assistants-page__hero > .section-inner {
+    width: min(100% - 56px, 1040px);
+    max-width: none;
+  }
+}
+
+@media (max-width: 820px) {
+  .ba-assistants-page__hero {
+    min-height: auto;
+    align-items: start;
+    padding: 28px 0 34px;
+  }
+
+  .ba-assistants-page__hero > .section-inner {
+    box-sizing: border-box;
+    width: min(calc(100vw - 32px), 720px);
+    max-width: calc(100vw - 32px);
   }
 }
