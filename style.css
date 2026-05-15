@@ -3,7 +3,7 @@ Theme Name: Barber Architecte V201
 Theme URI: https://barberlarchitecte.com/
 Author: Idriss
 Description: Theme sur mesure pour un salon de coiffure/barber avec accueil, services, equipe et reservation.
-Version: 1.9.49
+Version: 1.9.59
 Requires at least: 6.0
 Tested up to: 6.8
 Requires PHP: 8.1
@@ -725,9 +725,10 @@ img {
   position: relative;
   overflow: hidden;
   background-color: var(--ba-bg);
-  background-position: center center;
+  background-position: left top;
   background-size: cover;
   background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 .hero::before {
@@ -745,8 +746,9 @@ img {
   left: 0;
   right: 0;
   bottom: 0;
-  height: 28%;
-  background: linear-gradient(180deg, transparent, var(--ba-bg));
+  display: none;
+  height: 0;
+  background: none;
   pointer-events: none;
   z-index: 1;
 }
@@ -1297,6 +1299,7 @@ body .elementor-223 .elementor-element.elementor-element-a5c19d3 > .elementor-el
 
 .section {
   padding: var(--ba-section-y) 0;
+  background: var(--ba-bg);
 }
 
 #services.section {
@@ -1797,8 +1800,9 @@ body.page-id-7 #sln-salon .sln-service-list.sln-list {
   right: 0;
   bottom: 0;
   z-index: 0;
-  height: 28%;
-  background: linear-gradient(180deg, transparent, var(--ba-bg));
+  display: none;
+  height: 0;
+  background: none;
   pointer-events: none;
 }
 
@@ -2056,8 +2060,9 @@ body.page-id-7 #sln-salon .sln-service-list.sln-list {
   padding: 96px 0 80px;
   background-color: var(--ba-bg);
   background-size: cover;
-  background-position: 65% center;
+  background-position: left top;
   background-repeat: no-repeat;
+  background-attachment: fixed;
   margin-bottom: 0;
   overflow: hidden;
 }
@@ -2080,8 +2085,9 @@ body.page-id-7 #sln-salon .sln-service-list.sln-list {
   left: 0;
   right: 0;
   bottom: 0;
-  height: 30%;
-  background: linear-gradient(180deg, transparent, var(--ba-bg));
+  display: none;
+  height: 0;
+  background: none;
   pointer-events: none;
 }
 
@@ -4262,10 +4268,10 @@ body.page-id-7 .footer-premium-cta {
   section.ba-el-hero {
     min-height: 560px !important;
     padding: 72px 16px;
-    background-position: center center !important;
+    background-position: left top !important;
     background-size: cover !important;
     background-repeat: no-repeat !important;
-    background-attachment: scroll !important;
+    background-attachment: fixed !important;
   }
 
   .ba-el-hero > .elementor-container {
@@ -4589,7 +4595,7 @@ body.home .hero-booking .sln-list__item--icons {
   section.ba-el-hero {
     min-height: auto !important;
     padding: 34px 14px 26px !important;
-    background-position: center top !important;
+    background-position: left top !important;
   }
 
   /* Hero section (Elementor ID) — cap height and fix overlay gradient on mobile */
@@ -4603,16 +4609,17 @@ body.home .hero-booking .sln-list__item--icons {
     padding: 34px 14px 28px !important;
   }
 
-  /* Switch gradient to vertical and disable transition to prevent flash on load */
+  /* Keep the hero image free of bottom fade on mobile. */
   .elementor-223 .elementor-element.elementor-element-8ab9075 > .elementor-background-overlay {
-    background-image: linear-gradient(180deg, rgba(14, 15, 15, 0.55) 0%, rgba(14, 15, 15, 0.92) 100%) !important;
+    background-image: none !important;
     opacity: 1 !important;
     transition: none !important;
   }
 
   .ba-el-hero::after {
-    height: 42%;
-    background: linear-gradient(180deg, transparent, var(--ba-bg) 92%);
+    display: none;
+    height: 0;
+    background: none;
   }
 
   .ba-el-hero > .elementor-container {
@@ -8578,18 +8585,29 @@ body.home .hero-booking #sln-salon .sln-box__bottombar .sln-btn--prevstep {
 /* Booking page: place the reservation widget inside the hero, like the homepage. */
 .ba-booking-page {
   padding-bottom: 0;
+  background: var(--ba-bg);
 }
 
 .ba-booking-page .ba-booking-page__hero {
   display: flex;
-  align-items: center;
-  min-height: calc(100vh - var(--ba-header-height));
+  align-items: start;
+  min-height: auto;
   margin-bottom: 0;
   padding: 0;
+  border-bottom: 0;
+  background-color: var(--ba-bg);
+  background-attachment: scroll;
+  box-shadow: none;
 }
 
 .ba-booking-page .ba-booking-page__hero::before {
   background: linear-gradient(90deg, rgba(14, 15, 15, 0.94) 0%, rgba(14, 15, 15, 0.62) 48%, rgba(14, 15, 15, 0.22) 100%);
+}
+
+.ba-booking-page .ba-booking-page__hero::after {
+  display: none;
+  height: 0;
+  background: none;
 }
 
 .ba-booking-page__hero-inner {
@@ -8602,7 +8620,7 @@ body.home .hero-booking #sln-salon .sln-box__bottombar .sln-btn--prevstep {
   gap: clamp(24px, 2.4vw, 44px);
   width: min(1540px, calc(100% - 96px));
   margin: 0 auto;
-  padding: clamp(34px, 5vh, 56px) 0 clamp(56px, 7vh, 86px);
+  padding: clamp(34px, 5vh, 56px) 0 clamp(34px, 4vh, 56px);
 }
 
 .ba-booking-page__copy {
